@@ -1,0 +1,425 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		421B0B2A1E6AA132006D6A91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B291E6AA132006D6A91 /* AppDelegate.swift */; };
+		421B0B2C1E6AA132006D6A91 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B2B1E6AA132006D6A91 /* FirstViewController.swift */; };
+		421B0B2E1E6AA132006D6A91 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B2D1E6AA132006D6A91 /* SecondViewController.swift */; };
+		421B0B311E6AA132006D6A91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 421B0B2F1E6AA132006D6A91 /* Main.storyboard */; };
+		421B0B331E6AA132006D6A91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 421B0B321E6AA132006D6A91 /* Assets.xcassets */; };
+		421B0B361E6AA132006D6A91 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 421B0B341E6AA132006D6A91 /* LaunchScreen.storyboard */; };
+		421B0B411E6AA132006D6A91 /* AfrikaBurnTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B401E6AA132006D6A91 /* AfrikaBurnTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		421B0B3D1E6AA132006D6A91 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 421B0B1E1E6AA132006D6A91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 421B0B251E6AA132006D6A91;
+			remoteInfo = AfrikaBurn;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		421B0B261E6AA132006D6A91 /* AfrikaBurn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AfrikaBurn.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		421B0B291E6AA132006D6A91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		421B0B2B1E6AA132006D6A91 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		421B0B2D1E6AA132006D6A91 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		421B0B301E6AA132006D6A91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		421B0B321E6AA132006D6A91 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		421B0B351E6AA132006D6A91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		421B0B371E6AA132006D6A91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		421B0B3C1E6AA132006D6A91 /* AfrikaBurnTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AfrikaBurnTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		421B0B401E6AA132006D6A91 /* AfrikaBurnTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfrikaBurnTests.swift; sourceTree = "<group>"; };
+		421B0B421E6AA132006D6A91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		421B0B231E6AA132006D6A91 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		421B0B391E6AA132006D6A91 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		421B0B1D1E6AA132006D6A91 = {
+			isa = PBXGroup;
+			children = (
+				421B0B281E6AA132006D6A91 /* AfrikaBurn */,
+				421B0B3F1E6AA132006D6A91 /* AfrikaBurnTests */,
+				421B0B271E6AA132006D6A91 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		421B0B271E6AA132006D6A91 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				421B0B261E6AA132006D6A91 /* AfrikaBurn.app */,
+				421B0B3C1E6AA132006D6A91 /* AfrikaBurnTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		421B0B281E6AA132006D6A91 /* AfrikaBurn */ = {
+			isa = PBXGroup;
+			children = (
+				421B0B291E6AA132006D6A91 /* AppDelegate.swift */,
+				421B0B2B1E6AA132006D6A91 /* FirstViewController.swift */,
+				421B0B2D1E6AA132006D6A91 /* SecondViewController.swift */,
+				421B0B2F1E6AA132006D6A91 /* Main.storyboard */,
+				421B0B321E6AA132006D6A91 /* Assets.xcassets */,
+				421B0B341E6AA132006D6A91 /* LaunchScreen.storyboard */,
+				421B0B371E6AA132006D6A91 /* Info.plist */,
+			);
+			path = AfrikaBurn;
+			sourceTree = "<group>";
+		};
+		421B0B3F1E6AA132006D6A91 /* AfrikaBurnTests */ = {
+			isa = PBXGroup;
+			children = (
+				421B0B401E6AA132006D6A91 /* AfrikaBurnTests.swift */,
+				421B0B421E6AA132006D6A91 /* Info.plist */,
+			);
+			path = AfrikaBurnTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		421B0B251E6AA132006D6A91 /* AfrikaBurn */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 421B0B451E6AA132006D6A91 /* Build configuration list for PBXNativeTarget "AfrikaBurn" */;
+			buildPhases = (
+				421B0B221E6AA132006D6A91 /* Sources */,
+				421B0B231E6AA132006D6A91 /* Frameworks */,
+				421B0B241E6AA132006D6A91 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AfrikaBurn;
+			productName = AfrikaBurn;
+			productReference = 421B0B261E6AA132006D6A91 /* AfrikaBurn.app */;
+			productType = "com.apple.product-type.application";
+		};
+		421B0B3B1E6AA132006D6A91 /* AfrikaBurnTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 421B0B481E6AA132006D6A91 /* Build configuration list for PBXNativeTarget "AfrikaBurnTests" */;
+			buildPhases = (
+				421B0B381E6AA132006D6A91 /* Sources */,
+				421B0B391E6AA132006D6A91 /* Frameworks */,
+				421B0B3A1E6AA132006D6A91 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				421B0B3E1E6AA132006D6A91 /* PBXTargetDependency */,
+			);
+			name = AfrikaBurnTests;
+			productName = AfrikaBurnTests;
+			productReference = 421B0B3C1E6AA132006D6A91 /* AfrikaBurnTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		421B0B1E1E6AA132006D6A91 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = AfrikaBurn;
+				TargetAttributes = {
+					421B0B251E6AA132006D6A91 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
+					421B0B3B1E6AA132006D6A91 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 421B0B251E6AA132006D6A91;
+					};
+				};
+			};
+			buildConfigurationList = 421B0B211E6AA132006D6A91 /* Build configuration list for PBXProject "AfrikaBurn" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 421B0B1D1E6AA132006D6A91;
+			productRefGroup = 421B0B271E6AA132006D6A91 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				421B0B251E6AA132006D6A91 /* AfrikaBurn */,
+				421B0B3B1E6AA132006D6A91 /* AfrikaBurnTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		421B0B241E6AA132006D6A91 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				421B0B361E6AA132006D6A91 /* LaunchScreen.storyboard in Resources */,
+				421B0B331E6AA132006D6A91 /* Assets.xcassets in Resources */,
+				421B0B311E6AA132006D6A91 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		421B0B3A1E6AA132006D6A91 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		421B0B221E6AA132006D6A91 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				421B0B2E1E6AA132006D6A91 /* SecondViewController.swift in Sources */,
+				421B0B2A1E6AA132006D6A91 /* AppDelegate.swift in Sources */,
+				421B0B2C1E6AA132006D6A91 /* FirstViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		421B0B381E6AA132006D6A91 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				421B0B411E6AA132006D6A91 /* AfrikaBurnTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		421B0B3E1E6AA132006D6A91 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 421B0B251E6AA132006D6A91 /* AfrikaBurn */;
+			targetProxy = 421B0B3D1E6AA132006D6A91 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		421B0B2F1E6AA132006D6A91 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				421B0B301E6AA132006D6A91 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		421B0B341E6AA132006D6A91 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				421B0B351E6AA132006D6A91 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		421B0B431E6AA132006D6A91 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		421B0B441E6AA132006D6A91 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		421B0B461E6AA132006D6A91 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = AfrikaBurn/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.afrikaburn.AfrikaBurn;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		421B0B471E6AA132006D6A91 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = AfrikaBurn/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.afrikaburn.AfrikaBurn;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		421B0B491E6AA132006D6A91 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = AfrikaBurnTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.afrikaburn.AfrikaBurnTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AfrikaBurn.app/AfrikaBurn";
+			};
+			name = Debug;
+		};
+		421B0B4A1E6AA132006D6A91 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = AfrikaBurnTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.afrikaburn.AfrikaBurnTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AfrikaBurn.app/AfrikaBurn";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		421B0B211E6AA132006D6A91 /* Build configuration list for PBXProject "AfrikaBurn" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				421B0B431E6AA132006D6A91 /* Debug */,
+				421B0B441E6AA132006D6A91 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		421B0B451E6AA132006D6A91 /* Build configuration list for PBXNativeTarget "AfrikaBurn" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				421B0B461E6AA132006D6A91 /* Debug */,
+				421B0B471E6AA132006D6A91 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		421B0B481E6AA132006D6A91 /* Build configuration list for PBXNativeTarget "AfrikaBurnTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				421B0B491E6AA132006D6A91 /* Debug */,
+				421B0B4A1E6AA132006D6A91 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 421B0B1E1E6AA132006D6A91 /* Project object */;
+}
