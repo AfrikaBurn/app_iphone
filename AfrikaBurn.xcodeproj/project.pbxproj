@@ -18,6 +18,8 @@
 		421B0B7F1E6F24F6006D6A91 /* theme_camp.csv in Resources */ = {isa = PBXBuildFile; fileRef = 421B0B7E1E6F24F6006D6A91 /* theme_camp.csv */; };
 		421B0B821E6F2910006D6A91 /* AfrikaBurn+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B811E6F2910006D6A91 /* AfrikaBurn+UIKit.swift */; };
 		421B0B841E6F2D33006D6A91 /* CampDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B831E6F2D33006D6A91 /* CampDetailViewController.swift */; };
+		42B1C99B1E72871100699D61 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B1C99A1E72871100699D61 /* MapKit.framework */; };
+		42B1C99D1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png in Resources */ = {isa = PBXBuildFile; fileRef = 42B1C99C1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png */; };
 		6EBAA0DA9560FE2E92B99E33 /* Pods_AfrikaBurn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8C8DD969DDAF433AEC0C9B4 /* Pods_AfrikaBurn.framework */; };
 		F67C6E27E888C5FD8652DA3A /* Pods_AfrikaBurnTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBF929D933E1CE61F8359A17 /* Pods_AfrikaBurnTests.framework */; };
 /* End PBXBuildFile section */
@@ -49,6 +51,8 @@
 		421B0B7E1E6F24F6006D6A91 /* theme_camp.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = theme_camp.csv; sourceTree = "<group>"; };
 		421B0B811E6F2910006D6A91 /* AfrikaBurn+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AfrikaBurn+UIKit.swift"; sourceTree = "<group>"; };
 		421B0B831E6F2D33006D6A91 /* CampDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampDetailViewController.swift; sourceTree = "<group>"; };
+		42B1C99A1E72871100699D61 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		42B1C99C1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AB2017_Layout_RoadsLabel_20170308.png; sourceTree = "<group>"; };
 		64A1416249104A8C346A4494 /* Pods-AfrikaBurnTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AfrikaBurnTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AfrikaBurnTests/Pods-AfrikaBurnTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9C4BC849FB9D94D18164746B /* Pods-AfrikaBurn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AfrikaBurn.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AfrikaBurn/Pods-AfrikaBurn.debug.xcconfig"; sourceTree = "<group>"; };
 		E8C8DD969DDAF433AEC0C9B4 /* Pods_AfrikaBurn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AfrikaBurn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42B1C99B1E72871100699D61 /* MapKit.framework in Frameworks */,
 				6EBAA0DA9560FE2E92B99E33 /* Pods_AfrikaBurn.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -79,6 +84,7 @@
 		2A521CAB2E23C791B900396F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				42B1C99A1E72871100699D61 /* MapKit.framework */,
 				E8C8DD969DDAF433AEC0C9B4 /* Pods_AfrikaBurn.framework */,
 				EBF929D933E1CE61F8359A17 /* Pods_AfrikaBurnTests.framework */,
 			);
@@ -134,6 +140,7 @@
 		421B0B4B1E6AA593006D6A91 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				42B1C99C1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png */,
 				421B0B7E1E6F24F6006D6A91 /* theme_camp.csv */,
 				421B0B4E1E6AA6FB006D6A91 /* ThemeCampCSVParser.swift */,
 			);
@@ -217,6 +224,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = RAQH9WEL4T;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					421B0B3B1E6AA132006D6A91 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -252,6 +264,7 @@
 				421B0B361E6AA132006D6A91 /* LaunchScreen.storyboard in Resources */,
 				421B0B331E6AA132006D6A91 /* Assets.xcassets in Resources */,
 				421B0B311E6AA132006D6A91 /* Main.storyboard in Resources */,
+				42B1C99D1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png in Resources */,
 				421B0B7F1E6F24F6006D6A91 /* theme_camp.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

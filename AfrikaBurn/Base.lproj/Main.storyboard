@@ -27,10 +27,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CampSummaryTableViewCell" id="v4T-ID-HqL" customClass="CampSummaryTableViewCell" customModule="AfrikaBurn" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="71"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="71"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="v4T-ID-HqL" id="LgX-B1-7Th">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3fs-BK-kwQ">
@@ -76,7 +76,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="I10-9I-PDg">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title="Filter" id="nxt-SO-Dye"/>
+                        <barButtonItem key="leftBarButtonItem" title="Filter" id="nxt-SO-Dye">
+                            <connections>
+                                <action selector="handleFilterTapped:" destination="9pv-A4-QxB" id="Bjo-ia-eeu"/>
+                            </connections>
+                        </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="SRL-aq-HxV">
                             <rect key="frame" x="113" y="7" width="150" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -138,13 +142,27 @@
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" showsUserLocation="YES" showsBuildings="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DPL-kg-Gl2">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="DPL-kg-Gl2" secondAttribute="bottom" id="B3q-1X-glS"/>
+                            <constraint firstItem="DPL-kg-Gl2" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="W4I-7H-S8j"/>
+                            <constraint firstItem="DPL-kg-Gl2" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="jVW-ma-uLJ"/>
+                            <constraint firstAttribute="trailing" secondItem="DPL-kg-Gl2" secondAttribute="trailing" id="sSS-L9-kxY"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
+                    <connections>
+                        <outlet property="mapView" destination="DPL-kg-Gl2" id="6Uv-B8-8H2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="360"/>
+            <point key="canvasLocation" x="749.60000000000002" y="359.37031484257875"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
