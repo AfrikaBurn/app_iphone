@@ -9,6 +9,30 @@
 import Foundation
 import CHCSVParser
 
+struct BurnDataEntry {
+    struct Category {
+        let name: String
+    }
+    let id: Int
+    let title: String
+    let categories: [Category]
+    let longBlurb: String
+    let shortBlurb: String
+    let scheduledActivities: String
+    let type: String
+}
+
+struct MutantVehicle {
+    let name: String
+    let longBlurb: String
+    let id: Int
+}
+
+enum BurnDataEntryType {
+    case mutantVehicle(MutantVehicle)
+    case camp(Camp)
+}
+
 struct Camp {
     struct Category {
         let name: String

@@ -43,6 +43,10 @@ extension SecondViewController: MKMapViewDelegate {
 class BurnMapOverlay: NSObject, MKOverlay {
     let boundingMapRect: MKMapRect = MKMapRect(origin: MKMapPoint(x: 148937508.42330855, y: 159711548.54660633), size: MKMapSize(width: 9388.6817751824855, height: 7286.825931340456))
     var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(-32.326217923051772, 19.751633252193361)
+    
+    func canReplaceMapContent() -> Bool {
+        return true
+    }
 }
 
 class BurnMapOverlayView: MKOverlayRenderer {

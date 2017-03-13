@@ -26,7 +26,8 @@ class FirstViewController: UIViewController {
     
     var camps: [Camp] = [] {
         didSet {
-            self.tableView.reloadData()
+            tableView.reloadData()
+            tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false)
         }
     }
     var allCamps: [Camp] = []

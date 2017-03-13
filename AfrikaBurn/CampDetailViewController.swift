@@ -44,17 +44,17 @@ extension CampDetailViewController: UITableViewDataSource {
             let text: String
             switch Fields.all[indexPath.row] {
             case .id:
-                text = "\(camp.id)"
+                text = "id:-" + "\(camp.id)"
             case .categories:
-                text = camp.categories.reduce("", { $0 + "\($1.name), " })
+                text = "categories:-" + camp.categories.reduce("", { $0 + "\($1.name), " })
             case .longblurb:
-                text = camp.longBlurb
+                text = "longblurb:-" + camp.longBlurb
             case .scheduledActivivies:
-                text = camp.scheduledActivities
+                text = "scheduled activities:-" + camp.scheduledActivities
             case .title:
-                text = camp.title
+                text = "title:-" + camp.title
             case .type:
-                text = camp.type
+                text = "type:-" + camp.type
             }
             cell.textLabel?.text = text
             cell.textLabel?.numberOfLines = 0
