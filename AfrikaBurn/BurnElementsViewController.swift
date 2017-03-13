@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class CampSummaryTableViewCell: UITableViewCell {
     
@@ -37,34 +38,45 @@ class BurnElementsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var elements: [AfrikaBurnElement] = [] {
+    let persistentStore = PersistentStore()
+    private var notificationToken: NotificationToken?
+    
+    var elements: Results<AfrikaBurnElement>! {
         didSet {
-            tableView.reloadData()
-            tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false)
+            tableView.scrollToTop(animated: false)
+            observeChanges(to: elements)
         }
     }
-    var allElements: [AfrikaBurnElement] = []
-
+    
+    lazy var allElements: Results<AfrikaBurnElement> = self.persistentStore.elements()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        elements = allElements
         tableView.dataSource = self
         tableView.delegate = self
         tableView.enableSelfSizingCells(withEstimatedHeight: 55)
-        elements = BurnElementsCSVParser().parseSync()
-        allElements = elements
     }
+    
     @IBAction func handleFilterTapped(_ sender: Any) {
-        let actionSheet = UIAlertController(title: "Filter", message: "choose a type", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Filter", message: "Select a category", preferredStyle: .actionSheet)
         for type in AfrikaBurnElement.ElementType.filterableList {
             actionSheet.addAction(UIAlertAction(title: type.filterTitle, style: .default, handler: { _ in
-                self.elements = self.allElements.filter({ $0.elementType == type })
+                self.elements = self.allElements.filter(type: type)
             }))
         }
+        
         actionSheet.addAction(UIAlertAction(title: "Reset", style: .default, handler: { _ in
             self.elements = self.allElements
         }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(actionSheet, animated: true, completion: nil)
+    }
+    
+    private func observeChanges(to elements: Results<AfrikaBurnElement>) {
+        self.notificationToken = elements.addNotificationBlock { [weak self] (changes) in
+            self?.tableView.handleRealmChanges(changes)
+        }
     }
 }
 
@@ -89,8 +101,8 @@ extension BurnElementsViewController: UITableViewDataSource {
 extension BurnElementsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let element = self.element(at: indexPath)
-            let detail = BurnElementDetailViewController.create(camp: element)
-            navigationController?.pushViewController(detail, animated: true)
+        let detail = BurnElementDetailViewController.create(camp: element)
+        navigationController?.pushViewController(detail, animated: true)
     }
 }
 

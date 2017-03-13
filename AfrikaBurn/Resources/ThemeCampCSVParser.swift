@@ -9,25 +9,7 @@
 import Foundation
 import CHCSVParser
 
-struct AfrikaBurnElement {
-    enum ElementType {
-        case mutantVehicle
-        case camp
-        case artwork
-        case performance
-    }
 
-    struct Category {
-        let name: String
-    }
-    let id: Int
-    let name: String
-    let categories: [Category]
-    let longBlurb: String?
-    let shortBlurb: String?
-    let scheduledActivities: String?
-    let elementType: ElementType
-}
 
 struct MutantVehicle {
     let id: Int
@@ -65,14 +47,21 @@ class BurnElementsCSVParser : NSObject {
         static let requiredFields: [Field] = [title, categories, longblurb, scheduledActivities, shortblurb, type, id]
     }
     
+    enum ParserType {
+        case bundledCSV(path: URL)
+        case downloadedCSV(String)
+    }
+    
     fileprivate var currentField: Field = .title
     fileprivate var elements: [AfrikaBurnElement] = []
     fileprivate var shouldIgnoreCurrentLine: Bool = false
     
     fileprivate var currentLineValues: [Field: String] = [:]
     
-    fileprivate var csvFilePath: URL {
-        return Bundle.main.url(forResource: "theme_camp", withExtension: "csv")!
+    let parserType: ParserType
+    
+    init(parserType: ParserType = .bundledCSV(path: Bundle.main.url(forResource: "theme_camp", withExtension: "csv")!)) {
+        self.parserType = parserType
     }
     
     func parse(_ completion: @escaping (_ elements: [AfrikaBurnElement]) -> Void) {
@@ -84,12 +73,18 @@ class BurnElementsCSVParser : NSObject {
     func parseSync() -> [AfrikaBurnElement] {
         elements.removeAll()
         currentLineValues.removeAll()
-        let parser = CHCSVParser(contentsOfCSVURL: csvFilePath)
-        parser?.sanitizesFields = true
-        parser?.trimsWhitespace = true
+        let parser: CHCSVParser
+        switch parserType {
+        case .bundledCSV(let path):
+            parser = CHCSVParser(contentsOfCSVURL: path)
+        case .downloadedCSV(let text):
+            parser = CHCSVParser(csvString: text)
+        }
+        parser.sanitizesFields = true
+        parser.trimsWhitespace = true
         
-        parser?.delegate = self
-        parser?.parse()
+        parser.delegate = self
+        parser.parse()
         return elements
     }
 }
