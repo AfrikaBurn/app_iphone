@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		421B0B2A1E6AA132006D6A91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B291E6AA132006D6A91 /* AppDelegate.swift */; };
-		421B0B2C1E6AA132006D6A91 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B2B1E6AA132006D6A91 /* FirstViewController.swift */; };
+		421B0B2C1E6AA132006D6A91 /* BurnElementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B2B1E6AA132006D6A91 /* BurnElementsViewController.swift */; };
 		421B0B2E1E6AA132006D6A91 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B2D1E6AA132006D6A91 /* SecondViewController.swift */; };
 		421B0B311E6AA132006D6A91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 421B0B2F1E6AA132006D6A91 /* Main.storyboard */; };
 		421B0B331E6AA132006D6A91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 421B0B321E6AA132006D6A91 /* Assets.xcassets */; };
@@ -39,7 +39,7 @@
 		1A10BA63A7F3925F6DCFE9F2 /* Pods-AfrikaBurnTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AfrikaBurnTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AfrikaBurnTests/Pods-AfrikaBurnTests.release.xcconfig"; sourceTree = "<group>"; };
 		421B0B261E6AA132006D6A91 /* AfrikaBurn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AfrikaBurn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		421B0B291E6AA132006D6A91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		421B0B2B1E6AA132006D6A91 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		421B0B2B1E6AA132006D6A91 /* BurnElementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurnElementsViewController.swift; sourceTree = "<group>"; };
 		421B0B2D1E6AA132006D6A91 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		421B0B301E6AA132006D6A91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		421B0B321E6AA132006D6A91 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -117,7 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				421B0B291E6AA132006D6A91 /* AppDelegate.swift */,
-				421B0B2B1E6AA132006D6A91 /* FirstViewController.swift */,
+				421B0B2B1E6AA132006D6A91 /* BurnElementsViewController.swift */,
 				421B0B2D1E6AA132006D6A91 /* SecondViewController.swift */,
 				421B0B831E6F2D33006D6A91 /* BurnElementDetailViewController.swift */,
 				42B1C99E1E76683C00699D61 /* Network */,
@@ -393,7 +393,7 @@
 				421B0B841E6F2D33006D6A91 /* BurnElementDetailViewController.swift in Sources */,
 				421B0B2A1E6AA132006D6A91 /* AppDelegate.swift in Sources */,
 				421B0B821E6F2910006D6A91 /* AfrikaBurn+UIKit.swift in Sources */,
-				421B0B2C1E6AA132006D6A91 /* FirstViewController.swift in Sources */,
+				421B0B2C1E6AA132006D6A91 /* BurnElementsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
