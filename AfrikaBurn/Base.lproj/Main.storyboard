@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--First View Controller-->
+        <!--Burn Elements View Controller-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="FirstViewController" customModule="AfrikaBurn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9pv-A4-QxB" customClass="BurnElementsViewController" customModule="AfrikaBurn" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
@@ -98,10 +98,10 @@
             </objects>
             <point key="canvasLocation" x="1688.8" y="-320.68965517241384"/>
         </scene>
-        <!--Camp Detail View Controller-->
+        <!--Burn Element Detail View Controller-->
         <scene sceneID="qMZ-WD-DCj">
             <objects>
-                <viewController storyboardIdentifier="CampDetailViewController" id="Zac-oD-Gvy" customClass="CampDetailViewController" customModule="AfrikaBurn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BurnElementDetailViewController" id="Zac-oD-Gvy" customClass="BurnElementDetailViewController" customModule="AfrikaBurn" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rsP-81-GcZ"/>
                         <viewControllerLayoutGuide type="bottom" id="yMk-Qp-IVy"/>
@@ -123,6 +123,9 @@
                             <constraint firstItem="KZJ-6I-R50" firstAttribute="top" secondItem="0Hg-LN-bLG" secondAttribute="top" id="ltq-qO-MY9"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="KZJ-6I-R50" id="Ffc-Ip-mGP"/>
                     </connections>

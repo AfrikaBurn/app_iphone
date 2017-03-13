@@ -16,32 +16,34 @@ struct Resources {
     }()
 }
 
+struct BurnMap {
+    static let boundingMapRect: MKMapRect = MKMapRect(origin: MKMapPoint(x: 148937508.42330855, y: 159711548.54660633), size: MKMapSize(width: 9388.6817751824855, height: 7286.825931340456))
+}
+
 class SecondViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let overlay = BurnMapOverlay()
         mapView.delegate = self
-        mapView.add(overlay, level: MKOverlayLevel.aboveRoads)
-        mapView.setVisibleMapRect(MKMapRect(origin: MKMapPoint(x: 148937508.42330855, y: 159711548.54660633), size: MKMapSize(width: 9388.6817751824855, height: 7286.825931340456)), animated: false)
+        let overlay = BurnMapOverlay()
+        mapView.add(overlay, level: .aboveRoads)
+        mapView.setVisibleMapRect(BurnMap.boundingMapRect, animated: false)
     }
 }
 
 extension SecondViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         switch overlay {
-        case is BurnMapOverlay:
-            return BurnMapOverlayView(overlay: overlay, overlayImage: Resources.mapOverlayImage)
-        default:
-            return MKOverlayRenderer(overlay: overlay)
+        case is BurnMapOverlay: return BurnMapOverlayView(overlay: overlay, overlayImage: Resources.mapOverlayImage)
+        default: return MKOverlayRenderer(overlay: overlay)
         }
     }
 }
 
 class BurnMapOverlay: NSObject, MKOverlay {
-    let boundingMapRect: MKMapRect = MKMapRect(origin: MKMapPoint(x: 148937508.42330855, y: 159711548.54660633), size: MKMapSize(width: 9388.6817751824855, height: 7286.825931340456))
+    let boundingMapRect: MKMapRect = BurnMap.boundingMapRect
     var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(-32.326217923051772, 19.751633252193361)
     
     func canReplaceMapContent() -> Bool {

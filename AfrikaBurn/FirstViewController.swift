@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  BurnElementsViewController.swift
 //  AfrikaBurn
 //
 //  Created by Daniel Galasko on 2017/03/04.
@@ -16,7 +16,20 @@ class CampSummaryTableViewCell: UITableViewCell {
     
 }
 
-class FirstViewController: UIViewController {
+extension AfrikaBurnElement.ElementType {
+    var filterTitle: String {
+        switch self {
+        case .artwork: return "Artworks"
+        case .camp: return "Theme Camps"
+        case .mutantVehicle: return "Mutant Vehicles"
+        case .performance: return "Performances"
+        }
+    }
+    
+    static let filterableList: [AfrikaBurnElement.ElementType] = [camp, artwork, mutantVehicle, performance]
+}
+
+class BurnElementsViewController: UIViewController {
     
     struct ReuseIdentifiers {
         static let campSummary = "CampSummaryTableViewCell"
@@ -24,60 +37,60 @@ class FirstViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var camps: [Camp] = [] {
+    var elements: [AfrikaBurnElement] = [] {
         didSet {
             tableView.reloadData()
             tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false)
         }
     }
-    var allCamps: [Camp] = []
-    
-    lazy var types: Set<String> = {
-        let types: Set<String> = Set(self.camps.map { $0.type })
-        return types
-    }()
+    var allElements: [AfrikaBurnElement] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.enableSelfSizingCells(withEstimatedHeight: 55)
-        camps = ThemeCampCSVParser().parseSync()
-        allCamps = camps
+        elements = BurnElementsCSVParser().parseSync()
+        allElements = elements
     }
     @IBAction func handleFilterTapped(_ sender: Any) {
         let actionSheet = UIAlertController(title: "Filter", message: "choose a type", preferredStyle: .actionSheet)
-        for type in types {
-            actionSheet.addAction(UIAlertAction(title: type, style: .default, handler: { _ in
-                self.camps = self.allCamps.filter({ $0.type == type })
+        for type in AfrikaBurnElement.ElementType.filterableList {
+            actionSheet.addAction(UIAlertAction(title: type.filterTitle, style: .default, handler: { _ in
+                self.elements = self.allElements.filter({ $0.elementType == type })
             }))
         }
         actionSheet.addAction(UIAlertAction(title: "Reset", style: .default, handler: { _ in
-            self.camps = self.allCamps
+            self.elements = self.allElements
         }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(actionSheet, animated: true, completion: nil)
     }
 }
 
-extension FirstViewController: UITableViewDataSource {
+extension BurnElementsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return camps.count
+        return elements.count
+    }
+    
+    func element(at indexPath: IndexPath) -> AfrikaBurnElement {
+        return elements[indexPath.row]
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.campSummary, for: indexPath) as! CampSummaryTableViewCell
-        let camp = camps[indexPath.row]
-        cell.headlineLabel.text = camp.title
-        cell.subheadlineLabel.text = camp.shortBlurb
+        let element = self.element(at: indexPath)
+        cell.headlineLabel.text = element.name
+        cell.subheadlineLabel.text = element.shortBlurb
         return cell
     }
 }
 
-extension FirstViewController: UITableViewDelegate {
+extension BurnElementsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let camp = camps[indexPath.row]
-        let detail = CampDetailViewController.create(camp: camp)
-        navigationController?.pushViewController(detail, animated: true)
+        let element = self.element(at: indexPath)
+            let detail = BurnElementDetailViewController.create(camp: element)
+            navigationController?.pushViewController(detail, animated: true)
     }
 }
 

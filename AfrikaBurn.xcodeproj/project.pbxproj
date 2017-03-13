@@ -17,7 +17,7 @@
 		421B0B4F1E6AA6FB006D6A91 /* ThemeCampCSVParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B4E1E6AA6FB006D6A91 /* ThemeCampCSVParser.swift */; };
 		421B0B7F1E6F24F6006D6A91 /* theme_camp.csv in Resources */ = {isa = PBXBuildFile; fileRef = 421B0B7E1E6F24F6006D6A91 /* theme_camp.csv */; };
 		421B0B821E6F2910006D6A91 /* AfrikaBurn+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B811E6F2910006D6A91 /* AfrikaBurn+UIKit.swift */; };
-		421B0B841E6F2D33006D6A91 /* CampDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B831E6F2D33006D6A91 /* CampDetailViewController.swift */; };
+		421B0B841E6F2D33006D6A91 /* BurnElementDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B831E6F2D33006D6A91 /* BurnElementDetailViewController.swift */; };
 		42B1C99B1E72871100699D61 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B1C99A1E72871100699D61 /* MapKit.framework */; };
 		42B1C99D1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png in Resources */ = {isa = PBXBuildFile; fileRef = 42B1C99C1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png */; };
 		42B1C9A01E76686100699D61 /* BurnDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B1C99F1E76686100699D61 /* BurnDataFetcher.swift */; };
@@ -51,7 +51,7 @@
 		421B0B4E1E6AA6FB006D6A91 /* ThemeCampCSVParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeCampCSVParser.swift; sourceTree = "<group>"; };
 		421B0B7E1E6F24F6006D6A91 /* theme_camp.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = theme_camp.csv; sourceTree = "<group>"; };
 		421B0B811E6F2910006D6A91 /* AfrikaBurn+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AfrikaBurn+UIKit.swift"; sourceTree = "<group>"; };
-		421B0B831E6F2D33006D6A91 /* CampDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampDetailViewController.swift; sourceTree = "<group>"; };
+		421B0B831E6F2D33006D6A91 /* BurnElementDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BurnElementDetailViewController.swift; sourceTree = "<group>"; };
 		42B1C99A1E72871100699D61 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		42B1C99C1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AB2017_Layout_RoadsLabel_20170308.png; sourceTree = "<group>"; };
 		42B1C99F1E76686100699D61 /* BurnDataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BurnDataFetcher.swift; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 				421B0B291E6AA132006D6A91 /* AppDelegate.swift */,
 				421B0B2B1E6AA132006D6A91 /* FirstViewController.swift */,
 				421B0B2D1E6AA132006D6A91 /* SecondViewController.swift */,
-				421B0B831E6F2D33006D6A91 /* CampDetailViewController.swift */,
+				421B0B831E6F2D33006D6A91 /* BurnElementDetailViewController.swift */,
 				42B1C99E1E76683C00699D61 /* Network */,
 				421B0B801E6F2904006D6A91 /* Extensions */,
 				421B0B2F1E6AA132006D6A91 /* Main.storyboard */,
@@ -390,7 +390,7 @@
 				421B0B4F1E6AA6FB006D6A91 /* ThemeCampCSVParser.swift in Sources */,
 				42B1C9A01E76686100699D61 /* BurnDataFetcher.swift in Sources */,
 				421B0B2E1E6AA132006D6A91 /* SecondViewController.swift in Sources */,
-				421B0B841E6F2D33006D6A91 /* CampDetailViewController.swift in Sources */,
+				421B0B841E6F2D33006D6A91 /* BurnElementDetailViewController.swift in Sources */,
 				421B0B2A1E6AA132006D6A91 /* AppDelegate.swift in Sources */,
 				421B0B821E6F2910006D6A91 /* AfrikaBurn+UIKit.swift in Sources */,
 				421B0B2C1E6AA132006D6A91 /* FirstViewController.swift in Sources */,

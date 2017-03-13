@@ -9,28 +9,36 @@
 import Foundation
 import CHCSVParser
 
-struct BurnDataEntry {
+struct AfrikaBurnElement {
+    enum ElementType {
+        case mutantVehicle
+        case camp
+        case artwork
+        case performance
+    }
+
     struct Category {
         let name: String
     }
     let id: Int
-    let title: String
+    let name: String
     let categories: [Category]
-    let longBlurb: String
-    let shortBlurb: String
-    let scheduledActivities: String
-    let type: String
+    let longBlurb: String?
+    let shortBlurb: String?
+    let scheduledActivities: String?
+    let elementType: ElementType
 }
 
 struct MutantVehicle {
+    let id: Int
     let name: String
     let longBlurb: String
-    let id: Int
+    let shortBlurb: String
 }
 
-enum BurnDataEntryType {
-    case mutantVehicle(MutantVehicle)
-    case camp(Camp)
+struct Artwork {
+    let id: Int
+    let name: String
 }
 
 struct Camp {
@@ -38,15 +46,19 @@ struct Camp {
         let name: String
     }
     let id: Int
-    let title: String
+    let name: String
     let categories: [Category]
     let longBlurb: String
     let shortBlurb: String
     let scheduledActivities: String
-    let type: String
 }
 
-class ThemeCampCSVParser : NSObject {
+struct Performance {
+    let id: Int
+    let name: String
+}
+
+class BurnElementsCSVParser : NSObject {
     
     enum Field: Int {
         case id, title, categories, longblurb, scheduledActivities, shortblurb, type
@@ -54,7 +66,7 @@ class ThemeCampCSVParser : NSObject {
     }
     
     fileprivate var currentField: Field = .title
-    fileprivate var camps: [Camp] = []
+    fileprivate var elements: [AfrikaBurnElement] = []
     fileprivate var shouldIgnoreCurrentLine: Bool = false
     
     fileprivate var currentLineValues: [Field: String] = [:]
@@ -63,14 +75,14 @@ class ThemeCampCSVParser : NSObject {
         return Bundle.main.url(forResource: "theme_camp", withExtension: "csv")!
     }
     
-    func parse(_ completion: @escaping (_ camps: [Camp]) -> Void) {
+    func parse(_ completion: @escaping (_ elements: [AfrikaBurnElement]) -> Void) {
         DispatchQueue.global(qos: .background).async {
             completion(self.parseSync())
         }
     }
     
-    func parseSync() -> [Camp] {
-        camps.removeAll()
+    func parseSync() -> [AfrikaBurnElement] {
+        elements.removeAll()
         currentLineValues.removeAll()
         let parser = CHCSVParser(contentsOfCSVURL: csvFilePath)
         parser?.sanitizesFields = true
@@ -78,11 +90,11 @@ class ThemeCampCSVParser : NSObject {
         
         parser?.delegate = self
         parser?.parse()
-        return camps
+        return elements
     }
 }
 
-extension ThemeCampCSVParser: CHCSVParserDelegate {
+extension BurnElementsCSVParser: CHCSVParserDelegate {
     
     func parser(_ parser: CHCSVParser!, didBeginLine recordNumber: UInt) {
         currentLineValues.removeAll()
@@ -101,13 +113,30 @@ extension ThemeCampCSVParser: CHCSVParserDelegate {
             return
         }
         let title = currentLineValues[.title]!
-        let categories: [Camp.Category] = []
+        let categories: [AfrikaBurnElement.Category] = []
         let longBlurb = currentLineValues[.longblurb]!
         let shortBlurb = currentLineValues[.shortblurb]!
         let activities = currentLineValues[.scheduledActivities]!
         let type = currentLineValues[.type]!
-        let camp = Camp(id: id,title: title, categories: categories, longBlurb: longBlurb, shortBlurb: shortBlurb, scheduledActivities: activities, type: type)
-        camps.append(camp)
         
+        let element: AfrikaBurnElement?
+        func createElement(withType type: AfrikaBurnElement.ElementType) -> AfrikaBurnElement {
+            return AfrikaBurnElement(id: id, name: title, categories: categories, longBlurb: longBlurb, shortBlurb: shortBlurb, scheduledActivities: activities, elementType: type)
+        }
+        switch type.lowercased() {
+        case "mutant vehicles":
+            element = createElement(withType: .mutantVehicle)
+        case "performance registration":
+            element = createElement(withType: .performance)
+        case "theme camp form 3 - wtf guide":
+            element = createElement(withType: .camp)
+        case "performance registration":
+            element = createElement(withType: .performance)
+        default:
+            element = nil
+        }
+        if let element = element {
+            self.elements.append(element)
+        }
     }
 }
