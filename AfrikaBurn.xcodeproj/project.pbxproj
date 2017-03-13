@@ -20,6 +20,7 @@
 		421B0B841E6F2D33006D6A91 /* CampDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B831E6F2D33006D6A91 /* CampDetailViewController.swift */; };
 		42B1C99B1E72871100699D61 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B1C99A1E72871100699D61 /* MapKit.framework */; };
 		42B1C99D1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png in Resources */ = {isa = PBXBuildFile; fileRef = 42B1C99C1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png */; };
+		42B1C9A01E76686100699D61 /* BurnDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B1C99F1E76686100699D61 /* BurnDataFetcher.swift */; };
 		6EBAA0DA9560FE2E92B99E33 /* Pods_AfrikaBurn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8C8DD969DDAF433AEC0C9B4 /* Pods_AfrikaBurn.framework */; };
 		F67C6E27E888C5FD8652DA3A /* Pods_AfrikaBurnTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBF929D933E1CE61F8359A17 /* Pods_AfrikaBurnTests.framework */; };
 /* End PBXBuildFile section */
@@ -53,6 +54,7 @@
 		421B0B831E6F2D33006D6A91 /* CampDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampDetailViewController.swift; sourceTree = "<group>"; };
 		42B1C99A1E72871100699D61 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		42B1C99C1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AB2017_Layout_RoadsLabel_20170308.png; sourceTree = "<group>"; };
+		42B1C99F1E76686100699D61 /* BurnDataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BurnDataFetcher.swift; sourceTree = "<group>"; };
 		64A1416249104A8C346A4494 /* Pods-AfrikaBurnTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AfrikaBurnTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AfrikaBurnTests/Pods-AfrikaBurnTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9C4BC849FB9D94D18164746B /* Pods-AfrikaBurn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AfrikaBurn.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AfrikaBurn/Pods-AfrikaBurn.debug.xcconfig"; sourceTree = "<group>"; };
 		E8C8DD969DDAF433AEC0C9B4 /* Pods_AfrikaBurn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AfrikaBurn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,6 +120,7 @@
 				421B0B2B1E6AA132006D6A91 /* FirstViewController.swift */,
 				421B0B2D1E6AA132006D6A91 /* SecondViewController.swift */,
 				421B0B831E6F2D33006D6A91 /* CampDetailViewController.swift */,
+				42B1C99E1E76683C00699D61 /* Network */,
 				421B0B801E6F2904006D6A91 /* Extensions */,
 				421B0B2F1E6AA132006D6A91 /* Main.storyboard */,
 				421B0B321E6AA132006D6A91 /* Assets.xcassets */,
@@ -153,6 +156,14 @@
 				421B0B811E6F2910006D6A91 /* AfrikaBurn+UIKit.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		42B1C99E1E76683C00699D61 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				42B1C99F1E76686100699D61 /* BurnDataFetcher.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		B755F08779FBF9EA94E5AEA9 /* Pods */ = {
@@ -377,6 +388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				421B0B4F1E6AA6FB006D6A91 /* ThemeCampCSVParser.swift in Sources */,
+				42B1C9A01E76686100699D61 /* BurnDataFetcher.swift in Sources */,
 				421B0B2E1E6AA132006D6A91 /* SecondViewController.swift in Sources */,
 				421B0B841E6F2D33006D6A91 /* CampDetailViewController.swift in Sources */,
 				421B0B2A1E6AA132006D6A91 /* AppDelegate.swift in Sources */,

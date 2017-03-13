@@ -11,19 +11,24 @@ import XCTest
 
 class AfrikaBurnTests: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
     func testCSVParsing() {
         let parser = ThemeCampCSVParser()
         let res = parser.parseSync()
         XCTAssertTrue(res.count > 0)
-    }    
+    }
+    
+    func testDataFetcher() {
+        let fetcher = BurnDataFetcher()
+        
+        let expectation = self.expectation(description: "waiting for fetch")
+        fetcher.fetchData { [weak expectation] (result) in
+            switch result {
+            case .failed: XCTFail("Network call failed")
+            case .success(_):
+                break
+            }
+            expectation?.fulfill()
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+    }
 }
