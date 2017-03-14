@@ -107,31 +107,22 @@ extension BurnElementsCSVParser: CHCSVParserDelegate {
             let id = Int(currentLineValues[.id]!) else {
             return
         }
+        let type = currentLineValues[.type]!
+        guard let elementType = AfrikaBurnElement.ElementType(name: type) else {
+            return
+        }
         let title = currentLineValues[.title]!
-        let categories: [AfrikaBurnElement.Category] = []
+        let categories: [AfrikaBurnElement.Category]
+        if let categoryNames = currentLineValues[.categories]?.components(separatedBy: ","), categoryNames.count > 0 {
+            categories = categoryNames.map({ AfrikaBurnElement.Category(name: $0) })
+        } else {
+            categories = []
+        }
         let longBlurb = currentLineValues[.longblurb]!
         let shortBlurb = currentLineValues[.shortblurb]!
         let activities = currentLineValues[.scheduledActivities]!
-        let type = currentLineValues[.type]!
         
-        let element: AfrikaBurnElement?
-        func createElement(withType type: AfrikaBurnElement.ElementType) -> AfrikaBurnElement {
-            return AfrikaBurnElement(id: id, name: title, categories: categories, longBlurb: longBlurb, shortBlurb: shortBlurb, scheduledActivities: activities, elementType: type)
-        }
-        switch type.lowercased() {
-        case "mutant vehicles":
-            element = createElement(withType: .mutantVehicle)
-        case "performance registration":
-            element = createElement(withType: .performance)
-        case "theme camp form 3 - wtf guide":
-            element = createElement(withType: .camp)
-        case "performance registration":
-            element = createElement(withType: .performance)
-        default:
-            element = nil
-        }
-        if let element = element {
-            self.elements.append(element)
-        }
+        let element: AfrikaBurnElement = AfrikaBurnElement(id: id, name: title, categories: categories, longBlurb: longBlurb, shortBlurb: shortBlurb, scheduledActivities: activities, elementType: elementType)
+        self.elements.append(element)
     }
 }

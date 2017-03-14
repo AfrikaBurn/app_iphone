@@ -18,8 +18,8 @@ extension AfrikaBurnElement.ElementType {
             self = .performance
         case "theme camp form 3 - wtf guide":
             self = .camp
-        case "performance registration":
-            self = .performance
+        case "artwork registration":
+            self = .artwork
         default:
             return nil
         }
@@ -42,6 +42,10 @@ class AfrikaBurnElement: Object {
     
     struct Category {
         let name: String
+        
+        init(name: String) {
+            self.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
     }
     
     dynamic var id: Int = -1
@@ -53,6 +57,9 @@ class AfrikaBurnElement: Object {
     dynamic var elementTypeString: String = ""
     
     var categories: [Category] {
+        guard categoriesString.isEmpty == false else {
+            return []
+        }
         let names  = categoriesString.components(separatedBy: ",")
         return names.map({ Category(name: $0) })
     }
@@ -69,7 +76,7 @@ class AfrikaBurnElement: Object {
         self.init()
         self.id = id
         self.name = name
-        self.categoriesString = categories.map({ $0.name }).joined()
+        self.categoriesString = categories.map({ $0.name }).joined(separator: ",")
         self.longBlurb = longBlurb
         self.shortBlurb = shortBlurb
         self.scheduledActivities = scheduledActivities
