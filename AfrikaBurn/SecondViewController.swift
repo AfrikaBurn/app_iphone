@@ -26,14 +26,31 @@ class SecondViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mapView.delegate = self
-        let overlay = BurnMapOverlay()
-        mapView.add(overlay, level: .aboveRoads)
-        mapView.setVisibleMapRect(BurnMap.boundingMapRect, animated: false)
     }
 }
 
-extension SecondViewController: MKMapViewDelegate {
+class BurnMapView: MKMapView, MKMapViewDelegate {
+    
+    let overlay = BurnMapOverlay()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    func commonInit() {
+        showsScale = true
+        showsCompass = true
+        delegate = self
+        userTrackingMode = .followWithHeading
+        add(overlay, level: .aboveRoads)
+        setVisibleMapRect(BurnMap.boundingMapRect, animated: false)
+    }
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         switch overlay {
         case is BurnMapOverlay: return BurnMapOverlayView(overlay: overlay, overlayImage: Resources.mapOverlayImage)
