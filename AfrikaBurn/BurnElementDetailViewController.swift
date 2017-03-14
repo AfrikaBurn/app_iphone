@@ -60,6 +60,7 @@ class MapCell: UITableViewCell {
     
     let mapView: BurnMapView = {
         let m = BurnMapView(frame: .zero)
+        m.isUserInteractionEnabled = false
         m.translatesAutoresizingMaskIntoConstraints = false
         return m
     }()
