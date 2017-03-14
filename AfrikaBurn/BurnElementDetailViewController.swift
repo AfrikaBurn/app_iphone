@@ -40,6 +40,7 @@ class BurnElementDetailViewController: UIViewController {
     }
     struct ReuseIdentifiers {
         static let cell = "cell"
+        static let mapCell = "MapCell"
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,11 +55,41 @@ class BurnElementDetailViewController: UIViewController {
     }
 }
 
+import MapKit
+class MapCell: UITableViewCell {
+    
+    let mapView: BurnMapView = {
+        let m = BurnMapView(frame: .zero)
+        m.translatesAutoresizingMaskIntoConstraints = false
+        return m
+    }()
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setup()
+    }
+    
+    func setup() {
+        contentView.addSubview(mapView)
+        mapView.bounds = bounds
+        mapView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        mapView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        mapView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        mapView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        mapView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+}
+
 extension BurnElementDetailViewController: UITableViewDataSource {
     
     enum Fields {
-        case id, title, categories, longblurb, scheduledActivivies
-        static let all: [Fields] = [id, title, categories, longblurb, scheduledActivivies]
+        case id, title, categories, longblurb, scheduledActivivies, map
+        static let all: [Fields] = [map, title, categories, longblurb, scheduledActivivies]
         
         static func create(from element: AfrikaBurnElement) -> [Fields] {
             let hasText: (_ string: String?) -> Bool = { $0?.isEmpty == false }
@@ -69,6 +100,7 @@ extension BurnElementDetailViewController: UITableViewDataSource {
                 case .longblurb: return hasText(element.longBlurb)
                 case .scheduledActivivies: return hasText(element.scheduledActivities)
                 case .title: return true
+                case .map: return true
                 }
             })
         }
@@ -79,19 +111,28 @@ extension BurnElementDetailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.cell, for: indexPath)
+        let cell: UITableViewCell
+        let dequeueRegularCell: () -> UITableViewCell = { tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.cell, for: indexPath) }
         let text: String?
         switch displayedFields[indexPath.row] {
         case .id:
-            text = "id\n" + "\(camp.id)"
+            cell = dequeueRegularCell()
+            text = "\(camp.id)"
         case .categories:
-            text = "categories\n" + camp.categories.reduce("", { $0 + "\($1.name), " })
+            cell = dequeueRegularCell()
+            text = camp.categories.map({ $0.name }).joined(separator: "\n")
         case .longblurb:
-            text = "longblurb\n" + (camp.longBlurb ?? "")
+            cell = dequeueRegularCell()
+            text = (camp.longBlurb ?? "")
         case .scheduledActivivies:
-            text = "scheduled activities\n" + (camp.scheduledActivities ?? "")
+            cell = dequeueRegularCell()
+            text = (camp.scheduledActivities ?? "")
         case .title:
-            text = "title\n" + camp.name
+            cell = dequeueRegularCell()
+            text = camp.name
+        case .map:
+            text = nil
+            cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.mapCell, for: indexPath) as! MapCell
         }
         cell.textLabel?.text = text
         cell.textLabel?.numberOfLines = 0
