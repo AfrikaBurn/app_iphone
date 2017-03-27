@@ -26,6 +26,7 @@ class SecondViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.showsUserLocation = true
     }
 }
 
@@ -61,7 +62,7 @@ class BurnMapView: MKMapView, MKMapViewDelegate {
 
 class BurnMapOverlay: NSObject, MKOverlay {
     let boundingMapRect: MKMapRect = BurnMap.boundingMapRect
-    var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(-32.326217923051772, 19.751633252193361)
+    var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(19.751633252193361, -32.326217923051772)
     
     func canReplaceMapContent() -> Bool {
         return true

@@ -9,37 +9,6 @@
 import Foundation
 import CHCSVParser
 
-
-
-struct MutantVehicle {
-    let id: Int
-    let name: String
-    let longBlurb: String
-    let shortBlurb: String
-}
-
-struct Artwork {
-    let id: Int
-    let name: String
-}
-
-struct Camp {
-    struct Category {
-        let name: String
-    }
-    let id: Int
-    let name: String
-    let categories: [Category]
-    let longBlurb: String
-    let shortBlurb: String
-    let scheduledActivities: String
-}
-
-struct Performance {
-    let id: Int
-    let name: String
-}
-
 class BurnElementsCSVParser : NSObject {
     
     enum Field: Int {
@@ -98,7 +67,10 @@ extension BurnElementsCSVParser: CHCSVParserDelegate {
     
     func parser(_ parser: CHCSVParser!, didReadField field: String!, at fieldIndex: Int) {
         guard shouldIgnoreCurrentLine == false else { return }
-        let currentField = Field(rawValue: fieldIndex)!
+        guard let currentField = Field(rawValue: fieldIndex) else {
+            assert(false, "Found an unrecognized field \(field)")
+            return
+        }
         currentLineValues[currentField] = field
     }
     
@@ -122,7 +94,7 @@ extension BurnElementsCSVParser: CHCSVParserDelegate {
         let shortBlurb = currentLineValues[.shortblurb]!
         let activities = currentLineValues[.scheduledActivities]!
         
-        let element: AfrikaBurnElement = AfrikaBurnElement(id: id, name: title, categories: categories, longBlurb: longBlurb, shortBlurb: shortBlurb, scheduledActivities: activities, elementType: elementType)
+        let element: AfrikaBurnElement = AfrikaBurnElement(id: id, name: title, categories: categories, longBlurb: longBlurb, shortBlurb: shortBlurb, scheduledActivities: activities, elementType: elementType, locationString: "19.744589048242471,-32.325597649122543")
         self.elements.append(element)
     }
 }

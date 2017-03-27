@@ -7,6 +7,7 @@
 //
 
 import RealmSwift
+import CoreLocation
 
 extension AfrikaBurnElement.ElementType {
     
@@ -56,6 +57,22 @@ class AfrikaBurnElement: Object {
     dynamic var shortBlurb: String?
     dynamic var scheduledActivities: String?
     dynamic var elementTypeString: String = ""
+    dynamic var locationString: String?
+    
+    var location: CLLocationCoordinate2D? {
+        guard let locationString = locationString else {
+            return nil
+        }
+        let components = locationString.components(separatedBy: ",")
+        guard components.count == 2,
+        let longitudeString = components.first,
+        let longitude = Double(longitudeString),
+        let latitudeString = components.last,
+        let latitude = Double(latitudeString) else {
+                return nil
+        }
+        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
     
     var categories: [Category] {
         guard categoriesString.isEmpty == false else {
@@ -73,7 +90,7 @@ class AfrikaBurnElement: Object {
         return "id"
     }
     
-    convenience init(id: Int, name: String, categories: [Category], longBlurb: String?, shortBlurb: String?, scheduledActivities: String?, elementType: AfrikaBurnElement.ElementType) {
+    convenience init(id: Int, name: String, categories: [Category], longBlurb: String?, shortBlurb: String?, scheduledActivities: String?, elementType: AfrikaBurnElement.ElementType, locationString: String) {
         self.init()
         self.id = id
         self.name = name
@@ -82,5 +99,6 @@ class AfrikaBurnElement: Object {
         self.shortBlurb = shortBlurb
         self.scheduledActivities = scheduledActivities
         self.elementTypeString = elementType.rawValue
+        self.locationString = locationString
     }
 }
