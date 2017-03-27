@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 enum BarButtonIcon {
     case favorite
@@ -25,9 +26,8 @@ extension UIBarButtonItem {
     }
 }
 
-
 class BurnElementDetailViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     fileprivate(set) var camp: AfrikaBurnElement!
     
@@ -55,7 +55,6 @@ class BurnElementDetailViewController: UIViewController {
     }
 }
 
-import MapKit
 class MapCell: UITableViewCell {
     
     let mapView: BurnMapView = {
@@ -133,7 +132,17 @@ extension BurnElementDetailViewController: UITableViewDataSource {
             text = camp.name
         case .map:
             text = nil
-            cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.mapCell, for: indexPath) as! MapCell
+            let mapCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.mapCell, for: indexPath) as! MapCell
+            cell = mapCell
+            let mapView = mapCell.mapView
+            mapView.removeAnnotations(mapCell.mapView.annotations)
+            if let location = camp.location {
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = location
+                mapView.addAnnotation(annotation)
+                mapView.setRegion(MKCoordinateRegionMakeWithDistance(location, 100, 100), animated: false)
+            }
+            
         }
         cell.textLabel?.text = text
         cell.textLabel?.numberOfLines = 0
