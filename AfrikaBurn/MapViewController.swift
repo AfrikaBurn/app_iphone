@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  MapViewController.swift
 //  AfrikaBurn
 //
 //  Created by Daniel Galasko on 2017/03/04.
@@ -20,7 +20,7 @@ struct BurnMap {
     static let boundingMapRect: MKMapRect = MKMapRect(origin: MKMapPoint(x: 148937508.42330855, y: 159711548.54660633), size: MKMapSize(width: 9388.6817751824855, height: 7286.825931340456))
 }
 
-class SecondViewController: UIViewController {
+class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     
