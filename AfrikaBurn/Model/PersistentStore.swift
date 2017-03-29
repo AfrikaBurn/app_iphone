@@ -10,6 +10,8 @@ import RealmSwift
 
 class PersistentStore {
     
+    let queue = DispatchQueue(label: "PersistentStore.queue")
+    
     fileprivate func createRealm() -> Realm {
         return try! Realm()
     }
@@ -20,9 +22,9 @@ class PersistentStore {
      should be deleted. This ensures that the data displayed always matches what is stored.
      */
     func storeElements(_ elements: [AfrikaBurnElement], deleteRestNotIncludedInElements: Bool = true) {
-        DispatchQueue.global(qos: .background).async {
+        queue.async {
             let realm = self.createRealm()
-            try! realm.write {
+            try? realm.write {
                 if deleteRestNotIncludedInElements {
                     let idsToSave = elements.map({ $0.id })
                     let toDelete = realm.objects(AfrikaBurnElement.self).filter("NOT id in %@", idsToSave)
@@ -36,5 +38,38 @@ class PersistentStore {
     func elements() -> Results<AfrikaBurnElement> {
         let realm = createRealm()
         return realm.objects(AfrikaBurnElement.self)
+    }
+    
+    func favorites() -> Results<FavoritedElement> {
+        let realm = createRealm()
+        return realm.objects(FavoritedElement.self)
+    }
+    
+    func favoriteElement(_ element: AfrikaBurnElement) {
+        let realm = self.createRealm()
+        try? realm.write {
+            let favorite = FavoritedElement(element: element, dateAdded: Date())
+            realm.add(favorite, update: true)
+        }
+    }
+    
+    func removeFavorite(_ element: AfrikaBurnElement) {
+        let elementID = element.id
+        queue.async {
+            let realm = self.createRealm()
+            let favorites = realm.objects(FavoritedElement.self).filter("id = \(elementID)")
+            try? realm.write {
+                realm.delete(favorites)
+            }
+        }
+    }
+}
+
+extension AfrikaBurnElement {
+    var isFavorited: Bool {
+        if let _ = realm?.objects(FavoritedElement.self).first(where: ({ $0.id == self.id})) {
+            return true
+        }
+        return false
     }
 }
