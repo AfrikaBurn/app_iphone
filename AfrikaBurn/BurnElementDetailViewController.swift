@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import RealmSwift
 
 enum BarButtonIcon {
     case favorite
@@ -28,30 +29,39 @@ extension UIBarButtonItem {
 
 class BurnElementDetailViewController: UIViewController {
     
+    let persistentStore: PersistentStore = PersistentStore()
     @IBOutlet weak var tableView: UITableView!
-    fileprivate(set) var camp: AfrikaBurnElement!
+    fileprivate(set) var element: AfrikaBurnElement!
     
-    fileprivate lazy var displayedFields: [Fields] = Fields.create(from: self.camp)
+    fileprivate lazy var displayedFields: [Fields] = Fields.create(from: self.element)
     
-    static func create(camp: AfrikaBurnElement) -> BurnElementDetailViewController {
+    static func create(element: AfrikaBurnElement) -> BurnElementDetailViewController {
         let detail = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BurnElementDetailViewController") as! BurnElementDetailViewController
-        detail.camp = camp
+        detail.element = element
         return detail
     }
     struct ReuseIdentifiers {
         static let cell = "cell"
         static let mapCell = "MapCell"
     }
+    var token: NotificationToken?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: ReuseIdentifiers.cell)
         tableView.dataSource = self
         tableView.enableSelfSizingCells(withEstimatedHeight: 55)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(icon: .favorite, target: self, action: #selector(handleFavoriteTapped))
+        token = self.persistentStore.favorites().filter("id == \(element.id)").addNotificationBlock({ (change) in
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(icon: self.element.isFavorited ? .favoriteFilledIn : .favorite, target: self, action: #selector(self.handleFavoriteTapped))
+        })
     }
     
     @objc func handleFavoriteTapped() {
-        
+        if element.isFavorited {
+            persistentStore.removeFavorite(element)
+        } else {
+            persistentStore.favoriteElement(element)
+        }
     }
 }
 
@@ -117,26 +127,26 @@ extension BurnElementDetailViewController: UITableViewDataSource {
         switch displayedFields[indexPath.row] {
         case .id:
             cell = dequeueRegularCell()
-            text = "\(camp.id)"
+            text = "\(element.id)"
         case .categories:
             cell = dequeueRegularCell()
-            text = camp.categories.map({ $0.name }).joined(separator: "\n")
+            text = element.categories.map({ $0.name }).joined(separator: "\n")
         case .longblurb:
             cell = dequeueRegularCell()
-            text = (camp.longBlurb ?? "")
+            text = (element.longBlurb ?? "")
         case .scheduledActivivies:
             cell = dequeueRegularCell()
-            text = (camp.scheduledActivities ?? "")
+            text = (element.scheduledActivities ?? "")
         case .title:
             cell = dequeueRegularCell()
-            text = camp.name
+            text = element.name
         case .map:
             text = nil
             let mapCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.mapCell, for: indexPath) as! MapCell
             cell = mapCell
             let mapView = mapCell.mapView
             mapView.removeAnnotations(mapCell.mapView.annotations)
-            if let location = camp.location {
+            if let location = element.location {
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = location
                 mapView.addAnnotation(annotation)
