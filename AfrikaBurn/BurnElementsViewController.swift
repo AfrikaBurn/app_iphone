@@ -101,22 +101,22 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
     }
     
     func updateSearchResults(for searchController: UISearchController){
-        let searchText = searchController.searchBar.text
-        if (searchText == nil || searchText! == "") {
+        
+        guard let searchText = searchController.searchBar.text, searchText.isEmpty == false else {
             // search text is empty, need to show full results.
             // revert back to filtered elements rather than all elements so that it keeps previous filter
-            self.elements = self.filteredElements
+            elements = filteredElements
             return
         }
         
-        let lowerText = searchText!.lowercased()
+        let lowerText = searchText.lowercased()
         let filter = "name CONTAINS[c] '\(lowerText)' OR shortBlurb CONTAINS[c] '\(lowerText)'"
         
         // we could search self.filteredElements here if we think the search should only filter a subset of the full results.
         // I think searching all results is fine -- JC
-        self.elements = self.allElements.filter(filter)        
+        elements = allElements.filter(filter)
         
-        self.tableView.reloadData()
+        tableView.reloadData()
         
     }
     
