@@ -65,12 +65,13 @@ class AfrikaBurnElement: Object {
         }
         let components = locationString.components(separatedBy: ",")
         guard components.count == 2,
-        let longitudeString = components.first,
-        let longitude = Double(longitudeString),
-        let latitudeString = components.last,
-        let latitude = Double(latitudeString) else {
+        let latitudeString = components.first,
+        let latitude = Double(latitudeString),
+        let longitudeString = components.last,
+        let longitude = Double(longitudeString) else {
                 return nil
         }
+        
         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
     

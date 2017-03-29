@@ -47,29 +47,17 @@ class MapViewController: UIViewController {
     }
     
     func loadElements(){
-        NSLog("load elements")
         
         for element in allElements {
-            guard let locationString = element.locationString else {
+            guard let location = element.location else {
                 continue
             }
-            
-            if locationString.range(of:",") == nil{
-                continue
-            }
-            
-//            let coordinates = locationString.characters.split{$0 == ","}.map(String.init)
-            let coordinates = locationString.components(separatedBy: ",")
-            
-            let CLLCoordType = CLLocationCoordinate2D(latitude: Double(coordinates[0])!,
-                                                      longitude: Double(coordinates[1])!);
-            let anno = BurnAnnotation(coordinate: CLLCoordType);
+            let anno = BurnAnnotation(coordinate: location);
             anno.element = element
             anno.title = element.name
             anno.image = UIImage(named: "map-pin.png")
             
             mapView.addAnnotation(anno);
-//            NSLog("%@", locationString)
         }
     }
     
@@ -164,13 +152,11 @@ extension MapViewController: MKMapViewDelegate {
         
         
         // Left Accessory
-        //let leftAccessory = UILabel(frame: CGRect(x: 0,y: 0,width: 50,height: 30))
-        //leftAccessory.text = burnAnnotation.element?.name
-        //leftAccessory.font = UIFont(name: "Verdana", size: 10)
+        // We could make this change the icon based on the element type. Eg. mutant vehicles etc.
         annotationView?.leftCalloutAccessoryView = UIImageView(image: UIImage(named: "fire.png"))
         
         // Right accessory view
-        // let image = UIImage(named: "fire.png")
+        
         let button = UIButton(type: .detailDisclosure)
         button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         
@@ -182,10 +168,8 @@ extension MapViewController: MKMapViewDelegate {
         
         let annotation = view.annotation
         if !(annotation is BurnAnnotation){
-            NSLog("Annotation is not burn annotation ignore")
             return
         }
-        NSLog("callout tapped. load element")
         
         let burnAnnotation = annotation as! BurnAnnotation
         let detail = BurnElementDetailViewController.create(camp: burnAnnotation.element!)
