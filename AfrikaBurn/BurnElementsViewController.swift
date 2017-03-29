@@ -114,8 +114,7 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
         
         // we could search self.filteredElements here if we think the search should only filter a subset of the full results.
         // I think searching all results is fine -- JC
-        self.elements = self.allElements.filter(filter)
-        NSLog("Search text %@ %d", filter, self.elements.count)
+        self.elements = self.allElements.filter(filter)        
         
         self.tableView.reloadData()
         
