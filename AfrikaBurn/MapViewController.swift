@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import RealmSwift
 
 struct Resources {
     static let mapOverlayImage: UIImage = {
@@ -22,12 +23,56 @@ struct BurnMap {
 
 class MapViewController: UIViewController {
     
+    var selectedElement : AfrikaBurnElement? = nil
     @IBOutlet weak var mapView: MKMapView!
+    let persistentStore = PersistentStore()
+    let locationManager = CLLocationManager()
+    lazy var allElements: Results<AfrikaBurnElement> = self.persistentStore.elements()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        locationManager.requestWhenInUseAuthorization()
         mapView.showsUserLocation = true
+        mapView.delegate = self
+    
+        loadElements()
+        
+        self.navigationItem.title = "Map"
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadElements()
+    }
+    
+    func loadElements(){
+        NSLog("load elements")
+        
+        for element in allElements {
+            guard let locationString = element.locationString else {
+                continue
+            }
+            
+            if locationString.range(of:",") == nil{
+                continue
+            }
+            
+//            let coordinates = locationString.characters.split{$0 == ","}.map(String.init)
+            let coordinates = locationString.components(separatedBy: ",")
+            
+            let CLLCoordType = CLLocationCoordinate2D(latitude: Double(coordinates[0])!,
+                                                      longitude: Double(coordinates[1])!);
+            let anno = BurnAnnotation(coordinate: CLLCoordType);
+            anno.element = element
+            anno.title = element.name
+            anno.image = UIImage(named: "map-pin.png")
+            
+            mapView.addAnnotation(anno);
+//            NSLog("%@", locationString)
+        }
+    }
+    
 }
 
 class BurnMapView: MKMapView, MKMapViewDelegate {
@@ -89,3 +134,77 @@ class BurnMapOverlayView: MKOverlayRenderer {
         context.draw(imageRef, in: theRect)
     }
 }
+
+
+extension MapViewController: MKMapViewDelegate {
+    
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        // If annotation is not of type RestaurantAnnotation (MKUserLocation types for instance), return nil
+        if !(annotation is BurnAnnotation){
+            return nil
+        }
+        
+        var annotationView = self.mapView.dequeueReusableAnnotationView(withIdentifier: "Pin")
+        
+        if annotationView == nil{
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
+            annotationView?.canShowCallout = true
+        }else{
+            annotationView?.annotation = annotation
+        }
+        
+        let burnAnnotation = annotation as! BurnAnnotation
+        
+        let blurb = UILabel(frame: CGRect(x: 0,y: 0,width: annotationView!.frame.size.width,height: 200))
+        blurb.font = UIFont(name: "Helvetica", size: 12)
+        blurb.text = burnAnnotation.element?.shortBlurb
+        blurb.numberOfLines = 6
+        annotationView?.detailCalloutAccessoryView = blurb
+        
+        
+        // Left Accessory
+        //let leftAccessory = UILabel(frame: CGRect(x: 0,y: 0,width: 50,height: 30))
+        //leftAccessory.text = burnAnnotation.element?.name
+        //leftAccessory.font = UIFont(name: "Verdana", size: 10)
+        annotationView?.leftCalloutAccessoryView = UIImageView(image: UIImage(named: "fire.png"))
+        
+        // Right accessory view
+        // let image = UIImage(named: "fire.png")
+        let button = UIButton(type: .detailDisclosure)
+        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        
+        annotationView?.rightCalloutAccessoryView = button
+        return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        
+        let annotation = view.annotation
+        if !(annotation is BurnAnnotation){
+            NSLog("Annotation is not burn annotation ignore")
+            return
+        }
+        NSLog("callout tapped. load element")
+        
+        let burnAnnotation = annotation as! BurnAnnotation
+        let detail = BurnElementDetailViewController.create(camp: burnAnnotation.element!)
+        navigationController?.pushViewController(detail, animated: true)
+        
+    }
+    
+}
+
+
+class BurnAnnotation: NSObject, MKAnnotation {
+    
+    var coordinate: CLLocationCoordinate2D
+    var element: AfrikaBurnElement?
+    var title: String?
+    var image: UIImage?
+    
+    init(coordinate: CLLocationCoordinate2D) {
+        self.coordinate = coordinate
+    }
+}
+

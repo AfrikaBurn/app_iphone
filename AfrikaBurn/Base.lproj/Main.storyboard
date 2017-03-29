@@ -27,10 +27,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CampSummaryTableViewCell" id="v4T-ID-HqL" customClass="CampSummaryTableViewCell" customModule="AfrikaBurn" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="71"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="71"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="v4T-ID-HqL" id="LgX-B1-7Th">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3fs-BK-kwQ">
@@ -115,10 +115,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MapCell" id="yKz-nM-XVZ" customClass="MapCell" customModule="AfrikaBurn" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yKz-nM-XVZ" id="f7a-3V-V02">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -145,6 +145,23 @@
             <point key="canvasLocation" x="2517.5999999999999" y="-315.29235382308849"/>
         </scene>
         <!--Map-->
+        <scene sceneID="vtf-HQ-1j9">
+            <objects>
+                <navigationController id="dtM-ML-VuW" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Map" image="map-pin" id="npU-bw-w33"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fPO-Fh-owb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="rootViewController" id="49f-oo-LpH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="97R-lq-uza" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="775" y="536"/>
+        </scene>
+        <!--Map View Controller-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="MapViewController" customModule="AfrikaBurn" customModuleProvider="target" sceneMemberID="viewController">
@@ -168,14 +185,14 @@
                             <constraint firstAttribute="trailing" secondItem="DPL-kg-Gl2" secondAttribute="trailing" id="sSS-L9-kxY"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" image="map-pin" id="cPa-gy-q4n"/>
+                    <navigationItem key="navigationItem" id="9sk-da-etX"/>
                     <connections>
                         <outlet property="mapView" destination="DPL-kg-Gl2" id="6Uv-B8-8H2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="749.60000000000002" y="359.37031484257875"/>
+            <point key="canvasLocation" x="1689" y="349"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -189,7 +206,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="68Q-0J-iwV" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
-                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="dtM-ML-VuW" kind="relationship" relationship="viewControllers" id="0D0-GE-qoU"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
