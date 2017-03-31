@@ -93,6 +93,9 @@
                                 <segment title="All"/>
                                 <segment title="Favorites"/>
                             </segments>
+                            <connections>
+                                <action selector="handleFavoritesSegmentedControlChanged:" destination="9pv-A4-QxB" eventType="valueChanged" id="poN-Nu-uyI"/>
+                            </connections>
                         </segmentedControl>
                     </navigationItem>
                     <connections>

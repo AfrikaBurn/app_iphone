@@ -27,13 +27,17 @@ extension UITableView {
         case .initial(_):
             reloadData()
         case .update(_, let deletions, let insertions, let modifications):
-            beginUpdates()
-            let intToIndexPath: ([Int]) -> [IndexPath] = { $0.map({IndexPath(row: $0, section: 0)}) }
-            insertRows(at: intToIndexPath(insertions), with: .automatic)
-            deleteRows(at: intToIndexPath(deletions), with: .automatic)
-            reloadRows(at: intToIndexPath(modifications), with: .automatic)
-            endUpdates()
+            handleUpdates(deletions: deletions, insertions: insertions, modifications: modifications)
         }
+    }
+    
+    func handleUpdates(deletions: [Int], insertions: [Int], modifications: [Int]) {
+        beginUpdates()
+        let intToIndexPath: ([Int]) -> [IndexPath] = { $0.map({IndexPath(row: $0, section: 0)}) }
+        insertRows(at: intToIndexPath(insertions), with: .automatic)
+        deleteRows(at: intToIndexPath(deletions), with: .automatic)
+        reloadRows(at: intToIndexPath(modifications), with: .automatic)
+        endUpdates()
     }
 }
 

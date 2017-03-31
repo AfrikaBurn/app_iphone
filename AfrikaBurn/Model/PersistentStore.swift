@@ -11,6 +11,8 @@ import CoreLocation
 
 class PersistentStore {
     
+    let queue = DispatchQueue(label: "PersistentStore.queue")
+    
     fileprivate func createRealm() -> Realm {
         return try! Realm()
     }
@@ -21,9 +23,9 @@ class PersistentStore {
      should be deleted. This ensures that the data displayed always matches what is stored.
      */
     func storeElements(_ elements: [AfrikaBurnElement], deleteRestNotIncludedInElements: Bool = true) {
-        DispatchQueue.global(qos: .background).async {
+        queue.async {
             let realm = self.createRealm()
-            try! realm.write {
+            try? realm.write {
                 if deleteRestNotIncludedInElements {
                     let idsToSave = elements.map({ $0.id })
                     let toDelete = realm.objects(AfrikaBurnElement.self).filter("NOT id in %@", idsToSave)
@@ -82,6 +84,26 @@ class PersistentStore {
             let toDelete = realm.objects(CustomLocation.self).filter("id = %@", locationId)
             NSLog("deleting location id %@ %d", locationId, toDelete.count)
             realm.delete(toDelete)
+        }
+    }
+    
+    func favorites() -> Results<AfrikaBurnElement> {
+        let realm = createRealm()
+        return realm.objects(AfrikaBurnElement.self).filter("isFavorite = true")
+    }
+    
+    func favoriteElement(_ element: AfrikaBurnElement) {
+        let realm = self.createRealm()
+        try? realm.write {
+            element.isFavorite = true
+            element.dateFavorited = Date()
+        }
+    }
+    
+    func removeFavorite(_ element: AfrikaBurnElement) {
+        let realm = self.createRealm()
+        try? realm.write {
+            element.isFavorite = false
         }
     }
 }
