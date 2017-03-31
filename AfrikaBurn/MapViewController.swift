@@ -280,7 +280,7 @@ extension MapViewController: MKMapViewDelegate {
         
         if (abAnnotation is BurnAnnotation){
             let burnAnnotation = abAnnotation as! BurnAnnotation
-            let detail = BurnElementDetailViewController.create(camp: burnAnnotation.element)
+            let detail = BurnElementDetailViewController.create(element: burnAnnotation.element)
             navigationController?.pushViewController(detail, animated: true)
         }
         

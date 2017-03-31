@@ -108,7 +108,7 @@ extension BurnElementsViewController: UITableViewDataSource {
         let element = self.element(at: indexPath)
         cell.headlineLabel.text = element.elementTitle
         cell.subheadlineLabel.text = element.summaryBlurb
-	cell.elementImageView.image = element.elementType.iconImage
+        cell.elementImageView.image = element.iconImage
         return cell
     }
 }
@@ -149,12 +149,14 @@ extension AfrikaBurnElement.ElementType {
 protocol BurnElementSummaryDisplayable {
     var elementTitle: String { get }
     var summaryBlurb: String? { get }
+    var iconImage: UIImage? { get }
     var elementID: Int { get }
 }
 
 extension AfrikaBurnElement: BurnElementSummaryDisplayable {
     var elementTitle: String { return name }
     var summaryBlurb: String? { return shortBlurb }
+    var iconImage: UIImage? { return elementType.iconImage }
     var elementID: Int { return id }
 }
 
