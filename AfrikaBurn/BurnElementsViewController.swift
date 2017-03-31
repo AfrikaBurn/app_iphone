@@ -150,8 +150,8 @@ class BurnElementsViewModel {
         didSet {
             let newElements: CurrentElements
             switch elements {
-            case .favorited(_):
-                newElements = .favorited(applyFilter(activeFilter, to: persistentStore.favorites()))
+            case .favorites(_):
+                newElements = .favorites(applyFilter(activeFilter, to: persistentStore.favorites()))
             case .normal(_):
                 newElements = .normal(applyFilter(activeFilter, to: self.allElements))
             }
@@ -166,7 +166,7 @@ class BurnElementsViewModel {
             case .default:
                 newElements = .normal(applyFilter(activeFilter, to: self.allElements))
             case .favorites:
-                newElements = .favorited(applyFilter(activeFilter, to: persistentStore.favorites()))
+                newElements = .favorites(applyFilter(activeFilter, to: persistentStore.favorites()))
             }
             self.elements = newElements
         }
@@ -176,7 +176,14 @@ class BurnElementsViewModel {
     
     private enum CurrentElements {
         case normal(Results<AfrikaBurnElement>)
-        case favorited(Results<FavoritedElement>)
+        case favorites(Results<AfrikaBurnElement>)
+        
+        var results: Results<AfrikaBurnElement> {
+            switch self {
+            case .favorites(let r): return r
+            case .normal(let r): return r
+            }
+        }
     }
     
     private let persistentStore: PersistentStore
@@ -185,12 +192,7 @@ class BurnElementsViewModel {
     
     private var elements: CurrentElements {
         didSet {
-            switch elements {
-            case .normal(let elements):
-                observeChanges(to: elements)
-            case .favorited(let elements):
-                observeChanges(to: elements)
-            }
+            observeChanges(to: elements.results)
         }
     }
     
@@ -205,7 +207,7 @@ class BurnElementsViewModel {
     
     var numberOfElements: Int {
         switch elements {
-        case .favorited(let favorites):
+        case .favorites(let favorites):
             return favorites.count
         case .normal(let normal):
             return normal.count
@@ -213,12 +215,7 @@ class BurnElementsViewModel {
     }
     
     func element(at index: Int) -> BurnElementSummaryDisplayable {
-        switch elements {
-        case .favorited(let favorites):
-            return favorites[index]
-        case .normal(let normal):
-            return normal[index]
-        }
+        return elements.results[index]
     }
     
     private func applyFilter<T: AfrikaBurnElement>(_ filter: Filter, to elements: Results<T>) -> Results<T> {
