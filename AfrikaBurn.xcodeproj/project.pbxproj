@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1762682A1E8E2DC200C57F2A /* CustomLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176268291E8E2DC100C57F2A /* CustomLocation.swift */; };
 		421B0B2A1E6AA132006D6A91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B291E6AA132006D6A91 /* AppDelegate.swift */; };
 		421B0B2C1E6AA132006D6A91 /* BurnElementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B2B1E6AA132006D6A91 /* BurnElementsViewController.swift */; };
 		421B0B2E1E6AA132006D6A91 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B2D1E6AA132006D6A91 /* MapViewController.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		176268291E8E2DC100C57F2A /* CustomLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLocation.swift; sourceTree = "<group>"; };
 		1A10BA63A7F3925F6DCFE9F2 /* Pods-AfrikaBurnTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AfrikaBurnTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AfrikaBurnTests/Pods-AfrikaBurnTests.release.xcconfig"; sourceTree = "<group>"; };
 		421B0B261E6AA132006D6A91 /* AfrikaBurn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AfrikaBurn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		421B0B291E6AA132006D6A91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			children = (
 				42B1C9A21E7710D500699D61 /* AfrikaBurnElement.swift */,
 				42B1C9A41E77127700699D61 /* PersistentStore.swift */,
+				176268291E8E2DC100C57F2A /* CustomLocation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1762682A1E8E2DC200C57F2A /* CustomLocation.swift in Sources */,
 				421B0B4F1E6AA6FB006D6A91 /* ThemeCampCSVParser.swift in Sources */,
 				42B1C9A31E7710D500699D61 /* AfrikaBurnElement.swift in Sources */,
 				42B1C9A01E76686100699D61 /* BurnDataFetcher.swift in Sources */,

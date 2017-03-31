@@ -35,15 +35,71 @@ class MapViewController: UIViewController {
         locationManager.requestWhenInUseAuthorization()
         mapView.showsUserLocation = true
         mapView.delegate = self
-    
+        
+        attachLongPress()
+        
+        loadCustomLocations()
         loadElements()
         
-        self.navigationItem.title = "Map"
+        navigationItem.title = "Map"
+        navigationController?.navigationBar.titleTextAttributes =  [NSForegroundColorAttributeName: UIColor.afrikaBurnTintColor]
+        navigationController?.navigationBar.barTintColor = UIColor.afrikaBurnBgColor
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadElements()
+    }
+    
+    func attachLongPress(){
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.longPressOnMap(gestureRecognizer:)))
+        gesture.minimumPressDuration = 2.0
+        
+        mapView.addGestureRecognizer(gesture)
+        
+        
+    }
+    
+    func longPressOnMap(gestureRecognizer:UIGestureRecognizer){
+        
+        if (gestureRecognizer.state != .began) {
+            // avoid this double firing
+            return
+        }
+        let touchPoint = gestureRecognizer.location(in: mapView)
+        let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+        
+        let actionSheet = UIAlertController(title: "Custom Location", message: "Select a category", preferredStyle: .actionSheet)
+        actionSheet.view.tintColor = UIColor.afrikaBurnTintColor
+        actionSheet.addAction(UIAlertAction(title: "Home Camp", style: .default, handler: { _ in            
+            self.saveCustomLocation(name: "Home Camp", coordinates: newCoordinates, isHomeCamp: true)
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Custom Location", style: .default, handler: { _ in
+            
+            var inputTextField: UITextField?
+            let namePrompt = UIAlertController(title: "Custom Location", message: "Enter a name for your location.", preferredStyle: UIAlertControllerStyle.alert)
+            namePrompt.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
+            namePrompt.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+                // Now do whatever you want with inputTextField (remember to unwrap the optional)
+                guard let name = inputTextField!.text else {
+                    return
+                }
+                self.saveCustomLocation(name: name, coordinates: newCoordinates, isHomeCamp: false)
+            }))
+            namePrompt.addTextField(configurationHandler: {(textField: UITextField!) in
+                textField.placeholder = "Name"
+                inputTextField = textField
+            })
+            
+            self.present(namePrompt, animated: true, completion: { _ in {
+//                    NSLog("alert view closed %@", inputTextField?.text)
+                    let name = inputTextField?.text
+                    NSLog("Alert view closed \(name)")
+                }()})
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(actionSheet, animated: true, completion: nil)
     }
     
     func loadElements(){
@@ -52,16 +108,55 @@ class MapViewController: UIViewController {
             guard let location = element.location else {
                 continue
             }
-            let anno = BurnAnnotation(coordinate: location);
-            anno.element = element
+            let anno = BurnAnnotation(coordinate: location, element: element)
             anno.title = element.name
-            anno.image = UIImage(named: "map-pin.png")
-            
             mapView.addAnnotation(anno);
         }
     }
     
+    func loadCustomLocations(){
+        
+        let customLocations = self.persistentStore.customLocations()
+        
+        for location in customLocations {
+            guard let coordinates = location.coordinates else {
+                continue
+            }
+            
+            NSLog("location.id %@", location.id)
+            // skip deleted location
+            if (location.isInvalidated) {
+                continue
+            }
+            let annotation = CustomLocationAnnotation(coordinate: coordinates, customLocation: location)
+            mapView.addAnnotation(annotation)
+        }
+    }
+    
+    func saveCustomLocation(name : String, coordinates : CLLocationCoordinate2D, isHomeCamp: Bool){
+        let customLocation = CustomLocation(name: name, coordinate: coordinates, isHomeCamp: isHomeCamp)
+        if (isHomeCamp){
+            self.persistentStore.saveHomeLocation(customLocation: customLocation)
+        } else {
+            self.persistentStore.createLocation(customLocation: customLocation)
+        }
+        
+        
+        removeCustomLocations()
+        loadCustomLocations()
+    }
+    
+    func removeCustomLocations(){
+        // delete all pins and reload them
+        let pins = mapView.annotations.filter { (annotation) -> Bool in
+            return (annotation is CustomLocationAnnotation)
+        }
+        
+        mapView.removeAnnotations(pins)
+    }
+    
 }
+
 
 class BurnMapView: MKMapView, MKMapViewDelegate {
     
@@ -81,7 +176,7 @@ class BurnMapView: MKMapView, MKMapViewDelegate {
         showsScale = true
         showsCompass = true
         delegate = self
-        userTrackingMode = .followWithHeading
+        userTrackingMode = .none
         add(overlay, level: .aboveRoads)
         setVisibleMapRect(BurnMap.boundingMapRect, animated: false)
     }
@@ -128,67 +223,117 @@ extension MapViewController: MKMapViewDelegate {
     
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        // If annotation is not of type RestaurantAnnotation (MKUserLocation types for instance), return nil
-        if !(annotation is BurnAnnotation){
+        
+        guard let abAnnotation = annotation as? ABAnnotation else {
             return nil
         }
         
-        var annotationView = self.mapView.dequeueReusableAnnotationView(withIdentifier: "Pin")
-        
-        if annotationView == nil{
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
-            annotationView?.canShowCallout = true
-        }else{
-            annotationView?.annotation = annotation
+        let annotationView: MKAnnotationView
+        if let reusedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "Pin") {
+            annotationView = reusedAnnotationView
+            annotationView.annotation = annotation
+        } else {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
+            annotationView.canShowCallout = true
         }
         
-        let burnAnnotation = annotation as! BurnAnnotation
-        
-        let blurb = UILabel(frame: CGRect(x: 0,y: 0,width: annotationView!.frame.size.width,height: 200))
-        blurb.font = UIFont(name: "Helvetica", size: 12)
-        blurb.text = burnAnnotation.element?.shortBlurb
-        blurb.numberOfLines = 6
-        annotationView?.detailCalloutAccessoryView = blurb
         
         
-        // Left Accessory
-        // We could make this change the icon based on the element type. Eg. mutant vehicles etc.
-        annotationView?.leftCalloutAccessoryView = UIImageView(image: UIImage(named: "fire.png"))
+        // if it's a burn annotation add a burn callout
+        if (abAnnotation is BurnAnnotation){
+            let burnAnnotation = abAnnotation as! BurnAnnotation
+            let blurb = UILabel(frame: CGRect(x: 0,y: 0,width: annotationView.frame.size.width,height: 200))
+            blurb.font = UIFont.preferredFont(forTextStyle: .body)
+            blurb.text = burnAnnotation.element.shortBlurb
+            blurb.numberOfLines = 6
+            annotationView.detailCalloutAccessoryView = blurb
+            
+            // Left Accessory
+            // We could make this change the icon based on the element type. Eg. mutant vehicles etc.
+            annotationView.leftCalloutAccessoryView = UIImageView(image: burnAnnotation.element.elementType.iconImage)
+            
+            
+            let button = UIButton(type: .detailDisclosure)
+            annotationView.rightCalloutAccessoryView = button
+            
+        } else if (abAnnotation is CustomLocationAnnotation) {
+            let customAnnotation = abAnnotation as! CustomLocationAnnotation
+            let image = customAnnotation.customLocation.isHomeCamp ? #imageLiteral(resourceName: "home") : #imageLiteral(resourceName: "star")
+            annotationView.leftCalloutAccessoryView = UIImageView(image: image)
+            
+            let button = UIButton(type: .detailDisclosure)
+            annotationView.rightCalloutAccessoryView = button
+        }
         
-        // Right accessory view
         
-        let button = UIButton(type: .detailDisclosure)
-        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        annotationView.image = abAnnotation.image
         
-        annotationView?.rightCalloutAccessoryView = button
+        
         return annotationView
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
-        let annotation = view.annotation
-        if !(annotation is BurnAnnotation){
+        guard let abAnnotation = view.annotation as? ABAnnotation else {
             return
         }
         
-        let burnAnnotation = annotation as! BurnAnnotation
-        let detail = BurnElementDetailViewController.create(camp: burnAnnotation.element!)
-        navigationController?.pushViewController(detail, animated: true)
+        if (abAnnotation is BurnAnnotation){
+            let burnAnnotation = abAnnotation as! BurnAnnotation
+            let detail = BurnElementDetailViewController.create(camp: burnAnnotation.element)
+            navigationController?.pushViewController(detail, animated: true)
+        }
+        
+        if (abAnnotation is CustomLocationAnnotation){
+            let customLocationAnnotation = abAnnotation as! CustomLocationAnnotation
+            
+            let confirmDelete = UIAlertController(title: "Delete this location?", message: "Are you sure you want to delete this location?", preferredStyle: UIAlertControllerStyle.alert)
+            confirmDelete.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
+            confirmDelete.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive, handler: { (action) -> Void in
+                self.persistentStore.deleteLocationId(locationId: customLocationAnnotation.customLocation.id)
+                
+                self.removeCustomLocations()
+                self.loadCustomLocations()
+            }))
+            
+            present(confirmDelete, animated: true, completion: nil)
+        }
         
     }
     
 }
 
 
-class BurnAnnotation: NSObject, MKAnnotation {
-    
+class ABAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
-    var element: AfrikaBurnElement?
     var title: String?
-    var image: UIImage?
-    
-    init(coordinate: CLLocationCoordinate2D) {
+    var image: UIImage
+    init(coordinate: CLLocationCoordinate2D, image: UIImage) {
         self.coordinate = coordinate
+        self.image = image
+    }
+}
+
+class CustomLocationAnnotation: ABAnnotation {
+    var customLocation: CustomLocation
+    
+    init(coordinate: CLLocationCoordinate2D, customLocation : CustomLocation) {
+        self.customLocation = customLocation
+        super.init(coordinate: coordinate, image: customLocation.isHomeCamp ? #imageLiteral(resourceName: "map-home") : #imageLiteral(resourceName: "map-poi"))
+        
+        self.title = customLocation.name
+    }
+
+}
+
+
+class BurnAnnotation: ABAnnotation {
+    
+    var element: AfrikaBurnElement
+    
+    init(coordinate: CLLocationCoordinate2D, element: AfrikaBurnElement) {
+        self.element = element
+        super.init(coordinate: coordinate, image: element.elementType.mapImage)
     }
 }
 

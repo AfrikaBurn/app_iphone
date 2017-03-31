@@ -46,8 +46,17 @@ class BurnElementDetailViewController: UIViewController {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: ReuseIdentifiers.cell)
         tableView.dataSource = self
+//        tableView.delegate = self
         tableView.enableSelfSizingCells(withEstimatedHeight: 55)
         navigationItem.rightBarButtonItem = UIBarButtonItem(icon: .favorite, target: self, action: #selector(handleFavoriteTapped))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.title = camp.name
+        navigationController?.navigationBar.barTintColor = UIColor.afrikaBurnBgColor
+        
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.afrikaBurnTintColor]
     }
     
     @objc func handleFavoriteTapped() {
@@ -77,11 +86,33 @@ class MapCell: UITableViewCell {
         mapView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         mapView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         mapView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        mapView.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
+    }
+}
+
+extension MapCell : MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        guard let burnAnnotation = annotation as? BurnAnnotation else {
+            return nil
+        }
+        
+        let annotationView: MKAnnotationView
+        if let reusedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "Pin") {
+            annotationView = reusedAnnotationView
+            annotationView.annotation = annotation
+        } else {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
+        }
+        
+        annotationView.image = burnAnnotation.image
+        
+        return annotationView
     }
 }
 
@@ -112,7 +143,11 @@ extension BurnElementDetailViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
-        let dequeueRegularCell: () -> UITableViewCell = { tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.cell, for: indexPath) }
+        let dequeueRegularCell: () -> UITableViewCell = {
+            let _cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.cell, for: indexPath)
+            _cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+            return _cell
+        }
         let text: String?
         switch displayedFields[indexPath.row] {
         case .id:
@@ -120,7 +155,8 @@ extension BurnElementDetailViewController: UITableViewDataSource {
             text = "\(camp.id)"
         case .categories:
             cell = dequeueRegularCell()
-            text = camp.categories.map({ $0.name }).joined(separator: "\n")
+            let categoryString = camp.categories.map({ $0.name }).joined(separator: "\n")
+            text = "Categories \(categoryString)"
         case .longblurb:
             cell = dequeueRegularCell()
             text = (camp.longBlurb ?? "")
@@ -130,6 +166,7 @@ extension BurnElementDetailViewController: UITableViewDataSource {
         case .title:
             cell = dequeueRegularCell()
             text = camp.name
+            cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .title1);
         case .map:
             text = nil
             let mapCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.mapCell, for: indexPath) as! MapCell
@@ -137,8 +174,7 @@ extension BurnElementDetailViewController: UITableViewDataSource {
             let mapView = mapCell.mapView
             mapView.removeAnnotations(mapCell.mapView.annotations)
             if let location = camp.location {
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = location
+                let annotation = BurnAnnotation(coordinate: location, element: camp)
                 mapView.addAnnotation(annotation)
                 mapView.setRegion(MKCoordinateRegionMakeWithDistance(location, 100, 100), animated: false)
             }
