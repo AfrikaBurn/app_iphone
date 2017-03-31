@@ -13,20 +13,50 @@ extension AfrikaBurnElement.ElementType {
     
     init?(name: String) {
         switch name.lowercased() {
-        case "mutant vehicles":
+        case "mutant vehicles", "mutantvehicle":
             self = .mutantVehicle
-        case "performance registration":
+        case "performance", "performance registration":
             self = .performance
-        case "theme camp form 3 - wtf guide":
+        case "camp", "theme camp form 3 - wtf guide":
             self = .camp
-        case "artwork registration":
+        case "artwork", "artwork registration":
             self = .artwork
         default:
             assert(false, "received an unknown element type \(name)")
             return nil
         }
     }
+    
+    
+    var iconImage : UIImage {
+        switch self{
+            case .mutantVehicle:
+                return #imageLiteral(resourceName: "mutant-vehicle")
+        case .performance:
+                return #imageLiteral(resourceName: "performance")
+        case .camp:
+                return #imageLiteral(resourceName: "tent")
+        case .artwork:
+                return #imageLiteral(resourceName: "brush")
+        }
+    }
+    
+    var mapImage : UIImage {
+        switch self{
+        case .mutantVehicle:
+            return #imageLiteral(resourceName: "map-mutant")
+        case .performance:
+            return #imageLiteral(resourceName: "map-performance")
+        case .camp:
+            return #imageLiteral(resourceName: "map-camp")
+        case .artwork:
+            return #imageLiteral(resourceName: "map-artwork")
+        }
+    }
+    
 }
+
+
 
 extension Results where T: AfrikaBurnElement {
     func filter(type: T.ElementType) -> Results<T> {
@@ -91,10 +121,17 @@ class AfrikaBurnElement: Object {
         return "id"
     }
     
+    func normalizeName(name : String) -> String {
+        var _name = name;
+        _name = name.replacingOccurrences(of: "Theme Camp Form 3 - WTF Guide", with: "Theme Camp")
+        _name = name.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        return _name
+    }
+    
     convenience init(id: Int, name: String, categories: [Category], longBlurb: String?, shortBlurb: String?, scheduledActivities: String?, elementType: AfrikaBurnElement.ElementType, locationString: String) {
         self.init()
         self.id = id
-        self.name = name
+        self.name = normalizeName(name: name)
         self.categoriesString = categories.map({ $0.name }).joined(separator: ",")
         self.longBlurb = longBlurb
         self.shortBlurb = shortBlurb

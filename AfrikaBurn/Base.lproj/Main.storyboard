@@ -27,38 +27,43 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CampSummaryTableViewCell" id="v4T-ID-HqL" customClass="CampSummaryTableViewCell" customModule="AfrikaBurn" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="71"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="71"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="v4T-ID-HqL" id="LgX-B1-7Th">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3fs-BK-kwQ">
-                                                    <rect key="frame" x="15" y="11" width="345" height="49"/>
+                                                    <rect key="frame" x="65" y="11" width="295" height="49"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAl-LG-qy9">
-                                                            <rect key="frame" x="0.0" y="0.0" width="345" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="295" height="20.5"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d9z-gf-XL8">
-                                                            <rect key="frame" x="0.0" y="28.5" width="345" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="28.5" width="295" height="20.5"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                 </stackView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SiT-IJ-9Wn">
+                                                    <rect key="frame" x="15" y="15.5" width="40" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="3fs-BK-kwQ" firstAttribute="top" secondItem="LgX-B1-7Th" secondAttribute="topMargin" id="HTc-I9-6Do"/>
-                                                <constraint firstItem="3fs-BK-kwQ" firstAttribute="leading" secondItem="LgX-B1-7Th" secondAttribute="leadingMargin" id="cOO-el-XBE"/>
+                                                <constraint firstItem="3fs-BK-kwQ" firstAttribute="leading" secondItem="LgX-B1-7Th" secondAttribute="leadingMargin" constant="50" id="cOO-el-XBE"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="3fs-BK-kwQ" secondAttribute="trailing" id="fvZ-m4-aJy"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="3fs-BK-kwQ" secondAttribute="bottom" id="lRV-Xu-Dgw"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="elementImageView" destination="SiT-IJ-9Wn" id="Ams-gk-6hb"/>
                                             <outlet property="headlineLabel" destination="WAl-LG-qy9" id="apy-Ri-N2c"/>
                                             <outlet property="subheadlineLabel" destination="d9z-gf-XL8" id="eAA-b7-fUg"/>
                                         </connections>
@@ -82,7 +87,7 @@
                             </connections>
                         </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="SRL-aq-HxV">
-                            <rect key="frame" x="112.5" y="7" width="150" height="30"/>
+                            <rect key="frame" x="113" y="7" width="150" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="All"/>
@@ -115,10 +120,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MapCell" id="yKz-nM-XVZ" customClass="MapCell" customModule="AfrikaBurn" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yKz-nM-XVZ" id="f7a-3V-V02">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -199,10 +204,12 @@
             <objects>
                 <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
+                    <tabBar key="tabBar" contentMode="scaleToFill" itemPositioning="fill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.20392156862745098" green="0.043137254901960784" blue="0.070588235294117646" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.20392156859999999" green="0.043137254899999998" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="selectedImageTintColor" red="0.20392156859999999" green="0.043137254899999998" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="68Q-0J-iwV" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
@@ -237,4 +244,5 @@
         <image name="fire" width="30" height="30"/>
         <image name="map-pin" width="30" height="30"/>
     </resources>
+    <color key="tintColor" red="0.94901960784313721" green="0.42352941176470588" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
 </document>

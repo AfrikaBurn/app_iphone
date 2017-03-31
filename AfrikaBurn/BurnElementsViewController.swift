@@ -12,6 +12,7 @@ import RealmSwift
 class CampSummaryTableViewCell: UITableViewCell {
     
     @IBOutlet weak var headlineLabel: UILabel!
+    @IBOutlet weak var elementImageView: UIImageView!
     
     @IBOutlet weak var subheadlineLabel: UILabel!
     
@@ -56,10 +57,13 @@ class BurnElementsViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.enableSelfSizingCells(withEstimatedHeight: 55)
+        
+        navigationController?.navigationBar.barTintColor = UIColor.afrikaBurnBgColor        
     }
     
     @IBAction func handleFilterTapped(_ sender: Any) {
         let actionSheet = UIAlertController(title: "Filter", message: "Select a category", preferredStyle: .actionSheet)
+        actionSheet.view.tintColor = UIColor.afrikaBurnTintColor
         for type in AfrikaBurnElement.ElementType.filterableList {
             actionSheet.addAction(UIAlertAction(title: type.filterTitle, style: .default, handler: { _ in
                 self.elements = self.allElements.filter(type: type)
@@ -94,6 +98,9 @@ extension BurnElementsViewController: UITableViewDataSource {
         let element = self.element(at: indexPath)
         cell.headlineLabel.text = element.name
         cell.subheadlineLabel.text = element.shortBlurb
+    
+        
+        cell.elementImageView.image = element.elementType.iconImage
         return cell
     }
 }
