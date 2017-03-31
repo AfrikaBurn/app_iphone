@@ -250,16 +250,16 @@ extension MapViewController: MKMapViewDelegate {
             
             // Left Accessory
             // We could make this change the icon based on the element type. Eg. mutant vehicles etc.
-            annotationView.leftCalloutAccessoryView = UIImageView(image: burnAnnotation.element.elementType.iconImage)
+//            annotationView.leftCalloutAccessoryView = UIImageView(image: burnAnnotation.element.elementType.iconImage)
             
             
             let button = UIButton(type: .detailDisclosure)
             annotationView.rightCalloutAccessoryView = button
             
         } else if (abAnnotation is CustomLocationAnnotation) {
-            let customAnnotation = abAnnotation as! CustomLocationAnnotation
-            let image = customAnnotation.customLocation.isHomeCamp ? #imageLiteral(resourceName: "home") : #imageLiteral(resourceName: "star")
-            annotationView.leftCalloutAccessoryView = UIImageView(image: image)
+//            let customAnnotation = abAnnotation as! CustomLocationAnnotation
+//            let image = customAnnotation.customLocation.isHomeCamp ? #imageLiteral(resourceName: "home") : #imageLiteral(resourceName: "star")
+//            annotationView.leftCalloutAccessoryView = UIImageView(image: image)
             
             let button = UIButton(type: .detailDisclosure)
             annotationView.rightCalloutAccessoryView = button
