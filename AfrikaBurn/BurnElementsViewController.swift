@@ -1,4 +1,4 @@
-////
+//
 //  BurnElementsViewController.swift
 //  AfrikaBurn
 //
@@ -8,7 +8,6 @@
 
 import UIKit
 import RealmSwift
-
 
 class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UISearchBarDelegate {
     
@@ -40,7 +39,6 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
         // If we want a type filter we could add below... Not sure it's needed
         // searchController.searchBar.scopeButtonTitles = ["All", "Art", "Theme Camps", "MVs", "Performances"]
         tableView.tableHeaderView = searchController.searchBar
-
         viewModel.elementsChangedHandler = { [weak self] changes in
             switch changes {
             case .reload:
@@ -59,7 +57,6 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
             viewModel.displayMode = .favorites
         }
     }
-    
     
     @IBAction func handleFilterTapped(_ sender: Any) {
         let actionSheet = UIAlertController(title: "Filter", message: "Select a category", preferredStyle: .actionSheet)
@@ -83,25 +80,12 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
     func updateSearchResults(for searchController: UISearchController){
         
         guard let searchText = searchController.searchBar.text, searchText.isEmpty == false else {
-            // search text is empty, need to show full results.
-            // revert back to filtered elements rather than all elements so that it keeps previous filter
-            NSLog("Revert filter")
-//            elements = filteredElements
+            viewModel.searchText = ""
             return
         }
         
         let lowerText = searchText.lowercased()
-        
         viewModel.searchText = lowerText
-//        let filter = "name CONTAINS[c] '\(lowerText)' OR shortBlurb CONTAINS[c] '\(lowerText)'"
-//        
-//        // we could search self.filteredElements here if we think the search should only filter a subset of the full results.
-//        // I think searching all results is fine -- JC
-////        elements = allElements.filter(filter)
-//        NSLog("Perform filter \(filter)")
-//        
-//        tableView.reloadData()
-        
     }
     
 }
@@ -182,8 +166,10 @@ class BurnElementsViewModel {
         }
     }
     
-    struct searchText {
-        
+    var searchText = String() {
+        didSet {
+            self.elements = applySearchTextFilter(searchText: searchText)
+        }
     }
     
     enum ElementsChange {
@@ -195,8 +181,8 @@ class BurnElementsViewModel {
         didSet {
             let newElements: CurrentElements
             switch elements {
-            case .favorited(_):
-                newElements = .favorited(applyFilter(activeFilter, to: persistentStore.favorites()))
+            case .favorites(_):
+                newElements = .favorites(applyFilter(activeFilter, to: persistentStore.favorites()))
             case .normal(_):
                 newElements = .normal(applyFilter(activeFilter, to: self.allElements))
             }
@@ -211,32 +197,24 @@ class BurnElementsViewModel {
             case .default:
                 newElements = .normal(applyFilter(activeFilter, to: self.allElements))
             case .favorites:
-                newElements = .favorited(applyFilter(activeFilter, to: persistentStore.favorites()))
+                newElements = .favorites(applyFilter(activeFilter, to: persistentStore.favorites()))
             }
             self.elements = newElements
         }
     }
-    
-    var searchText = String() {
-        didSet {
-            let newElements: CurrentElements
-            switch displayMode {
-            case .default:
-                newElements = .normal(applyFilter(activeFilter, to: self.allElements))
-            case .favorites:
-                newElements = .favorited(applyFilter(activeFilter, to: persistentStore.favorites()))
-            }
-            self.elements = newElements
-        }
-    }
-    
-    
     
     var elementsChangedHandler: ((ElementsChange) -> Void)?
     
     private enum CurrentElements {
         case normal(Results<AfrikaBurnElement>)
-        case favorited(Results<FavoritedElement>)
+        case favorites(Results<AfrikaBurnElement>)
+        
+        var results: Results<AfrikaBurnElement> {
+            switch self {
+            case .favorites(let r): return r
+            case .normal(let r): return r
+            }
+        }
     }
     
     private let persistentStore: PersistentStore
@@ -245,12 +223,7 @@ class BurnElementsViewModel {
     
     private var elements: CurrentElements {
         didSet {
-            switch elements {
-            case .normal(let elements):
-                observeChanges(to: elements)
-            case .favorited(let elements):
-                observeChanges(to: elements)
-            }
+            observeChanges(to: elements.results)
         }
     }
     
@@ -265,7 +238,7 @@ class BurnElementsViewModel {
     
     var numberOfElements: Int {
         switch elements {
-        case .favorited(let favorites):
+        case .favorites(let favorites):
             return favorites.count
         case .normal(let normal):
             return normal.count
@@ -273,15 +246,37 @@ class BurnElementsViewModel {
     }
     
     func element(at index: Int) -> BurnElementSummaryDisplayable {
-        switch elements {
-        case .favorited(let favorites):
-            return favorites[index]
-        case .normal(let normal):
-            return normal[index]
-        }
+        return elements.results[index]
     }
     
-    
+    private func applySearchTextFilter(searchText : String) -> CurrentElements{
+        
+        let newElements: CurrentElements
+        
+        // if it's an empty search then just show previous filter
+        if (searchText.isEmpty){
+            switch displayMode {
+            case .default:
+                newElements = .normal(applyFilter(activeFilter, to: self.allElements))
+            case .favorites:
+                newElements = .favorites(applyFilter(activeFilter, to: persistentStore.favorites()))
+            }
+            return newElements
+        }
+        
+        
+        let searchedElements = self.allElements.filter("name CONTAINS[c] '\(searchText)' OR longBlurb CONTAINS[c] '\(searchText)'")
+        switch displayMode {
+            case .default:
+                newElements = .normal(searchedElements)
+            case .favorites:
+                newElements = .favorites(searchedElements)
+        }
+        
+        return newElements
+
+        
+    }
     
     private func applyFilter<T: AfrikaBurnElement>(_ filter: Filter, to elements: Results<T>) -> Results<T> {
         let result: Results<T>
@@ -293,11 +288,6 @@ class BurnElementsViewModel {
         return result
     }
     
-    private func applySearchFilter<T: AfrikaBurnElement>(filterText: String, to elements: Results<T>) -> Results<T> {
-        let result: Results<T>
-        result = elements.filter("name CONTAINS[c] '\(filterText)' OR shortBlurb CONTAINS[c] '\(filterText)'")
-        return result
-    }
     
     private func observeChanges<T: AfrikaBurnElement>(to elements: Results<T>) {
         self.notificationToken = elements.addNotificationBlock { [weak self] (changes) in

@@ -59,6 +59,10 @@ class AfrikaBurnElement: Object {
     dynamic var elementTypeString: String = ""
     dynamic var locationString: String?
     
+    // Favoriting //
+    dynamic var dateFavorited: Date = Date()
+    dynamic var isFavorite: Bool = false
+    
     var location: CLLocationCoordinate2D? {
         guard let locationString = locationString else {
             return nil
