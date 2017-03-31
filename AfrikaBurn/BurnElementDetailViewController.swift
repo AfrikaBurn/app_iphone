@@ -52,12 +52,12 @@ class BurnElementDetailViewController: UIViewController {
         tableView.dataSource = self
         tableView.enableSelfSizingCells(withEstimatedHeight: 55)
         token = self.persistentStore.favorites().filter("id == \(element.id)").addNotificationBlock({ (change) in
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(icon: self.element.isFavorited ? .favoriteFilledIn : .favorite, target: self, action: #selector(self.handleFavoriteTapped))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(icon: self.element.isFavorite ? .favoriteFilledIn : .favorite, target: self, action: #selector(self.handleFavoriteTapped))
         })
     }
     
     @objc func handleFavoriteTapped() {
-        if element.isFavorited {
+        if element.isFavorite {
             persistentStore.removeFavorite(element)
         } else {
             persistentStore.favoriteElement(element)

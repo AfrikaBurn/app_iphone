@@ -40,36 +40,23 @@ class PersistentStore {
         return realm.objects(AfrikaBurnElement.self)
     }
     
-    func favorites() -> Results<FavoritedElement> {
+    func favorites() -> Results<AfrikaBurnElement> {
         let realm = createRealm()
-        return realm.objects(FavoritedElement.self)
+        return realm.objects(AfrikaBurnElement.self).filter("isFavorite = true")
     }
     
     func favoriteElement(_ element: AfrikaBurnElement) {
         let realm = self.createRealm()
         try? realm.write {
-            let favorite = FavoritedElement(element: element, dateAdded: Date())
-            realm.add(favorite, update: true)
+            element.isFavorite = true
+            element.dateFavorited = Date()
         }
     }
     
     func removeFavorite(_ element: AfrikaBurnElement) {
-        let elementID = element.id
-        queue.async {
-            let realm = self.createRealm()
-            let favorites = realm.objects(FavoritedElement.self).filter("id = \(elementID)")
-            try? realm.write {
-                realm.delete(favorites)
-            }
+        let realm = self.createRealm()
+        try? realm.write {
+            element.isFavorite = false
         }
-    }
-}
-
-extension AfrikaBurnElement {
-    var isFavorited: Bool {
-        if let _ = realm?.objects(FavoritedElement.self).first(where: ({ $0.id == self.id})) {
-            return true
-        }
-        return false
     }
 }
