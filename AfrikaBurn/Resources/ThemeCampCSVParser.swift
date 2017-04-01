@@ -12,7 +12,7 @@ import CHCSVParser
 class BurnElementsCSVParser : NSObject {
     
     enum Field: Int {
-        case id, title, categories, longblurb, scheduledActivities, shortblurb, type
+        case id, title, categories, longblurb, scheduledActivities, shortblurb, type, latitude,	longitude, infustructure
         static let requiredFields: [Field] = [title, categories, longblurb, scheduledActivities, shortblurb, type, id]
     }
     
@@ -68,6 +68,7 @@ extension BurnElementsCSVParser: CHCSVParserDelegate {
     func parser(_ parser: CHCSVParser!, didReadField field: String!, at fieldIndex: Int) {
         guard shouldIgnoreCurrentLine == false else { return }
         guard let currentField = Field(rawValue: fieldIndex) else {
+            NSLog("Unrecognized field: %d  %@", fieldIndex, field);
             assert(false, "Found an unrecognized field \(field)")
             return
         }
@@ -94,7 +95,20 @@ extension BurnElementsCSVParser: CHCSVParserDelegate {
         let shortBlurb = currentLineValues[.shortblurb]!
         let activities = currentLineValues[.scheduledActivities]!
         
-        let locationString = getSeedLocationString()
+        
+        
+        let locationNotSet : Bool = (currentLineValues[.latitude] == nil || currentLineValues[.latitude]!.isEmpty) ||
+                            (currentLineValues[.longitude] ==  nil || currentLineValues[.longitude]!.isEmpty)
+        
+        // use lat lng from the csv if it's there, otherwise use the seed for now
+        var locationString: String
+        if (locationNotSet){
+            locationString = getSeedLocationString()
+        } else {
+            let latitude = currentLineValues[.latitude]!
+            let longitude = currentLineValues[.longitude]!
+            locationString = "\(latitude),\(longitude)"
+        }
         
         let element: AfrikaBurnElement = AfrikaBurnElement(id: id, name: title, categories: categories, longBlurb: longBlurb, shortBlurb: shortBlurb, scheduledActivities: activities, elementType: elementType, locationString: locationString) // lat,lng
         self.elements.append(element)
