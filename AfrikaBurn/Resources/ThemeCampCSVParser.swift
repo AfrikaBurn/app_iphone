@@ -101,6 +101,7 @@ extension BurnElementsCSVParser: CHCSVParserDelegate {
                             (currentLineValues[.longitude] ==  nil || currentLineValues[.longitude]!.isEmpty)
         
         // use lat lng from the csv if it's there, otherwise use the seed for now
+        // TODO: Refactor this so that maybe it stores lat/lng separately rather than in one string? Not sure if needed
         var locationString: String
         if (locationNotSet){
             locationString = getSeedLocationString()
