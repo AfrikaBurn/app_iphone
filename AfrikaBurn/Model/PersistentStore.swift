@@ -30,6 +30,14 @@ class PersistentStore {
                     let toDelete = realm.objects(AfrikaBurnElement.self).filter("NOT id in %@", idsToSave)
                     realm.delete(toDelete)
                 }
+                
+                for element in elements {
+                    if let f = self.favoritedElement(with: element.id, using: realm) {
+                        element.dateFavorited = f.dateFavorited
+                        element.isFavorite = f.isFavorite
+                    }
+                }
+                
                 realm.add(elements, update: true)
             }
         }
@@ -43,6 +51,10 @@ class PersistentStore {
     func favorites() -> Results<AfrikaBurnElement> {
         let realm = createRealm()
         return realm.objects(AfrikaBurnElement.self).filter("isFavorite = true")
+    }
+    
+    fileprivate func favoritedElement(with id: Int, using realm: Realm) -> AfrikaBurnElement? {
+        return realm.objects(AfrikaBurnElement.self).first(where: { $0.id == id && $0.isFavorite == true})
     }
     
     func favoriteElement(_ element: AfrikaBurnElement) {
