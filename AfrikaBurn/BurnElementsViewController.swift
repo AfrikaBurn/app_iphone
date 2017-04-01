@@ -35,6 +35,8 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
         // Setup the Search Controller
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
+        searchController.searchBar.barTintColor = UIColor.afrikaBurnBgColor
+        
         definesPresentationContext = true
         searchController.dimsBackgroundDuringPresentation = false
         

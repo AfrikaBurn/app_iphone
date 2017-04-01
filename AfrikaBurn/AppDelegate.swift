@@ -51,6 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         UITabBar.appearance().tintColor = UIColor.afrikaBurnTintColor
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.afrikaBurnTintColor], for: .selected)
+        UISearchBar.appearance().tintColor = UIColor.afrikaBurnTintColor        
         application.keyWindow?.tintColor = UIColor.afrikaBurnTintColor
         
         UIApplication.shared.statusBarStyle = .lightContent
