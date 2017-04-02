@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class BurnElementsViewController: UIViewController {
+class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UISearchBarDelegate {
     
     struct ReuseIdentifiers {
         static let campSummary = "CampSummaryTableViewCell"
@@ -20,12 +20,30 @@ class BurnElementsViewController: UIViewController {
     let persistentStore = PersistentStore()
     
     lazy var viewModel: BurnElementsViewModel = BurnElementsViewModel(persistentStore: self.persistentStore)
+    let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.enableSelfSizingCells(withEstimatedHeight: 55)
+
+	navigationController?.navigationBar.barTintColor = UIColor.afrikaBurnBgColor        
+
+	// filteredElements = allElements
+ 
+        // Setup the Search Controller
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.searchBar.barTintColor = UIColor.afrikaBurnBgColor
+        
+        definesPresentationContext = true
+        searchController.dimsBackgroundDuringPresentation = false
+        
+        // Setup the Scope Bar
+        // If we want a type filter we could add below... Not sure it's needed
+        // searchController.searchBar.scopeButtonTitles = ["All", "Art", "Theme Camps", "MVs", "Performances"]
+        tableView.tableHeaderView = searchController.searchBar
         viewModel.elementsChangedHandler = { [weak self] changes in
             switch changes {
             case .reload:
@@ -47,6 +65,7 @@ class BurnElementsViewController: UIViewController {
     
     @IBAction func handleFilterTapped(_ sender: Any) {
         let actionSheet = UIAlertController(title: "Filter", message: "Select a category", preferredStyle: .actionSheet)
+	actionSheet.view.tintColor = UIColor.afrikaBurnTintColor
         for type in AfrikaBurnElement.ElementType.filterableList {
             actionSheet.addAction(UIAlertAction(title: type.filterTitle, style: .default, handler: { _ in
                 self.viewModel.activeFilter.elementType = type
@@ -63,6 +82,18 @@ class BurnElementsViewController: UIViewController {
     func scrollToTop() {
         tableView.scrollToTop(animated: false)
     }
+    
+    func updateSearchResults(for searchController: UISearchController){
+        
+        guard let searchText = searchController.searchBar.text, searchText.isEmpty == false else {
+            viewModel.searchText = ""
+            return
+        }
+        
+        let lowerText = searchText.lowercased()
+        viewModel.searchText = lowerText
+    }
+    
 }
 
 extension BurnElementsViewController: UITableViewDataSource {
@@ -79,6 +110,7 @@ extension BurnElementsViewController: UITableViewDataSource {
         let element = self.element(at: indexPath)
         cell.headlineLabel.text = element.elementTitle
         cell.subheadlineLabel.text = element.summaryBlurb
+        cell.elementImageView.image = element.iconImage
         return cell
     }
 }
@@ -99,6 +131,7 @@ class CampSummaryTableViewCell: UITableViewCell {
     @IBOutlet weak var headlineLabel: UILabel!
     
     @IBOutlet weak var subheadlineLabel: UILabel!
+    @IBOutlet weak var elementImageView: UIImageView!
     
 }
 
@@ -118,12 +151,14 @@ extension AfrikaBurnElement.ElementType {
 protocol BurnElementSummaryDisplayable {
     var elementTitle: String { get }
     var summaryBlurb: String? { get }
+    var iconImage: UIImage? { get }
     var elementID: Int { get }
 }
 
 extension AfrikaBurnElement: BurnElementSummaryDisplayable {
     var elementTitle: String { return name }
     var summaryBlurb: String? { return shortBlurb }
+    var iconImage: UIImage? { return elementType.iconImage }
     var elementID: Int { return id }
 }
 
@@ -138,6 +173,12 @@ class BurnElementsViewModel {
         var elementType: AfrikaBurnElement.ElementType?
         init(elementType: AfrikaBurnElement.ElementType? = nil) {
             self.elementType = elementType
+        }
+    }
+    
+    var searchText = String() {
+        didSet {
+            self.elements = applySearchTextFilter(searchText: searchText)
         }
     }
     
@@ -218,6 +259,35 @@ class BurnElementsViewModel {
         return elements.results[index]
     }
     
+    private func applySearchTextFilter(searchText : String) -> CurrentElements{
+        
+        let newElements: CurrentElements
+        
+        // if it's an empty search then just show previous filter
+        if (searchText.isEmpty){
+            switch displayMode {
+            case .default:
+                newElements = .normal(applyFilter(activeFilter, to: self.allElements))
+            case .favorites:
+                newElements = .favorites(applyFilter(activeFilter, to: persistentStore.favorites()))
+            }
+            return newElements
+        }
+        
+        
+        let searchedElements = self.allElements.filter("name CONTAINS[c] '\(searchText)' OR longBlurb CONTAINS[c] '\(searchText)'")
+        switch displayMode {
+            case .default:
+                newElements = .normal(searchedElements)
+            case .favorites:
+                newElements = .favorites(searchedElements)
+        }
+        
+        return newElements
+
+        
+    }
+    
     private func applyFilter<T: AfrikaBurnElement>(_ filter: Filter, to elements: Results<T>) -> Results<T> {
         let result: Results<T>
         if let elementType = activeFilter.elementType {
@@ -227,6 +297,7 @@ class BurnElementsViewModel {
         }
         return result
     }
+    
     
     private func observeChanges<T: AfrikaBurnElement>(to elements: Results<T>) {
         self.notificationToken = elements.addNotificationBlock { [weak self] (changes) in

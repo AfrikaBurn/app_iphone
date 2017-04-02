@@ -7,6 +7,7 @@
 //
 
 import RealmSwift
+import CoreLocation
 
 class PersistentStore {
     
@@ -37,7 +38,53 @@ class PersistentStore {
     
     func elements() -> Results<AfrikaBurnElement> {
         let realm = createRealm()
-        return realm.objects(AfrikaBurnElement.self)
+        
+        // filter out known test or dud IDs, or elements asked not be listed
+        let invalidElementIds = [
+            11,
+            7,
+            12,
+            4,
+            6,
+            79
+        ]
+
+        return realm.objects(AfrikaBurnElement.self).filter("NOT id in %@", invalidElementIds).sorted(byKeyPath: "name")
+    }
+    
+    func customLocations() -> Results<CustomLocation> {
+        let realm = createRealm()
+        return realm.objects(CustomLocation.self)
+    }
+    
+    func createLocation(customLocation : CustomLocation){
+        let realm = createRealm()
+        try! realm.write {
+            realm.add(customLocation)
+        }
+    }
+    
+    /**
+    * Create a home location, and deletes any existing location so that there is only ever one home camp
+    */
+    func saveHomeLocation(customLocation : CustomLocation){
+        let realm = createRealm()
+        try! realm.write {
+            let toDelete = realm.objects(CustomLocation.self).filter("isHomeCamp = TRUE")
+            realm.delete(toDelete)
+        }
+        // ensure that homecamp is set to true
+        customLocation.isHomeCamp = true
+        return createLocation(customLocation: customLocation)
+    }
+    
+    func deleteLocationId(locationId : String){
+        let realm = createRealm()
+        try! realm.write {
+            let toDelete = realm.objects(CustomLocation.self).filter("id = %@", locationId)
+            NSLog("deleting location id %@ %d", locationId, toDelete.count)
+            realm.delete(toDelete)
+        }
     }
     
     func favorites() -> Results<AfrikaBurnElement> {

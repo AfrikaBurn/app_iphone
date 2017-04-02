@@ -40,3 +40,8 @@ extension UITableView {
         endUpdates()
     }
 }
+
+extension UIColor {
+    public static let afrikaBurnTintColor: UIColor = UIColor(red:0.95, green:0.42, blue:0.33, alpha:1.0)
+    public static let afrikaBurnBgColor: UIColor = UIColor(red:0.20, green:0.04, blue:0.07, alpha:1.0)
+}

@@ -50,10 +50,19 @@ class BurnElementDetailViewController: UIViewController {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: ReuseIdentifiers.cell)
         tableView.dataSource = self
+//        tableView.delegate = self
         tableView.enableSelfSizingCells(withEstimatedHeight: 55)
         token = self.persistentStore.favorites().filter("id == \(element.id)").addNotificationBlock({ (change) in
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(icon: self.element.isFavorite ? .favoriteFilledIn : .favorite, target: self, action: #selector(self.handleFavoriteTapped))
         })
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.title = element.name
+        navigationController?.navigationBar.barTintColor = UIColor.afrikaBurnBgColor
+        
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.afrikaBurnTintColor]
     }
     
     @objc func handleFavoriteTapped() {
@@ -87,11 +96,33 @@ class MapCell: UITableViewCell {
         mapView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         mapView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         mapView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        mapView.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
+    }
+}
+
+extension MapCell : MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        guard let burnAnnotation = annotation as? BurnAnnotation else {
+            return nil
+        }
+        
+        let annotationView: MKAnnotationView
+        if let reusedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "Pin") {
+            annotationView = reusedAnnotationView
+            annotationView.annotation = annotation
+        } else {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
+        }
+        
+        annotationView.image = burnAnnotation.image
+        
+        return annotationView
     }
 }
 
@@ -147,7 +178,7 @@ extension BurnElementDetailViewController: UITableViewDataSource {
             let mapView = mapCell.mapView
             mapView.removeAnnotations(mapCell.mapView.annotations)
             if let location = element.location {
-                let annotation = MKPointAnnotation()
+                let annotation = BurnAnnotation(coordinate: location, element: element)
                 annotation.coordinate = location
                 mapView.addAnnotation(annotation)
                 mapView.setRegion(MKCoordinateRegionMakeWithDistance(location, 100, 100), animated: false)
