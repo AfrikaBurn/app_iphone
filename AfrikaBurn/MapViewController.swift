@@ -94,7 +94,7 @@ class MapViewController: UIViewController {
     
     func longPressOnMap(gestureRecognizer:UIGestureRecognizer){
         
-        if (gestureRecognizer.state != .began) {
+        guard gestureRecognizer.state == .began  else {
             // avoid this double firing
             return
         }
@@ -114,7 +114,7 @@ class MapViewController: UIViewController {
             namePrompt.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
             namePrompt.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) -> Void in
                 // Now do whatever you want with inputTextField (remember to unwrap the optional)
-                guard let name = inputTextField!.text else {
+                guard let name = inputTextField?.text else {
                     return
                 }
                 self.saveCustomLocation(name: name, coordinates: newCoordinates, isHomeCamp: false)
@@ -124,11 +124,7 @@ class MapViewController: UIViewController {
                 inputTextField = textField
             })
             
-            self.present(namePrompt, animated: true, completion: { _ in {
-//                    NSLog("alert view closed %@", inputTextField?.text)
-                    let name = inputTextField?.text
-                    NSLog("Alert view closed \(name)")
-                }()})
+            self.present(namePrompt, animated: true, completion: nil)
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
