@@ -32,7 +32,6 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        locationManager.requestWhenInUseAuthorization()
         mapView.showsUserLocation = true
         mapView.delegate = self
         
@@ -48,6 +47,42 @@ class MapViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedAlways, .authorizedWhenInUse:
+            print("Authorized")
+            // authorized
+            break
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+            print("asking")
+        case .denied:
+            // only nag the user about location services once
+            let hasNaggedKey = "za.co.afrikaburn.mapViewController.haveNaggedForUserLocation"            
+            guard (UserDefaults.standard.object(forKey: hasNaggedKey) as! Bool?) == true else {
+                let alert = UIAlertController(title: "Location permissions disabled", message: "Turn on location services to see yourself on the map", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
+                alert.addAction(UIAlertAction(title: "Location Settings ", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+                    // Now do whatever you want with inputTextField (remember to unwrap the optional)
+                    guard let url = URL(string: UIApplicationOpenSettingsURLString) else {
+                        return
+                    }
+                    
+                    UIApplication.shared.open(url)
+//                    [[UIApplication sharedApplication] openURL:[NSURL  URLWithString:UIApplicationOpenSettingsURLString]];
+
+                }))
+                
+                present(alert, animated: true, completion: nil)
+                UserDefaults.standard.set(true, forKey: hasNaggedKey)
+                break
+            }
+            break
+        case .restricted:
+            // Nothing you can do, app cannot use location services
+            print("restricted")
+            break
+        }
     }
     
     func attachLongPress(){
@@ -55,8 +90,6 @@ class MapViewController: UIViewController {
         gesture.minimumPressDuration = 2.0
         
         mapView.addGestureRecognizer(gesture)
-        
-        
     }
     
     func longPressOnMap(gestureRecognizer:UIGestureRecognizer){

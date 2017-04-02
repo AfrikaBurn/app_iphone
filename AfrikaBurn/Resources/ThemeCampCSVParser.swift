@@ -67,9 +67,8 @@ extension BurnElementsCSVParser: CHCSVParserDelegate {
     
     func parser(_ parser: CHCSVParser!, didReadField field: String!, at fieldIndex: Int) {
         guard shouldIgnoreCurrentLine == false else { return }
-        guard let currentField = Field(rawValue: fieldIndex) else {
-            NSLog("Unrecognized field: %d  %@", fieldIndex, field);
-            assert(false, "Found an unrecognized field \(field)")
+        guard let currentField = Field(rawValue: fieldIndex) else {            
+            assert(false, "Found an unrecognized field \(field) Index: \(fieldIndex)")
             return
         }
         currentLineValues[currentField] = field
