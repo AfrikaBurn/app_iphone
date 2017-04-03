@@ -116,7 +116,6 @@ class MapViewController: UIViewController {
             print("restricted")
             break
         }
-
     }
     
     func attachLongPress(){
@@ -329,7 +328,7 @@ extension MapViewController: MKMapViewDelegate {
         
         
         annotationView.image = abAnnotation.image
-        // offset it so that the point matches the expected point
+        // offset it so that the point matches the arrow on the annotation image
         annotationView.centerOffset = CGPoint(x: 0,y: (annotationView.frame.size.height / 2) * -1)
         
         
