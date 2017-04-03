@@ -104,8 +104,6 @@ class MapViewController: UIViewController {
                     }
                     
                     UIApplication.shared.open(url)
-                    //                    [[UIApplication sharedApplication] openURL:[NSURL  URLWithString:UIApplicationOpenSettingsURLString]];
-                    
                 }))
                 
                 present(alert, animated: true, completion: nil)
