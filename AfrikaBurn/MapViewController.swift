@@ -48,6 +48,41 @@ class MapViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        askAboutLocation()
+        addButtons()
+        
+    }
+    
+    func addButtons(){
+        let button = UIButton(type: .custom)
+        button.setImage(#imageLiteral(resourceName: "my-location"), for: .normal)
+        button.frame = CGRect(x: mapView.frame.size.width - 20, y: mapView.frame.size.height - 48, width: 48, height: 48)
+        button.addTarget(self, action: #selector(centerMapOnLocation(_:)), for: .touchUpInside)
+        mapView.addSubview(button)
+    }
+    
+    func centerMapOnLocation(_ sender: UIButton){
+        
+        
+        // zooms to a good zoom level and centers on user dot.
+        var region = MKCoordinateRegion()
+        region.span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+        region.center = CLLocationCoordinate2D(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
+     
+        let point = MKMapPointForCoordinate(mapView.userLocation.coordinate)
+        if (MKMapRectContainsPoint(BurnMap.boundingMapRect, point)){
+            mapView.setCenter(mapView.userLocation.coordinate, animated: true);
+            mapView.setRegion(region, animated: true)
+        } else {
+            print("Location is not within bounding rect")
+            let alert = UIAlertController(title: "Cannot center on your location", message: "Location is outside the burn range", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            
+        }
+    }
+    
+    func askAboutLocation(){
         switch CLLocationManager.authorizationStatus() {
         case .authorizedAlways, .authorizedWhenInUse:
             print("Authorized")
@@ -58,7 +93,7 @@ class MapViewController: UIViewController {
             print("asking")
         case .denied:
             // only nag the user about location services once
-            let hasNaggedKey = "za.co.afrikaburn.mapViewController.haveNaggedForUserLocation"            
+            let hasNaggedKey = "za.co.afrikaburn.mapViewController.haveNaggedForUserLocation"
             guard (UserDefaults.standard.object(forKey: hasNaggedKey) as! Bool?) == true else {
                 let alert = UIAlertController(title: "Location permissions disabled", message: "Turn on location services to see yourself on the map", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
@@ -69,8 +104,6 @@ class MapViewController: UIViewController {
                     }
                     
                     UIApplication.shared.open(url)
-//                    [[UIApplication sharedApplication] openURL:[NSURL  URLWithString:UIApplicationOpenSettingsURLString]];
-
                 }))
                 
                 present(alert, animated: true, completion: nil)
@@ -152,7 +185,6 @@ class MapViewController: UIViewController {
                 continue
             }
             
-            NSLog("location.id %@", location.id)
             // skip deleted location
             if (location.isInvalidated) {
                 continue
@@ -296,6 +328,8 @@ extension MapViewController: MKMapViewDelegate {
         
         
         annotationView.image = abAnnotation.image
+        // offset it so that the point matches the arrow on the annotation image
+        annotationView.centerOffset = CGPoint(x: 0,y: (annotationView.frame.size.height / 2) * -1)
         
         
         return annotationView
