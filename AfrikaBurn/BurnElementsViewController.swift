@@ -15,6 +15,10 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
         static let campSummary = "CampSummaryTableViewCell"
     }
     
+    struct Configuration {
+        static let maxCellCountToHideSearchBar = 10
+    }
+    
     @IBOutlet weak var tableView: UITableView!
     
     let persistentStore = PersistentStore()
@@ -107,7 +111,7 @@ extension BurnElementsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let numberOfCells = viewModel.numberOfElements
         if viewModel.searchText.isEmpty {
-            if numberOfCells > 20 {
+            if numberOfCells > Configuration.maxCellCountToHideSearchBar {
                 if tableView.tableHeaderView == nil {
                     tableView.tableHeaderView = searchController.searchBar
                 }

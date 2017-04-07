@@ -51,7 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func configureTheme(application : UIApplication){
         UINavigationBar.appearance().tintColor = UIColor.afrikaBurnTintColor
-        
+        UINavigationBar.appearance().titleTextAttributes =  [NSForegroundColorAttributeName: UIColor.afrikaBurnTintColor]
+        UINavigationBar.appearance().barTintColor = UIColor.afrikaBurnBgColor
 
         UITabBar.appearance().tintColor = UIColor.afrikaBurnTintColor
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.afrikaBurnTintColor], for: .selected)
