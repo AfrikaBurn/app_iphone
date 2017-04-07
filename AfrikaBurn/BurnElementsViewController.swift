@@ -27,11 +27,9 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
         tableView.dataSource = self
         tableView.delegate = self
         tableView.enableSelfSizingCells(withEstimatedHeight: 55)
-
-	navigationController?.navigationBar.barTintColor = UIColor.afrikaBurnBgColor        
-
-	// filteredElements = allElements
- 
+        
+        navigationController?.navigationBar.barTintColor = UIColor.afrikaBurnBgColor
+        
         // Setup the Search Controller
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
@@ -43,29 +41,38 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
         // Setup the Scope Bar
         // If we want a type filter we could add below... Not sure it's needed
         // searchController.searchBar.scopeButtonTitles = ["All", "Art", "Theme Camps", "MVs", "Performances"]
-        tableView.tableHeaderView = searchController.searchBar
         viewModel.elementsChangedHandler = { [weak self] changes in
-            switch changes {
-            case .reload:
-                self?.tableView.reloadData()
-            case .update(let deletions, let insertions, let modifications):
-                self?.tableView.handleUpdates(deletions: deletions, insertions: insertions, modifications: modifications)
-            }
+            self?.handleRealmChanges(changes)
+        }
+        let title: String
+        switch viewModel.displayMode {
+        case .default:
+            title = "All"
+        case .favorites:
+            title = "Favorites"
+        }
+        self.title = title
+    }
+    
+    fileprivate func handleRealmChanges(_ changes: BurnElementsViewModel.ElementsChange) {
+        guard let tableView = tableView else {
+            return
+        }
+        switch changes {
+        case .reload:
+            tableView.reloadData()
+        case .update(let deletions, let insertions, let modifications):
+            tableView.handleUpdates(deletions: deletions, insertions: insertions, modifications: modifications)
         }
     }
     
-    @IBAction func handleFavoritesSegmentedControlChanged(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            viewModel.displayMode = .default
-        default:
-            viewModel.displayMode = .favorites
-        }
+    func showFavorites() {
+        viewModel.displayMode = .favorites
     }
     
     @IBAction func handleFilterTapped(_ sender: Any) {
         let actionSheet = UIAlertController(title: "Filter", message: "Select a category", preferredStyle: .actionSheet)
-	actionSheet.view.tintColor = UIColor.afrikaBurnTintColor
+        actionSheet.view.tintColor = UIColor.afrikaBurnTintColor
         for type in AfrikaBurnElement.ElementType.filterableList {
             actionSheet.addAction(UIAlertAction(title: type.filterTitle, style: .default, handler: { _ in
                 self.viewModel.activeFilter.elementType = type
@@ -83,7 +90,7 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
         tableView.scrollToTop(animated: false)
     }
     
-    func updateSearchResults(for searchController: UISearchController){
+    func updateSearchResults(for searchController: UISearchController) {
         
         guard let searchText = searchController.searchBar.text, searchText.isEmpty == false else {
             viewModel.searchText = ""
@@ -98,7 +105,20 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
 
 extension BurnElementsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfElements
+        let numberOfCells = viewModel.numberOfElements
+        if viewModel.searchText.isEmpty {
+            if numberOfCells > 20 {
+                if tableView.tableHeaderView == nil {
+                    tableView.tableHeaderView = searchController.searchBar
+                }
+                
+            } else {
+                if tableView.tableHeaderView != nil {
+                    tableView.tableHeaderView = nil
+                }
+            }
+        }
+        return numberOfCells
     }
     
     func element(at indexPath: IndexPath) -> BurnElementSummaryDisplayable {
@@ -277,15 +297,13 @@ class BurnElementsViewModel {
         
         let searchedElements = self.allElements.filter("name CONTAINS[c] '\(searchText)' OR longBlurb CONTAINS[c] '\(searchText)'")
         switch displayMode {
-            case .default:
-                newElements = .normal(searchedElements)
-            case .favorites:
-                newElements = .favorites(searchedElements)
+        case .default:
+            newElements = .normal(searchedElements)
+        case .favorites:
+            newElements = .favorites(searchedElements)
         }
         
         return newElements
-
-        
     }
     
     private func applyFilter<T: AfrikaBurnElement>(_ filter: Filter, to elements: Results<T>) -> Results<T> {
