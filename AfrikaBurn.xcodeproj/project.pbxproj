@@ -135,11 +135,11 @@
 				42B1C9A11E77109A00699D61 /* Model */,
 				42B1C99E1E76683C00699D61 /* Network */,
 				421B0B801E6F2904006D6A91 /* Extensions */,
+				421B0B4B1E6AA593006D6A91 /* Resources */,
 				421B0B2F1E6AA132006D6A91 /* Main.storyboard */,
 				421B0B321E6AA132006D6A91 /* Assets.xcassets */,
 				421B0B341E6AA132006D6A91 /* LaunchScreen.storyboard */,
 				421B0B371E6AA132006D6A91 /* Info.plist */,
-				421B0B4B1E6AA593006D6A91 /* Resources */,
 			);
 			path = AfrikaBurn;
 			sourceTree = "<group>";
