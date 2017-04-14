@@ -50,7 +50,6 @@ class BurnElementDetailViewController: UIViewController {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: ReuseIdentifiers.cell)
         tableView.dataSource = self
-//        tableView.delegate = self
         tableView.enableSelfSizingCells(withEstimatedHeight: 55)
         token = self.persistentStore.favorites().filter("id == \(element.id)").addNotificationBlock({ (change) in
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(icon: self.element.isFavorite ? .favoriteFilledIn : .favorite, target: self, action: #selector(self.handleFavoriteTapped))
@@ -141,7 +140,7 @@ extension BurnElementDetailViewController: UITableViewDataSource {
                 case .longblurb: return hasText(element.longBlurb)
                 case .scheduledActivivies: return hasText(element.scheduledActivities)
                 case .title: return true
-                case .map: return true
+                case .map: return element.location != nil
                 }
             })
         }
