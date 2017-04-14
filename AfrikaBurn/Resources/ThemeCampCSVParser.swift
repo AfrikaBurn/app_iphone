@@ -94,21 +94,9 @@ extension BurnElementsCSVParser: CHCSVParserDelegate {
         let shortBlurb = currentLineValues[.shortblurb]!
         let activities = currentLineValues[.scheduledActivities]!
         
-        
-        
-        let locationNotSet : Bool = (currentLineValues[.latitude] == nil || currentLineValues[.latitude]!.isEmpty) ||
-                            (currentLineValues[.longitude] ==  nil || currentLineValues[.longitude]!.isEmpty)
-        
-        // use lat lng from the csv if it's there, otherwise use the seed for now
-        // TODO: Refactor this so that maybe it stores lat/lng separately rather than in one string? Not sure if needed
-        var locationString: String
-        if (locationNotSet){
-            locationString = getSeedLocationString()
-        } else {
-            let latitude = currentLineValues[.latitude]!
-            let longitude = currentLineValues[.longitude]!
-            locationString = "\(latitude),\(longitude)"
-        }
+        let latitude = currentLineValues[.latitude]!
+        let longitude = currentLineValues[.longitude]!
+        let locationString = "\(latitude),\(longitude)"
         
         let element: AfrikaBurnElement = AfrikaBurnElement(id: id, name: title, categories: categories, longBlurb: longBlurb, shortBlurb: shortBlurb, scheduledActivities: activities, elementType: elementType, locationString: locationString) // lat,lng
         self.elements.append(element)
