@@ -39,10 +39,7 @@ class MapViewController: UIViewController {
         
         loadCustomLocations()
         loadElements()
-        
         navigationItem.title = "Map"
-        navigationController?.navigationBar.titleTextAttributes =  [NSForegroundColorAttributeName: UIColor.afrikaBurnTintColor]
-        navigationController?.navigationBar.barTintColor = UIColor.afrikaBurnBgColor
     }
     
     override func viewWillAppear(_ animated: Bool) {

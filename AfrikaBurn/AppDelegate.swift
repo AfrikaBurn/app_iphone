@@ -14,9 +14,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     var services: [ApplicationService] = [BurnDataSyncer()]
+    
+    var appNavigationCoordinator: AppNavigationCoordinator!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         services.forEach({ $0.startup() })
+        
+        appNavigationCoordinator = AppNavigationCoordinator(tabBarController: window!.rootViewController as! UITabBarController)
         
         configureTheme(application: application)
         
@@ -47,7 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func configureTheme(application : UIApplication){
         UINavigationBar.appearance().tintColor = UIColor.afrikaBurnTintColor
-        
+        UINavigationBar.appearance().titleTextAttributes =  [NSForegroundColorAttributeName: UIColor.afrikaBurnTintColor]
+        UINavigationBar.appearance().barTintColor = UIColor.afrikaBurnBgColor
 
         UITabBar.appearance().tintColor = UIColor.afrikaBurnTintColor
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.afrikaBurnTintColor], for: .selected)
