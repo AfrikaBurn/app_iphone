@@ -12,7 +12,7 @@ import CHCSVParser
 class BurnElementsCSVParser : NSObject {
     
     enum Field: Int {
-        case id, title, categories, longblurb, scheduledActivities, shortblurb, type, latitude,	longitude, infustructure
+        case id, title, themeCamp, categories, longblurb, scheduledActivities, shortblurb, type, latitude,	longitude, infustructure
         static let requiredFields: [Field] = [title, categories, longblurb, scheduledActivities, shortblurb, type, id]
     }
     
@@ -83,7 +83,12 @@ extension BurnElementsCSVParser: CHCSVParserDelegate {
         guard let elementType = AfrikaBurnElement.ElementType(name: type) else {
             return
         }
-        let title = currentLineValues[.title]!
+        let title: String
+        if case .camp = elementType {
+            title = currentLineValues[.themeCamp] ?? currentLineValues[.title]!
+        } else {
+            title = currentLineValues[.title]!
+        }
         let categories: [AfrikaBurnElement.Category]
         if let categoryNames = currentLineValues[.categories]?.components(separatedBy: ","), categoryNames.count > 0 {
             categories = categoryNames.map({ AfrikaBurnElement.Category(name: $0) })
@@ -94,21 +99,9 @@ extension BurnElementsCSVParser: CHCSVParserDelegate {
         let shortBlurb = currentLineValues[.shortblurb]!
         let activities = currentLineValues[.scheduledActivities]!
         
-        
-        
-        let locationNotSet : Bool = (currentLineValues[.latitude] == nil || currentLineValues[.latitude]!.isEmpty) ||
-                            (currentLineValues[.longitude] ==  nil || currentLineValues[.longitude]!.isEmpty)
-        
-        // use lat lng from the csv if it's there, otherwise use the seed for now
-        // TODO: Refactor this so that maybe it stores lat/lng separately rather than in one string? Not sure if needed
-        var locationString: String
-        if (locationNotSet){
-            locationString = getSeedLocationString()
-        } else {
-            let latitude = currentLineValues[.latitude]!
-            let longitude = currentLineValues[.longitude]!
-            locationString = "\(latitude),\(longitude)"
-        }
+        let latitude = currentLineValues[.latitude]!
+        let longitude = currentLineValues[.longitude]!
+        let locationString = "\(latitude),\(longitude)"
         
         let element: AfrikaBurnElement = AfrikaBurnElement(id: id, name: title, categories: categories, longBlurb: longBlurb, shortBlurb: shortBlurb, scheduledActivities: activities, elementType: elementType, locationString: locationString) // lat,lng
         self.elements.append(element)
