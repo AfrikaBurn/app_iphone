@@ -12,7 +12,7 @@ import CHCSVParser
 class BurnElementsCSVParser : NSObject {
     
     enum Field: Int {
-        case id, title, categories, longblurb, scheduledActivities, shortblurb, type, latitude,	longitude, infustructure
+        case id, title, themeCamp, categories, longblurb, scheduledActivities, shortblurb, type, latitude,	longitude, infustructure
         static let requiredFields: [Field] = [title, categories, longblurb, scheduledActivities, shortblurb, type, id]
     }
     
@@ -83,7 +83,12 @@ extension BurnElementsCSVParser: CHCSVParserDelegate {
         guard let elementType = AfrikaBurnElement.ElementType(name: type) else {
             return
         }
-        let title = currentLineValues[.title]!
+        let title: String
+        if case .camp = elementType {
+            title = currentLineValues[.themeCamp] ?? currentLineValues[.title]!
+        } else {
+            title = currentLineValues[.title]!
+        }
         let categories: [AfrikaBurnElement.Category]
         if let categoryNames = currentLineValues[.categories]?.components(separatedBy: ","), categoryNames.count > 0 {
             categories = categoryNames.map({ AfrikaBurnElement.Category(name: $0) })
