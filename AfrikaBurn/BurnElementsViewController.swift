@@ -322,7 +322,7 @@ class BurnElementsViewModel {
     
     
     private func observeChanges<T: AfrikaBurnElement>(to elements: Results<T>) {
-        self.notificationToken = elements.addNotificationBlock { [weak self] (changes) in
+        self.notificationToken = elements.observe { [weak self] (changes) in
             switch changes {
             case .error(_):
                 break

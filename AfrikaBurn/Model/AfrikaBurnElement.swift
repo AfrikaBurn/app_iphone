@@ -58,8 +58,8 @@ extension AfrikaBurnElement.ElementType {
 
 
 
-extension Results where T: AfrikaBurnElement {
-    func filter(type: T.ElementType) -> Results<T> {
+extension Results where Element: AfrikaBurnElement {
+    func filter(type: Element.ElementType) -> Results<Element> {
         return filter("elementTypeString == %@", type.rawValue)
     }
 }
