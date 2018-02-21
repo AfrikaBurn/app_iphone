@@ -28,6 +28,7 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.scrollsToTop = true
         tableView.dataSource = self
         tableView.delegate = self
         tableView.enableSelfSizingCells(withEstimatedHeight: 55)
