@@ -22,7 +22,7 @@ extension AfrikaBurnElement.ElementType {
         case "artwork", "artwork registration":
             self = .artwork
         default:
-            assert(false, "received an unknown element type \(name)")
+            print(false, "received an unknown element type \(name)")
             return nil
         }
     }
