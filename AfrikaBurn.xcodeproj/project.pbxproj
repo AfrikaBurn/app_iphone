@@ -21,6 +21,7 @@
 		421B0B7F1E6F24F6006D6A91 /* theme_camp.csv in Resources */ = {isa = PBXBuildFile; fileRef = 421B0B7E1E6F24F6006D6A91 /* theme_camp.csv */; };
 		421B0B821E6F2910006D6A91 /* AfrikaBurn+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B811E6F2910006D6A91 /* AfrikaBurn+UIKit.swift */; };
 		421B0B841E6F2D33006D6A91 /* BurnElementDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B831E6F2D33006D6A91 /* BurnElementDetailViewController.swift */; };
+		4222AE572068F1930009B50D /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4222AE562068F1930009B50D /* Style.swift */; };
 		42B1C99B1E72871100699D61 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B1C99A1E72871100699D61 /* MapKit.framework */; };
 		42B1C99D1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png in Resources */ = {isa = PBXBuildFile; fileRef = 42B1C99C1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png */; };
 		42B1C9A01E76686100699D61 /* BurnDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B1C99F1E76686100699D61 /* BurnDataFetcher.swift */; };
@@ -61,6 +62,7 @@
 		421B0B7E1E6F24F6006D6A91 /* theme_camp.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = theme_camp.csv; sourceTree = "<group>"; };
 		421B0B811E6F2910006D6A91 /* AfrikaBurn+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AfrikaBurn+UIKit.swift"; sourceTree = "<group>"; };
 		421B0B831E6F2D33006D6A91 /* BurnElementDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BurnElementDetailViewController.swift; sourceTree = "<group>"; };
+		4222AE562068F1930009B50D /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		42B1C99A1E72871100699D61 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		42B1C99C1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AB2017_Layout_RoadsLabel_20170308.png; sourceTree = "<group>"; };
 		42B1C99F1E76686100699D61 /* BurnDataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BurnDataFetcher.swift; sourceTree = "<group>"; };
@@ -133,15 +135,14 @@
 				421B0B2B1E6AA132006D6A91 /* BurnElementsViewController.swift */,
 				421B0B2D1E6AA132006D6A91 /* MapViewController.swift */,
 				421B0B831E6F2D33006D6A91 /* BurnElementDetailViewController.swift */,
+				421B0B2F1E6AA132006D6A91 /* Main.storyboard */,
+				421B0B371E6AA132006D6A91 /* Info.plist */,
+				4222AE552068F17B0009B50D /* Styling */,
 				42B1C9A61E77153C00699D61 /* Sync */,
 				42B1C9A11E77109A00699D61 /* Model */,
 				42B1C99E1E76683C00699D61 /* Network */,
 				421B0B801E6F2904006D6A91 /* Extensions */,
 				421B0B4B1E6AA593006D6A91 /* Resources */,
-				421B0B2F1E6AA132006D6A91 /* Main.storyboard */,
-				421B0B321E6AA132006D6A91 /* Assets.xcassets */,
-				421B0B341E6AA132006D6A91 /* LaunchScreen.storyboard */,
-				421B0B371E6AA132006D6A91 /* Info.plist */,
 			);
 			path = AfrikaBurn;
 			sourceTree = "<group>";
@@ -158,6 +159,8 @@
 		421B0B4B1E6AA593006D6A91 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				421B0B341E6AA132006D6A91 /* LaunchScreen.storyboard */,
+				421B0B321E6AA132006D6A91 /* Assets.xcassets */,
 				4201287D204DC2D800DF9305 /* AB2018_Map.jpg */,
 				42B1C99C1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png */,
 				421B0B7E1E6F24F6006D6A91 /* theme_camp.csv */,
@@ -172,6 +175,14 @@
 				421B0B811E6F2910006D6A91 /* AfrikaBurn+UIKit.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4222AE552068F17B0009B50D /* Styling */ = {
+			isa = PBXGroup;
+			children = (
+				4222AE562068F1930009B50D /* Style.swift */,
+			);
+			path = Styling;
 			sourceTree = "<group>";
 		};
 		42B1C99E1E76683C00699D61 /* Network */ = {
@@ -440,6 +451,7 @@
 				42B1C9A31E7710D500699D61 /* AfrikaBurnElement.swift in Sources */,
 				42B1C9A01E76686100699D61 /* BurnDataFetcher.swift in Sources */,
 				421B0B2E1E6AA132006D6A91 /* MapViewController.swift in Sources */,
+				4222AE572068F1930009B50D /* Style.swift in Sources */,
 				42B1C9A81E77154700699D61 /* BurnDataSyncer.swift in Sources */,
 				421B0B841E6F2D33006D6A91 /* BurnElementDetailViewController.swift in Sources */,
 				421B0B2A1E6AA132006D6A91 /* AppDelegate.swift in Sources */,

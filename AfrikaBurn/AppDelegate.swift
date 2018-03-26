@@ -22,8 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         appNavigationCoordinator = AppNavigationCoordinator(tabBarController: window!.rootViewController as! UITabBarController)
         
-        configureTheme(application: application)
-        
+        Style.configureAppStyle(application)        
         return true
     }
 
@@ -47,22 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-    
-    func configureTheme(application : UIApplication){
-        
-        window?.tintColor = UIColor.afrikaBurnTintColor
-
-        UINavigationBar.appearance().tintColor = UIColor.afrikaBurnTintColor
-        UINavigationBar.appearance().titleTextAttributes =  [NSForegroundColorAttributeName: UIColor.afrikaBurnTintColor]
-        UINavigationBar.appearance().barTintColor = UIColor.afrikaBurnBgColor
-
-        UITabBar.appearance().tintColor = UIColor.afrikaBurnTintColor
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.afrikaBurnTintColor], for: .selected)
-        UISearchBar.appearance().tintColor = UIColor.afrikaBurnTintColor        
-        application.keyWindow?.tintColor = UIColor.afrikaBurnTintColor
-        
-        UIApplication.shared.statusBarStyle = .lightContent
     }
 }
 

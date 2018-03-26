@@ -59,7 +59,7 @@ class BurnElementDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.title = element.name
-        navigationController?.navigationBar.barTintColor = UIColor.afrikaBurnBgColor
+        navigationController?.navigationBar.barTintColor = UIColor.afrikaBurnContentBackgroundColor
         
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.afrikaBurnTintColor]
     }
