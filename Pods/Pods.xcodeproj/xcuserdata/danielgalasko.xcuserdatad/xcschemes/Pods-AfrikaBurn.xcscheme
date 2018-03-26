@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0910"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "57135FB3F66CABCA49D208DE5A142191"
+               BlueprintIdentifier = "190C7263988A9BDB0532E3D4930546E7"
                BuildableName = "Pods_AfrikaBurn.framework"
                BlueprintName = "Pods-AfrikaBurn"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "57135FB3F66CABCA49D208DE5A142191"
+            BlueprintIdentifier = "190C7263988A9BDB0532E3D4930546E7"
             BuildableName = "Pods_AfrikaBurn.framework"
             BlueprintName = "Pods-AfrikaBurn"
             ReferencedContainer = "container:Pods.xcodeproj">
