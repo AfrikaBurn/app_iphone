@@ -23,6 +23,7 @@
 		421B0B841E6F2D33006D6A91 /* BurnElementDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B831E6F2D33006D6A91 /* BurnElementDetailViewController.swift */; };
 		4222AE572068F1930009B50D /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4222AE562068F1930009B50D /* Style.swift */; };
 		4222AE592068F74D0009B50D /* MoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4222AE582068F74D0009B50D /* MoreTableViewController.swift */; };
+		4222AE5B206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4222AE5A206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf */; };
 		42B1C99B1E72871100699D61 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B1C99A1E72871100699D61 /* MapKit.framework */; };
 		42B1C99D1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png in Resources */ = {isa = PBXBuildFile; fileRef = 42B1C99C1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png */; };
 		42B1C9A01E76686100699D61 /* BurnDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B1C99F1E76686100699D61 /* BurnDataFetcher.swift */; };
@@ -65,6 +66,7 @@
 		421B0B831E6F2D33006D6A91 /* BurnElementDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BurnElementDetailViewController.swift; sourceTree = "<group>"; };
 		4222AE562068F1930009B50D /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		4222AE582068F74D0009B50D /* MoreTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreTableViewController.swift; sourceTree = "<group>"; };
+		4222AE5A206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AB-SurvivalGuide-2018-English.pdf"; sourceTree = "<group>"; };
 		42B1C99A1E72871100699D61 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		42B1C99C1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AB2017_Layout_RoadsLabel_20170308.png; sourceTree = "<group>"; };
 		42B1C99F1E76686100699D61 /* BurnDataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BurnDataFetcher.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 		421B0B4B1E6AA593006D6A91 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4222AE5A206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf */,
 				421B0B341E6AA132006D6A91 /* LaunchScreen.storyboard */,
 				421B0B321E6AA132006D6A91 /* Assets.xcassets */,
 				4201287D204DC2D800DF9305 /* AB2018_Map.jpg */,
@@ -321,6 +324,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				421B0B361E6AA132006D6A91 /* LaunchScreen.storyboard in Resources */,
+				4222AE5B206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf in Resources */,
 				421B0B331E6AA132006D6A91 /* Assets.xcassets in Resources */,
 				421B0B311E6AA132006D6A91 /* Main.storyboard in Resources */,
 				42B1C99D1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png in Resources */,
