@@ -13,10 +13,10 @@ import CoreLocation
 class CustomLocation: Object {
 
     
-    dynamic var id: String = ""
-    dynamic var name: String = ""
-    dynamic var locationString: String = ""
-    dynamic var isHomeCamp: Bool = false
+    @objc dynamic var id: String = ""
+    @objc dynamic var name: String = ""
+    @objc dynamic var locationString: String = ""
+    @objc dynamic var isHomeCamp: Bool = false
     
     public override static func primaryKey() -> String? {
         return "id"

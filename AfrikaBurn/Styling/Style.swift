@@ -19,13 +19,13 @@ struct Style {
     
     static func configureAppStyle(_ app: UIApplication) {
         UINavigationBar.appearance().tintColor = UIColor.afrikaBurnTintColor
-        UINavigationBar.appearance().titleTextAttributes =  [NSForegroundColorAttributeName: Style.blackColor]
+        UINavigationBar.appearance().titleTextAttributes =  [NSAttributedStringKey.foregroundColor: Style.blackColor]
         UINavigationBar.appearance().barTintColor = UIColor.afrikaBurnContentBackgroundColor
         
         UITabBar.appearance().barTintColor = UIColor.afrikaBurnContentBackgroundColor
         UITabBar.appearance().backgroundColor = UIColor.afrikaBurnContentBackgroundColor
         UITabBar.appearance().tintColor = UIColor.afrikaBurnTintColor
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.afrikaBurnTintColor], for: .selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor : UIColor.afrikaBurnTintColor], for: .selected)
         UISearchBar.appearance().tintColor = UIColor.afrikaBurnTintColor
         
         app.keyWindow?.tintColor = UIColor.afrikaBurnTintColor

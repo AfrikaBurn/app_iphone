@@ -80,18 +80,18 @@ class AfrikaBurnElement: Object {
         }
     }
     
-    dynamic var id: Int = -1
-    dynamic var name: String = ""
-    dynamic var categoriesString: String = ""
-    dynamic var longBlurb: String?
-    dynamic var shortBlurb: String?
-    dynamic var scheduledActivities: String?
-    dynamic var elementTypeString: String = ""
-    dynamic var locationString: String?
+    @objc dynamic var id: Int = -1
+    @objc dynamic var name: String = ""
+    @objc dynamic var categoriesString: String = ""
+    @objc dynamic var longBlurb: String?
+    @objc dynamic var shortBlurb: String?
+    @objc dynamic var scheduledActivities: String?
+    @objc dynamic var elementTypeString: String = ""
+    @objc dynamic var locationString: String?
     
     // Favoriting //
-    dynamic var dateFavorited: Date = Date()
-    dynamic var isFavorite: Bool = false
+    @objc dynamic var dateFavorited: Date = Date()
+    @objc dynamic var isFavorite: Bool = false
     
     var location: CLLocationCoordinate2D? {
         guard let locationString = locationString else {

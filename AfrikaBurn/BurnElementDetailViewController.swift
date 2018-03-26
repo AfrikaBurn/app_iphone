@@ -61,7 +61,7 @@ class BurnElementDetailViewController: UIViewController {
         navigationItem.title = element.name
         navigationController?.navigationBar.barTintColor = UIColor.afrikaBurnContentBackgroundColor
         
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.afrikaBurnTintColor]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.afrikaBurnTintColor]
     }
     
     @objc func handleFavoriteTapped() {

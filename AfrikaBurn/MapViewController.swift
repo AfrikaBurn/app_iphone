@@ -58,7 +58,7 @@ class MapViewController: UIViewController {
         mapView.addSubview(button)
     }
     
-    func centerMapOnLocation(_ sender: UIButton){
+    @objc func centerMapOnLocation(_ sender: UIButton){
         
         
         // zooms to a good zoom level and centers on user dot.
@@ -122,7 +122,7 @@ class MapViewController: UIViewController {
         mapView.addGestureRecognizer(gesture)
     }
     
-    func longPressOnMap(gestureRecognizer:UIGestureRecognizer){
+    @objc func longPressOnMap(gestureRecognizer:UIGestureRecognizer){
         
         guard gestureRecognizer.state == .began  else {
             // avoid this double firing
