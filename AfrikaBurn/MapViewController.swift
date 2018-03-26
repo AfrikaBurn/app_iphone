@@ -248,7 +248,7 @@ class BurnMapView: MKMapView, MKMapViewDelegate {
 
 class BurnMapOverlay: NSObject, MKOverlay {
     let boundingMapRect: MKMapRect = BurnMap.boundingMapRect
-    var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(19.751633252193361, -32.326217923051772)
+    var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(-32.3268322, 19.748085700000047)
     
     func canReplaceMapContent() -> Bool {
         return true
