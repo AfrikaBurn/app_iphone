@@ -1,20 +1,17 @@
 PODS:
-  - CHCSVParser (2.1.0)
-  - Realm (3.1.1):
-    - Realm/Headers (= 3.1.1)
-  - Realm/Headers (3.1.1)
-  - RealmSwift (3.1.1):
-    - Realm (= 3.1.1)
+  - Realm (3.3.0):
+    - Realm/Headers (= 3.3.0)
+  - Realm/Headers (3.3.0)
+  - RealmSwift (3.3.0):
+    - Realm (= 3.3.0)
 
 DEPENDENCIES:
-  - CHCSVParser
   - RealmSwift
 
 SPEC CHECKSUMS:
-  CHCSVParser: 3bcc7bdb72111a31222e95d57eacceefe4e537e8
-  Realm: 42d1c38a5b1bbcc828b48a7ce702cb86fc68adf4
-  RealmSwift: d31937ca6a6ee54acde64ec839523c0a3c04924b
+  Realm: 7d74ad6c5020432f58fe5e1df90bb6d97b2c7fef
+  RealmSwift: b2fa31a09c22e246026766557405505eeaad2b01
 
-PODFILE CHECKSUM: a1671508905e3b839cd973e0d7a07fa5fd922920
+PODFILE CHECKSUM: 11d08a0a774df8c701b4649fd25f732eb731d189
 
 COCOAPODS: 1.4.0

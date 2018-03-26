@@ -46,18 +46,8 @@ class PersistentStore {
     
     func elements() -> Results<AfrikaBurnElement> {
         let realm = createRealm()
-        
-        // filter out known test or dud IDs, or elements asked not be listed
-        let invalidElementIds = [
-            11,
-            7,
-            12,
-            4,
-            6,
-            79
-        ]
 
-        return realm.objects(AfrikaBurnElement.self).filter("NOT id in %@", invalidElementIds).sorted(byKeyPath: "name")
+        return realm.objects(AfrikaBurnElement.self).sorted(byKeyPath: "name")
     }
     
     func customLocations() -> Results<CustomLocation> {

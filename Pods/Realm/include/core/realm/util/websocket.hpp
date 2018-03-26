@@ -210,15 +210,16 @@ util::Optional<HTTPResponse> make_http_response(const HTTPRequest& request,
                                                 std::error_code& ec);
 
 enum class Error {
-    bad_request_header_upgrade            = 1,
-    bad_request_header_connection         = 2,
-    bad_request_header_websocket_version  = 3,
-    bad_request_header_websocket_key      = 4,
-    bad_handshake_request                 = 5,
-    bad_handshake_response                = 6,
-    bad_handshake_response_404_not_found  = 7,
-    bad_handshake_response_50x_temporary  = 8,
-    bad_message                           = 9
+    bad_request_header_upgrade = 1, // FIXME: Does this enum need to leave zero unused?
+    bad_request_header_connection,
+    bad_request_header_websocket_version,
+    bad_request_header_websocket_key,
+    bad_handshake_request,
+    bad_handshake_response,
+    bad_handshake_response_30x_moved,
+    bad_handshake_response_404_not_found,
+    bad_handshake_response_50x_temporary,
+    bad_message
 };
 
 const std::error_category& error_category() noexcept;

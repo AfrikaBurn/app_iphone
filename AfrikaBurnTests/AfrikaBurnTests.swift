@@ -11,12 +11,6 @@ import XCTest
 
 class AfrikaBurnTests: XCTestCase {
     
-    func testCSVParsing() {
-        let parser = ThemeCampCSVParser()
-        let res = parser.parseSync()
-        XCTAssertTrue(res.count > 0)
-    }
-    
     func testDataFetcher() {
         let fetcher = BurnDataFetcher()
         
@@ -24,7 +18,8 @@ class AfrikaBurnTests: XCTestCase {
         fetcher.fetchData { [weak expectation] (result) in
             switch result {
             case .failed: XCTFail("Network call failed")
-            case .success(_):
+            case .success(let elements):
+                XCTAssertTrue(elements.count > 0)
                 break
             }
             expectation?.fulfill()

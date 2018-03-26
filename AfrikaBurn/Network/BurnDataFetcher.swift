@@ -8,19 +8,20 @@
 
 import Foundation
 
-typealias BurnDataResponseType = String
+typealias BurnDataResponseType = [BurnJSONElement]
 
-class BurnDataFetcher: NSObject {
+class BurnDataFetcher {
+    
+    struct Configuration {
+        static let endpoint = URL(string: "https://tribe.afrikaburn.com/api/json")!
+    }
+    
     enum Result {
         case success(BurnDataResponseType)
         case failed
     }
     
     typealias Completion = (_ result: Result) -> Void
-    
-    struct Configuration {
-        static let endpoint = URL(string: "https://new.afrikaburn.com/api/general")!
-    }
     
     enum State {
         case idle
@@ -66,11 +67,40 @@ class BurnDataFetcher: NSObject {
     }
 }
 
+struct BurnJSONElement: Codable {
+    let id: String
+    let type: String
+    let title: String
+    let longBlurb: String
+    let imageURL: String
+    let plannedActivities: String
+    let plannedActivitiesDescription: String
+    let latitude: String?
+    let longitude: String?
+    
+    private enum CodingKeys: String, CodingKey {
+        case id = "nid"
+        case type = "type"
+        case title = "title"
+        case longBlurb = "field_prj_wtf_long"
+        case imageURL = "field_prj_wtf_image"
+        case plannedActivities = "field_prj_wtf_planned"
+        case plannedActivitiesDescription = "field_prj_wtf_scheduled"
+        case latitude = "field_prj_adm_latitude"
+        case longitude = "field_prj_adm_longitude"
+    }
+}
+
 struct APIResponseSerializer {
     static func convertResponse(withData data: Data) -> BurnDataResponseType? {
-        guard let burnDataNSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue) else {
+        let decoder = JSONDecoder()
+        
+        do {
+            let elements = try decoder.decode([BurnJSONElement].self, from: data)
+            return elements
+        } catch {
+            print(error)
             return nil
         }
-        return burnDataNSString as String
     }
 }
