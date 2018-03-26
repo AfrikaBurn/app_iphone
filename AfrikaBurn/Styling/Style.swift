@@ -32,6 +32,11 @@ struct Style {
         
         UIApplication.shared.statusBarStyle = .default
     }
+    
+    static func apply(to tableView: UITableView) {
+        tableView.backgroundView = nil
+        tableView.backgroundColor = Style.whiteColor
+    }
 }
 
 extension UIColor {

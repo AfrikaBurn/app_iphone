@@ -40,17 +40,23 @@ class BurnElementDetailViewController: UIViewController {
         detail.element = element
         return detail
     }
+    
     struct ReuseIdentifiers {
         static let cell = "cell"
         static let mapCell = "MapCell"
     }
+    
     var token: NotificationToken?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .never
+        }
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: ReuseIdentifiers.cell)
         tableView.dataSource = self
         tableView.enableSelfSizingCells(withEstimatedHeight: 55)
+        Style.apply(to: tableView)
         token = self.persistentStore.favorites().filter("id == \(element.id)").observe({ (change) in
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(icon: self.element.isFavorite ? .favoriteFilledIn : .favorite, target: self, action: #selector(self.handleFavoriteTapped))
         })

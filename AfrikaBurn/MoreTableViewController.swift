@@ -22,6 +22,7 @@ class MoreTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        Style.apply(to: tableView)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

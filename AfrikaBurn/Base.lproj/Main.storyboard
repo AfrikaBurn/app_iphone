@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="71" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Tbe-uJ-SLP">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="116" width="375" height="502"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CampSummaryTableViewCell" id="Lmu-tJ-PrZ" customClass="CampSummaryTableViewCell" customModule="AfrikaBurn" customModuleProvider="target">
@@ -198,10 +198,10 @@
             </objects>
             <point key="canvasLocation" x="794" y="775"/>
         </scene>
-        <!--More Table View Controller-->
+        <!--More-->
         <scene sceneID="E8r-zT-lEX">
             <objects>
-                <tableViewController id="K5t-fh-2zT" customClass="MoreTableViewController" customModule="AfrikaBurn" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="More" id="K5t-fh-2zT" customClass="MoreTableViewController" customModule="AfrikaBurn" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="dr7-Jx-Jdt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -243,14 +243,6 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="YVQ-XM-BFY">
-                                        <rect key="frame" x="0.0" y="123" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YVQ-XM-BFY" id="7QR-UH-Zz4">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -259,7 +251,7 @@
                             <outlet property="delegate" destination="K5t-fh-2zT" id="Hld-Lh-eo8"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="f3C-2s-Pk9"/>
+                    <navigationItem key="navigationItem" title="More" id="f3C-2s-Pk9"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5MU-AD-A5H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -292,7 +284,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="68Q-0J-iwV" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Burn" image="fire" id="acW-dT-cKf"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="AJk-f6-bb7">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="AJk-f6-bb7">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -310,7 +302,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gMn-z0-v9R" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="favorites" id="nf4-rC-KOE"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="39w-00-EP0">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="39w-00-EP0">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -328,7 +320,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rN0-do-cJ0" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="more" id="ol9-A4-X1L"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0eg-7L-rd8">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="0eg-7L-rd8">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

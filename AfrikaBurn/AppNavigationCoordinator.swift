@@ -36,7 +36,19 @@ class AppNavigationCoordinator {
         let nav = (tabBarController.viewControllers![Tab.favorites.rawValue] as! UINavigationController)
         return nav.viewControllers[0] as! BurnElementsViewController
     }
+    
+    func showBurnElementDetail(for element: AfrikaBurnElement) {
+        let detail = BurnElementDetailViewController.create(element: element)
+        currentNavigationController?.pushViewController(detail, animated: true)
+    }
+    
+    private var currentNavigationController: UINavigationController? {
+        return tabBarController.selectedViewController as? UINavigationController
+    }
 }
 
-class RootTabBarController: UITabBarController {
+extension UIViewController {
+    var navigationCoordinator: AppNavigationCoordinator {
+        return (UIApplication.shared.delegate as! AppDelegate).appNavigationCoordinator
+    }
 }

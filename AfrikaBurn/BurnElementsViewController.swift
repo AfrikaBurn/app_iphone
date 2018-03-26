@@ -31,6 +31,7 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
         tableView.scrollsToTop = true
         tableView.dataSource = self
         tableView.delegate = self
+        Style.apply(to: tableView)
         tableView.enableSelfSizingCells(withEstimatedHeight: 55)
         
         // Setup the Search Controller
@@ -144,8 +145,7 @@ extension BurnElementsViewController: UITableViewDelegate {
         guard let burnElement = self.persistentStore.elements().first(where: { $0.id == element.elementID }) else {
             return
         }
-        let detail = BurnElementDetailViewController.create(element: burnElement)
-        navigationController?.pushViewController(detail, animated: true)
+        navigationCoordinator.showBurnElementDetail(for: burnElement)
     }
 }
 
