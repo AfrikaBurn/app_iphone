@@ -6,7 +6,6 @@ target 'AfrikaBurn' do
   use_frameworks!
   
   pod 'RealmSwift'
-  pod 'CHCSVParser'
 
   target 'AfrikaBurnTests' do
     inherit! :search_paths

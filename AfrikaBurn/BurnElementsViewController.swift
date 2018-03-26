@@ -33,8 +33,6 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
         tableView.delegate = self
         tableView.enableSelfSizingCells(withEstimatedHeight: 55)
         
-        navigationController?.navigationBar.barTintColor = UIColor.afrikaBurnContentBackgroundColor
-        
         // Setup the Search Controller
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self

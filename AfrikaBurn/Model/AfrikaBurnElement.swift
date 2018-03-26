@@ -15,11 +15,11 @@ extension AfrikaBurnElement.ElementType {
         switch name.lowercased() {
         case "mutant vehicles", "mutantvehicle":
             self = .mutantVehicle
-        case "performance", "performance registration":
+        case "performance", "performance registration", "performances":
             self = .performance
-        case "camp", "theme camp form 3 - wtf guide":
+        case "camp", "theme camp form 3 - wtf guide", "theme camps":
             self = .camp
-        case "artwork", "artwork registration":
+        case "artwork", "artwork registration", "artworks":
             self = .artwork
         default:
             print(false, "received an unknown element type \(name)")
