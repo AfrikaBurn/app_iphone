@@ -19,7 +19,7 @@ struct Style {
     
     static func configureAppStyle(_ app: UIApplication) {
         UINavigationBar.appearance().tintColor = UIColor.afrikaBurnTintColor
-        UINavigationBar.appearance().titleTextAttributes =  [NSForegroundColorAttributeName: UIColor.afrikaBurnTintColor]
+        UINavigationBar.appearance().titleTextAttributes =  [NSForegroundColorAttributeName: Style.blackColor]
         UINavigationBar.appearance().barTintColor = UIColor.afrikaBurnContentBackgroundColor
         
         UITabBar.appearance().barTintColor = UIColor.afrikaBurnContentBackgroundColor
