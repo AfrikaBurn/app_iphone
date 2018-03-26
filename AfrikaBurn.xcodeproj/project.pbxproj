@@ -22,6 +22,7 @@
 		421B0B821E6F2910006D6A91 /* AfrikaBurn+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B811E6F2910006D6A91 /* AfrikaBurn+UIKit.swift */; };
 		421B0B841E6F2D33006D6A91 /* BurnElementDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B831E6F2D33006D6A91 /* BurnElementDetailViewController.swift */; };
 		4222AE572068F1930009B50D /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4222AE562068F1930009B50D /* Style.swift */; };
+		4222AE592068F74D0009B50D /* MoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4222AE582068F74D0009B50D /* MoreTableViewController.swift */; };
 		42B1C99B1E72871100699D61 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B1C99A1E72871100699D61 /* MapKit.framework */; };
 		42B1C99D1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png in Resources */ = {isa = PBXBuildFile; fileRef = 42B1C99C1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png */; };
 		42B1C9A01E76686100699D61 /* BurnDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B1C99F1E76686100699D61 /* BurnDataFetcher.swift */; };
@@ -63,6 +64,7 @@
 		421B0B811E6F2910006D6A91 /* AfrikaBurn+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AfrikaBurn+UIKit.swift"; sourceTree = "<group>"; };
 		421B0B831E6F2D33006D6A91 /* BurnElementDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BurnElementDetailViewController.swift; sourceTree = "<group>"; };
 		4222AE562068F1930009B50D /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		4222AE582068F74D0009B50D /* MoreTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreTableViewController.swift; sourceTree = "<group>"; };
 		42B1C99A1E72871100699D61 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		42B1C99C1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AB2017_Layout_RoadsLabel_20170308.png; sourceTree = "<group>"; };
 		42B1C99F1E76686100699D61 /* BurnDataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BurnDataFetcher.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				421B0B2B1E6AA132006D6A91 /* BurnElementsViewController.swift */,
 				421B0B2D1E6AA132006D6A91 /* MapViewController.swift */,
 				421B0B831E6F2D33006D6A91 /* BurnElementDetailViewController.swift */,
+				4222AE582068F74D0009B50D /* MoreTableViewController.swift */,
 				421B0B2F1E6AA132006D6A91 /* Main.storyboard */,
 				421B0B371E6AA132006D6A91 /* Info.plist */,
 				4222AE552068F17B0009B50D /* Styling */,
@@ -456,6 +459,7 @@
 				421B0B841E6F2D33006D6A91 /* BurnElementDetailViewController.swift in Sources */,
 				421B0B2A1E6AA132006D6A91 /* AppDelegate.swift in Sources */,
 				421B0B821E6F2910006D6A91 /* AfrikaBurn+UIKit.swift in Sources */,
+				4222AE592068F74D0009B50D /* MoreTableViewController.swift in Sources */,
 				421B0B2C1E6AA132006D6A91 /* BurnElementsViewController.swift in Sources */,
 				420E058E1E958EA600ED5002 /* AppNavigationCoordinator.swift in Sources */,
 				42B1C9A51E77127700699D61 /* PersistentStore.swift in Sources */,
