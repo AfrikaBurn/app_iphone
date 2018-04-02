@@ -23,6 +23,7 @@
 		4222AE5B206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4222AE5A206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf */; };
 		4222AE5F206929270009B50D /* afrikaburn2018_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 4222AE5E206929270009B50D /* afrikaburn2018_data.json */; };
 		429AD77520724334001BB86E /* ImageMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429AD77420724334001BB86E /* ImageMapViewController.swift */; };
+		42A6DBE9207264EC003BC910 /* AfrikaBurn+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A6DBE8207264EC003BC910 /* AfrikaBurn+Calendar.swift */; };
 		42B1C99B1E72871100699D61 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B1C99A1E72871100699D61 /* MapKit.framework */; };
 		42B1C99D1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png in Resources */ = {isa = PBXBuildFile; fileRef = 42B1C99C1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png */; };
 		42B1C9A01E76686100699D61 /* BurnDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B1C99F1E76686100699D61 /* BurnDataFetcher.swift */; };
@@ -66,6 +67,7 @@
 		4222AE5E206929270009B50D /* afrikaburn2018_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = afrikaburn2018_data.json; sourceTree = "<group>"; };
 		4222AE60206958450009B50D /* Afrikaburn.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Afrikaburn.gpx; sourceTree = "<group>"; };
 		429AD77420724334001BB86E /* ImageMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMapViewController.swift; sourceTree = "<group>"; };
+		42A6DBE8207264EC003BC910 /* AfrikaBurn+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AfrikaBurn+Calendar.swift"; sourceTree = "<group>"; };
 		42B1C99A1E72871100699D61 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		42B1C99C1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AB2017_Layout_RoadsLabel_20170308.png; sourceTree = "<group>"; };
 		42B1C99F1E76686100699D61 /* BurnDataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BurnDataFetcher.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				421B0B811E6F2910006D6A91 /* AfrikaBurn+UIKit.swift */,
+				42A6DBE8207264EC003BC910 /* AfrikaBurn+Calendar.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 				429AD77520724334001BB86E /* ImageMapViewController.swift in Sources */,
 				42B1C9A81E77154700699D61 /* BurnDataSyncer.swift in Sources */,
 				421B0B841E6F2D33006D6A91 /* BurnElementDetailViewController.swift in Sources */,
+				42A6DBE9207264EC003BC910 /* AfrikaBurn+Calendar.swift in Sources */,
 				421B0B2A1E6AA132006D6A91 /* AppDelegate.swift in Sources */,
 				421B0B821E6F2910006D6A91 /* AfrikaBurn+UIKit.swift in Sources */,
 				4222AE592068F74D0009B50D /* MoreTableViewController.swift in Sources */,

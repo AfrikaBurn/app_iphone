@@ -29,9 +29,28 @@ class BurnDataSyncer {
                 UserDefaults.standard.set(newValue, forKey: hasImportedBundledDataKey)
             }
         }
+        
+        static let hasImportedMysteryDataKey = "za.co.afrikaburn.burndatasyncer.hasImportedMysteryData"
+        static var hasImportedMysteryData: Bool {
+            get {
+                return UserDefaults.standard.bool(forKey: hasImportedMysteryDataKey)
+            }
+            set {
+                UserDefaults.standard.set(newValue, forKey: hasImportedMysteryDataKey)
+            }
+        }
     }
     
     func syncData() {
+        guard Calendar.hasAfrikaBurnStarted else {
+            importMysteryData()
+            // the fetcher has a cache so we want to ensure we trigger that
+            // when the burn begins we will load from that cache
+            fetcher.fetchData({_ in })
+            return
+        }
+        
+        // import bundled/last cached data
         serialQueue.async {
             if Defaults.hasImportedBundledData == false {
                 let elements = self.loadBundledBurnData()
@@ -39,6 +58,8 @@ class BurnDataSyncer {
                 Defaults.hasImportedBundledData = true
             }
         }
+        
+        // Fetch latest data if we can
         serialQueue.async {
             self.fetcher.fetchData { [weak self] (result) in
                 switch result {
@@ -52,6 +73,20 @@ class BurnDataSyncer {
         }
     }
     
+    private func importMysteryData() {
+        self.serialQueue.async {
+            if Defaults.hasImportedMysteryData {
+                return
+            }
+            let elements = BurnMysteryData.createMysteryData()
+            self.store.storeElements(elements) {
+                self.serialQueue.async {
+                    Defaults.hasImportedMysteryData = true
+                }
+            }
+        }
+    }
+    
     private func handleJSONReceived(_ json: [BurnJSONElement]) {
         serialQueue.async {
             let elements = json.flatMap({ $0.toRealmObject() })
@@ -60,14 +95,70 @@ class BurnDataSyncer {
     }
     
     private func loadBundledBurnData() -> [AfrikaBurnElement] {
-        do {
-            let data = try Data(contentsOf: BundledData.url)
-            let response: [BurnJSONElement] = APIResponseSerializer.convertResponse(withData: data) ?? []
-            return response.flatMap({ $0.toRealmObject() })
-        } catch {
-            assertionFailure("Failed to load bundled burn data with error \(error)")
-            return []
+        let cachedElements = fetcher.cachedElements()
+        if cachedElements.count > 0 {
+            return cachedElements.flatMap({ $0.toRealmObject() })
+        } else {
+            do {
+                let data = try Data(contentsOf: BundledData.url)
+                let response: [BurnJSONElement] = APIResponseSerializer.convertResponse(withData: data) ?? []
+                return response.flatMap({ $0.toRealmObject() })
+            } catch {
+                assertionFailure("Failed to load bundled burn data with error \(error)")
+                return []
+            }
         }
+    }
+}
+
+extension BurnDataSyncer: ApplicationService {
+    func startup() {
+        syncData()
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDidBecomeActive), name: .UIApplicationWillEnterForeground, object: nil)
+    }
+    
+    @objc func handleDidBecomeActive() {
+        syncData()
+    }
+}
+
+/*
+ What we show before the event
+ */
+struct BurnMysteryData {
+    
+    struct MysteryItem {
+        let title: String
+        let elementType: AfrikaBurnElement.ElementType
+    }
+    
+    private static func createMysteryItems() -> [MysteryItem] {
+        return [
+            MysteryItem(title: "Our lips are sealed", elementType: AfrikaBurnElement.ElementType.artwork),
+            MysteryItem(title: "Mums the word", elementType: AfrikaBurnElement.ElementType.camp),
+            MysteryItem(title: "We can't wait to tell you about this one!", elementType: AfrikaBurnElement.ElementType.mutantVehicle),
+            MysteryItem(title: "Confidential, seek the Tankwa", elementType: AfrikaBurnElement.ElementType.performance),
+            MysteryItem(title: "This one is gonna be good", elementType: AfrikaBurnElement.ElementType.artwork),
+            MysteryItem(title: "Burn Burn Burn", elementType: AfrikaBurnElement.ElementType.performance),
+            MysteryItem(title: "Patience is the game here", elementType: AfrikaBurnElement.ElementType.mutantVehicle),
+            MysteryItem(title: "The excitement is at an all time high", elementType: AfrikaBurnElement.ElementType.camp),
+        ]
+    }
+    
+    static func createMysteryData() -> [AfrikaBurnElement] {
+        var result: [AfrikaBurnElement] = []
+        for (index, item) in createMysteryItems().enumerated() {
+         let e = AfrikaBurnElement(id: index * -1,
+                           name: item.title,
+                           categories: [],
+                           longBlurb: "All will be revealed when AfrikaBurn opens on the 23rd of April.",
+                           shortBlurb: "Open the App when you begin the drive/flight in while you have signal to fetch the latest data",
+                           scheduledActivities: nil,
+                           elementType: item.elementType,
+                           locationString: "")
+            result.append(e)
+        }
+        return result
     }
 }
 

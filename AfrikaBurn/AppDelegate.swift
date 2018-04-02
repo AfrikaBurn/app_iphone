@@ -52,9 +52,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 protocol ApplicationService {
     func startup()
 }
-
-extension BurnDataSyncer: ApplicationService {
-    func startup() {
-        syncData()
-    }
-}

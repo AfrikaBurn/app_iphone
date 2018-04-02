@@ -8,16 +8,19 @@
 
 import UIKit
 import MapKit
+import SafariServices
 
 class MoreTableViewController: UITableViewController {
 
     struct URLs {
         static let survivalGuide = Bundle.main.url(forResource: "AB-SurvivalGuide-2018-English", withExtension: "pdf")!
+        static let weatherReport = URL(string: "http://www.yr.no/place/South_Africa/Northern_Cape/Stonehenge/")!
     }
     
     struct IndexPaths {
         static let navigateToTheBurn = IndexPath(row: 0, section: 0)
         static let survivalGuide = IndexPath(row: 1, section: 0)
+        static let weatherReport = IndexPath(row: 2, section: 0)
     }
     
     override func viewDidLoad() {
@@ -43,6 +46,9 @@ class MoreTableViewController: UITableViewController {
             d.name = "Survival Guide"
             d.delegate = self
             d.presentPreview(animated: true)
+        case IndexPaths.weatherReport:
+            let safari = SFSafariViewController(url: URLs.weatherReport)
+            present(safari, animated: true, completion: nil)
         default:
             assert(false)
         }

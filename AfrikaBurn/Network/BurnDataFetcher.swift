@@ -30,6 +30,7 @@ class BurnDataFetcher {
         case fetchFailed
     }
     
+    let cache = BurnDataCache()
     private(set) var state = State.idle
     private let serialQueue = DispatchQueue(label: "burndatafetcher.serialqueue")
     
@@ -45,16 +46,20 @@ class BurnDataFetcher {
         }
     }
     
-    fileprivate func handleResponseReceived(_ data: Data?, error: Error?, completion: @escaping Completion) {
+    func cachedElements() -> [BurnJSONElement] {
+        return cache.retrieveCache()
+    }
+    
+    private func handleResponseReceived(_ data: Data?, error: Error?, completion: @escaping Completion) {
         serialQueue.async {
             if let data = data {
-                if let burnDataString = APIResponseSerializer.convertResponse(withData: data) {
-                    self.state = .fetched(burnDataString)
-                    completion(.success(burnDataString))
+                if let burnElements = APIResponseSerializer.convertResponse(withData: data) {
+                    self.cache.cacheElements(burnElements)
+                    self.state = .fetched(burnElements)
+                    completion(.success(burnElements))
                 } else {
                     self.handleFetchFailed(completion: completion)
                 }
-                
             } else {
                 self.handleFetchFailed(completion: completion)
             }
@@ -64,6 +69,45 @@ class BurnDataFetcher {
     private func handleFetchFailed(completion: @escaping Completion) {
         self.state = .fetchFailed
         completion(.failed)
+    }
+}
+
+struct BurnDataCache {
+    
+    struct CachePath {
+        let cachesDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+        let cacheFileName = "afrikaburn_burn_data.cache"
+        var cacheFilePath: URL{
+            return cachesDir.appendingPathComponent(cacheFileName)
+        }
+    }
+    
+    func retrieveCache() -> [BurnJSONElement] {
+        let path = CachePath().cacheFilePath
+        do {
+            if let data = FileManager.default.contents(atPath: path.path) {
+                return try JSONDecoder().decode([BurnJSONElement].self, from: data)
+            }
+        }
+        catch {
+            
+        }
+        return []
+    }
+    
+    func cacheElements(_ elements: [BurnJSONElement]) {
+        do {
+            let data = try JSONEncoder().encode(elements)
+            let path = CachePath()
+            
+            try? FileManager.default.createDirectory(at: path.cachesDir, withIntermediateDirectories: true, attributes: nil)
+            try? FileManager.default.removeItem(at: path.cacheFilePath)
+            
+            FileManager.default.createFile(atPath: path.cacheFilePath.path, contents: data, attributes: nil)
+            
+        } catch {
+            
+        }
     }
 }
 
