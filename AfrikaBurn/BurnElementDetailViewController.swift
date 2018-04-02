@@ -53,6 +53,7 @@ class BurnElementDetailViewController: UIViewController {
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
         }
+        tableView.allowsSelection = false
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: ReuseIdentifiers.cell)
         tableView.dataSource = self
         tableView.enableSelfSizingCells(withEstimatedHeight: 55)

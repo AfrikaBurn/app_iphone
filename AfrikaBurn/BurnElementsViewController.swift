@@ -146,6 +146,7 @@ extension BurnElementsViewController: UITableViewDelegate {
             return
         }
         navigationCoordinator.showBurnElementDetail(for: burnElement)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -156,6 +157,19 @@ class CampSummaryTableViewCell: UITableViewCell {
     @IBOutlet weak var subheadlineLabel: UILabel!
     @IBOutlet weak var elementImageView: UIImageView!
     
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    private func commonInit() {
+        Style.apply(to: self)
+    }
 }
 
 extension AfrikaBurnElement.ElementType {

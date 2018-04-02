@@ -37,6 +37,12 @@ struct Style {
         tableView.backgroundView = nil
         tableView.backgroundColor = Style.whiteColor
     }
+    
+    static func apply(to cell: UITableViewCell) {
+        let v = UIView()
+        v.backgroundColor = Style.softerTintColor
+        cell.selectedBackgroundView = v
+    }
 }
 
 extension UIColor {

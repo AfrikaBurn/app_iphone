@@ -25,12 +25,18 @@ class MoreTableViewController: UITableViewController {
         Style.apply(to: tableView)
     }
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let c = super.tableView(tableView, cellForRowAt: indexPath)
+        Style.apply(to: c)
+        return c
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath {
         case IndexPaths.navigateToTheBurn:
             let coordinate = CLLocationCoordinate2DMake(-32.3268322, 19.748085700000047)
             let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
-            mapItem.name = "Afrikaburn"
+            mapItem.name = "AfrikaBurn"
             mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
         case IndexPaths.survivalGuide:
             let d = UIDocumentInteractionController(url: URLs.survivalGuide)
