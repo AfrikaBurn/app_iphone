@@ -2,30 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "AB_App Home_iOS_V01-02-2017.png",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
-      "filename" : "launch_screen-iPhone_1080x1920.jpg",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "universal",
-      "filename" : "launch_screen-iPhone_1080x1920-1.jpg",
-      "scale" : "3x"
-    },
-    {
-      "idiom" : "iphone",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "iphone",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "iphone",
-      "scale" : "3x"
+      "filename" : "Afrikaburn-2018_Facebook_Event-Poster_V01-11-2017-610x863.png"
     }
   ],
   "info" : {
