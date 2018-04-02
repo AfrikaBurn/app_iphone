@@ -79,11 +79,10 @@ class PersistentStore {
         return createLocation(customLocation: customLocation)
     }
     
-    func deleteLocationId(locationId : String){
+    func deleteLocation(withID locationId : String){
         let realm = createRealm()
         try! realm.write {
             let toDelete = realm.objects(CustomLocation.self).filter("id = %@", locationId)
-            NSLog("deleting location id %@ %d", locationId, toDelete.count)
             realm.delete(toDelete)
         }
     }

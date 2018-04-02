@@ -349,7 +349,7 @@ extension MapViewController: MKMapViewDelegate {
             let confirmDelete = UIAlertController(title: "Delete this location?", message: "Are you sure you want to delete this location?", preferredStyle: UIAlertControllerStyle.alert)
             confirmDelete.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
             confirmDelete.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive, handler: { (action) -> Void in
-                self.persistentStore.deleteLocationId(locationId: customLocationAnnotation.customLocation.id)
+                self.persistentStore.deleteLocation(withID: customLocationAnnotation.customLocation.id)
                 
                 self.removeCustomLocations()
                 self.loadCustomLocations()
