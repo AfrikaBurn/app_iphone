@@ -132,7 +132,7 @@ class AfrikaBurnElement: Object {
         return _name
     }
     
-    convenience init(id: Int, name: String, categories: [Category], longBlurb: String?, shortBlurb: String?, scheduledActivities: String?, elementType: AfrikaBurnElement.ElementType, locationString: String) {
+    convenience init(id: Int, name: String, categories: [Category], longBlurb: String?, shortBlurb: String?, scheduledActivities: String?, elementType: AfrikaBurnElement.ElementType, locationString: String?) {
         self.init()
         self.id = id
         self.name = normalizeName(name: name)
