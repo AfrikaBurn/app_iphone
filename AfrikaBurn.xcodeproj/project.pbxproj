@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1762682A1E8E2DC200C57F2A /* CustomLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176268291E8E2DC100C57F2A /* CustomLocation.swift */; };
-		4201287E204DC2D800DF9305 /* AB2018_Map.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4201287D204DC2D800DF9305 /* AB2018_Map.jpg */; };
 		420E058E1E958EA600ED5002 /* AppNavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420E058D1E958EA600ED5002 /* AppNavigationCoordinator.swift */; };
 		421B0B2A1E6AA132006D6A91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B291E6AA132006D6A91 /* AppDelegate.swift */; };
 		421B0B2C1E6AA132006D6A91 /* BurnElementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B0B2B1E6AA132006D6A91 /* BurnElementsViewController.swift */; };
@@ -23,6 +22,7 @@
 		4222AE592068F74D0009B50D /* MoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4222AE582068F74D0009B50D /* MoreTableViewController.swift */; };
 		4222AE5B206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4222AE5A206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf */; };
 		4222AE5F206929270009B50D /* afrikaburn2018_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 4222AE5E206929270009B50D /* afrikaburn2018_data.json */; };
+		429AD77520724334001BB86E /* ImageMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429AD77420724334001BB86E /* ImageMapViewController.swift */; };
 		42B1C99B1E72871100699D61 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B1C99A1E72871100699D61 /* MapKit.framework */; };
 		42B1C99D1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png in Resources */ = {isa = PBXBuildFile; fileRef = 42B1C99C1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png */; };
 		42B1C9A01E76686100699D61 /* BurnDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B1C99F1E76686100699D61 /* BurnDataFetcher.swift */; };
@@ -46,7 +46,6 @@
 /* Begin PBXFileReference section */
 		176268291E8E2DC100C57F2A /* CustomLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLocation.swift; sourceTree = "<group>"; };
 		1A10BA63A7F3925F6DCFE9F2 /* Pods-AfrikaBurnTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AfrikaBurnTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AfrikaBurnTests/Pods-AfrikaBurnTests.release.xcconfig"; sourceTree = "<group>"; };
-		4201287D204DC2D800DF9305 /* AB2018_Map.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = AB2018_Map.jpg; sourceTree = "<group>"; };
 		420E058D1E958EA600ED5002 /* AppNavigationCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppNavigationCoordinator.swift; sourceTree = "<group>"; };
 		421B0B261E6AA132006D6A91 /* AfrikaBurn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AfrikaBurn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		421B0B291E6AA132006D6A91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +65,7 @@
 		4222AE5A206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AB-SurvivalGuide-2018-English.pdf"; sourceTree = "<group>"; };
 		4222AE5E206929270009B50D /* afrikaburn2018_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = afrikaburn2018_data.json; sourceTree = "<group>"; };
 		4222AE60206958450009B50D /* Afrikaburn.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Afrikaburn.gpx; sourceTree = "<group>"; };
+		429AD77420724334001BB86E /* ImageMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMapViewController.swift; sourceTree = "<group>"; };
 		42B1C99A1E72871100699D61 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		42B1C99C1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AB2017_Layout_RoadsLabel_20170308.png; sourceTree = "<group>"; };
 		42B1C99F1E76686100699D61 /* BurnDataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BurnDataFetcher.swift; sourceTree = "<group>"; };
@@ -138,6 +138,7 @@
 				420E058D1E958EA600ED5002 /* AppNavigationCoordinator.swift */,
 				421B0B2B1E6AA132006D6A91 /* BurnElementsViewController.swift */,
 				421B0B2D1E6AA132006D6A91 /* MapViewController.swift */,
+				429AD77420724334001BB86E /* ImageMapViewController.swift */,
 				421B0B831E6F2D33006D6A91 /* BurnElementDetailViewController.swift */,
 				4222AE582068F74D0009B50D /* MoreTableViewController.swift */,
 				421B0B2F1E6AA132006D6A91 /* Main.storyboard */,
@@ -168,7 +169,6 @@
 				4222AE5A206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf */,
 				421B0B341E6AA132006D6A91 /* LaunchScreen.storyboard */,
 				421B0B321E6AA132006D6A91 /* Assets.xcassets */,
-				4201287D204DC2D800DF9305 /* AB2018_Map.jpg */,
 				42B1C99C1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png */,
 			);
 			path = Resources;
@@ -331,7 +331,6 @@
 				4222AE5F206929270009B50D /* afrikaburn2018_data.json in Resources */,
 				421B0B311E6AA132006D6A91 /* Main.storyboard in Resources */,
 				42B1C99D1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png in Resources */,
-				4201287E204DC2D800DF9305 /* AB2018_Map.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +457,7 @@
 				42B1C9A01E76686100699D61 /* BurnDataFetcher.swift in Sources */,
 				421B0B2E1E6AA132006D6A91 /* MapViewController.swift in Sources */,
 				4222AE572068F1930009B50D /* Style.swift in Sources */,
+				429AD77520724334001BB86E /* ImageMapViewController.swift in Sources */,
 				42B1C9A81E77154700699D61 /* BurnDataSyncer.swift in Sources */,
 				421B0B841E6F2D33006D6A91 /* BurnElementDetailViewController.swift in Sources */,
 				421B0B2A1E6AA132006D6A91 /* AppDelegate.swift in Sources */,

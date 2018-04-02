@@ -158,7 +158,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="rootViewController" id="49f-oo-LpH"/>
+                        <segue destination="teA-pA-QJr" kind="relationship" relationship="rootViewController" id="IfN-Qk-BRl"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="97R-lq-uza" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -198,6 +198,42 @@
             </objects>
             <point key="canvasLocation" x="794" y="775"/>
         </scene>
+        <!--Map-->
+        <scene sceneID="v2v-Zo-E98">
+            <objects>
+                <viewController id="teA-pA-QJr" customClass="ImageMapViewController" customModule="AfrikaBurn" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="h4w-k9-Yyo"/>
+                        <viewControllerLayoutGuide type="bottom" id="fTb-ca-HR3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pZ6-Kz-j4b">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bqv-eD-ztH">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <connections>
+                                    <outlet property="delegate" destination="teA-pA-QJr" id="Rb1-Cq-lov"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottomMargin" secondItem="Bqv-eD-ztH" secondAttribute="bottom" id="KPc-4K-fGx"/>
+                            <constraint firstItem="Bqv-eD-ztH" firstAttribute="leading" secondItem="pZ6-Kz-j4b" secondAttribute="leading" id="LZy-A1-jco"/>
+                            <constraint firstItem="Bqv-eD-ztH" firstAttribute="top" secondItem="pZ6-Kz-j4b" secondAttribute="topMargin" id="Tlf-wl-BMI"/>
+                            <constraint firstAttribute="trailing" secondItem="Bqv-eD-ztH" secondAttribute="trailing" id="ziK-LR-eVh"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Map" id="i5Z-dZ-JYm"/>
+                    <connections>
+                        <outlet property="scrollView" destination="Bqv-eD-ztH" id="70h-2s-I1o"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EqL-sM-pQ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1671.2" y="775.86206896551732"/>
+        </scene>
         <!--More-->
         <scene sceneID="E8r-zT-lEX">
             <objects>
@@ -226,15 +262,15 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="2E6-1m-7LZ" style="IBUITableViewCellStyleDefault" id="WyU-Ja-9zL">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="2E6-1m-7LZ" style="IBUITableViewCellStyleDefault" id="WyU-Ja-9zL">
                                         <rect key="frame" x="0.0" y="79" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WyU-Ja-9zL" id="KO4-gc-Ycn">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Read the survival guide" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2E6-1m-7LZ">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
