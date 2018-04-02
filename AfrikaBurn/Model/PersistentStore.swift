@@ -22,10 +22,13 @@ class PersistentStore {
      `deleteRestNotIncludedInElements` controls whether the elements missing from the provided elements
      should be deleted. This ensures that the data displayed always matches what is stored.
      */
-    func storeElements(_ elements: [AfrikaBurnElement], deleteRestNotIncludedInElements: Bool = true) {
+    func storeElements(_ elements: [AfrikaBurnElement], deleteRestNotIncludedInElements: Bool = true, completion: (() -> Void)? = nil) {
         queue.async {
             let realm = self.createRealm()
             try? realm.write {
+                defer {
+                    completion?()
+                }
                 if deleteRestNotIncludedInElements {
                     let idsToSave = elements.map({ $0.id })
                     let toDelete = realm.objects(AfrikaBurnElement.self).filter("NOT id in %@", idsToSave)
