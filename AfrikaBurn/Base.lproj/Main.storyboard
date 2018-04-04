@@ -89,7 +89,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="v32-Ky-UIg">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title="Filter" id="5he-Ec-iyV">
+                        <barButtonItem key="rightBarButtonItem" title="Filter" id="5he-Ec-iyV">
                             <connections>
                                 <action selector="handleFilterTapped:" destination="KMf-pq-c2Z" id="mKI-90-O8m"/>
                             </connections>
@@ -391,7 +391,7 @@
         <image name="map-pin" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mll-6C-7Wb"/>
+        <segue reference="EMp-od-1HO"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.94901960784313721" green="0.42352941176470588" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
 </document>
