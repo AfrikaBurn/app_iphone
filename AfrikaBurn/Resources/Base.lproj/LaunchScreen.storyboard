@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SplashScreen" translatesAutoresizingMaskIntoConstraints="NO" id="QkZ-kC-mPj">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="-187.66666666666666" y="-406" width="750.33333333333337" height="1624"/>
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z4x-iq-4uf">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
@@ -47,13 +48,13 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="z4x-iq-4uf" secondAttribute="trailing" id="BZU-04-5iJ"/>
-                            <constraint firstAttribute="trailing" secondItem="QkZ-kC-mPj" secondAttribute="trailing" id="FKW-c9-BNd"/>
                             <constraint firstItem="z4x-iq-4uf" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="XYg-1H-z8w"/>
-                            <constraint firstItem="QkZ-kC-mPj" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="iJP-Z6-GLd"/>
+                            <constraint firstItem="QkZ-kC-mPj" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="YUk-AR-z71"/>
+                            <constraint firstItem="QkZ-kC-mPj" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="epw-k0-jlp"/>
+                            <constraint firstItem="QkZ-kC-mPj" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="2" id="hWc-Hv-XeD"/>
+                            <constraint firstItem="QkZ-kC-mPj" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="2" id="phG-mw-6Nv"/>
                             <constraint firstItem="z4x-iq-4uf" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="q03-Hx-kra"/>
                             <constraint firstAttribute="bottom" secondItem="z4x-iq-4uf" secondAttribute="bottom" id="slX-Da-Dvv"/>
-                            <constraint firstItem="QkZ-kC-mPj" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="th0-Fq-UKO"/>
-                            <constraint firstAttribute="bottom" secondItem="QkZ-kC-mPj" secondAttribute="bottom" id="y0z-Aq-o4B"/>
                         </constraints>
                     </view>
                 </viewController>
