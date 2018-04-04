@@ -22,6 +22,12 @@ extension Calendar {
     }
     
     static var hasAfrikaBurnStarted: Bool {
+        #if DEBUG
+        if UserDefaults.standard.bool(forKey: "AssumeBurnHasStarted") {
+            return true
+        }
+        #endif
+        
         return Calendar.daysUntilAfrikaBurn <= 0
     }
 }
