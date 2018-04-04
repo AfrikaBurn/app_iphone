@@ -34,13 +34,7 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
         Style.apply(to: tableView)
         tableView.enableSelfSizingCells(withEstimatedHeight: 55)
         
-        // Setup the Search Controller
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.delegate = self
-        searchController.searchBar.barTintColor = UIColor.afrikaBurnContentBackgroundColor
-        
-        definesPresentationContext = true
-        searchController.dimsBackgroundDuringPresentation = false
+        displaySearchBarIfNeeded()
         
         // Setup the Scope Bar
         // If we want a type filter we could add below... Not sure it's needed
@@ -105,23 +99,50 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
         viewModel.searchText = lowerText
     }
     
-}
-
-extension BurnElementsViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let numberOfCells = viewModel.numberOfElements
-        if viewModel.searchText.isEmpty {
-            if numberOfCells > Configuration.maxCellCountToHideSearchBar {
+    func displaySearchBarIfNeeded() {
+        func showSearch() {
+            // Setup the Search Controller
+            searchController.searchResultsUpdater = self
+            searchController.searchBar.delegate = self
+            searchController.searchBar.barTintColor = UIColor.afrikaBurnContentBackgroundColor
+            
+            definesPresentationContext = true
+            searchController.dimsBackgroundDuringPresentation = false
+            if #available(iOS 11.0, *) {
+                navigationItem.searchController = searchController
+                navigationItem.hidesSearchBarWhenScrolling = false
+            } else {
                 if tableView.tableHeaderView == nil {
                     tableView.tableHeaderView = searchController.searchBar
                 }
-                
+            }
+        }
+        
+        func hideSearch() {
+            if #available(iOS 11.0, *) {
+                if navigationItem.searchController != nil {
+                    navigationItem.searchController = nil
+                }
             } else {
                 if tableView.tableHeaderView != nil {
                     tableView.tableHeaderView = nil
                 }
             }
         }
+        
+        if viewModel.searchText.isEmpty {
+            if viewModel.numberOfElements > Configuration.maxCellCountToHideSearchBar {
+                showSearch()
+            } else {
+                hideSearch()
+            }
+        }
+    }
+}
+
+extension BurnElementsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let numberOfCells = viewModel.numberOfElements
         return numberOfCells
     }
     
