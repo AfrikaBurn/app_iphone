@@ -43,6 +43,7 @@ class BurnElementDetailViewController: UIViewController {
     
     struct ReuseIdentifiers {
         static let cell = "cell"
+        static let headlineCell = "headlineCell"
         static let mapCell = "MapCell"
     }
     
@@ -55,7 +56,9 @@ class BurnElementDetailViewController: UIViewController {
         }
         tableView.allowsSelection = false
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: ReuseIdentifiers.cell)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: ReuseIdentifiers.headlineCell)
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.enableSelfSizingCells(withEstimatedHeight: 55)
         tableView.cellLayoutMarginsFollowReadableWidth = true
         Style.apply(to: tableView)
@@ -67,9 +70,6 @@ class BurnElementDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.title = element.name
-        navigationController?.navigationBar.barTintColor = UIColor.afrikaBurnContentBackgroundColor
-        
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.afrikaBurnTintColor]
     }
     
     @objc func handleFavoriteTapped() {
@@ -80,6 +80,104 @@ class BurnElementDetailViewController: UIViewController {
         }
     }
 }
+
+extension BurnElementDetailViewController: UITableViewDataSource {
+    
+    enum Fields {
+        case title, categories, longblurb, scheduledActivivies, map
+        static let all: [Fields] = [map, title, categories, longblurb, scheduledActivivies]
+        
+        static func create(from element: AfrikaBurnElement) -> [Fields] {
+            let hasText: (_ string: String?) -> Bool = { $0?.isEmpty == false }
+            return Fields.all.filter({ (field) -> Bool in
+                switch field {
+                case .categories: return element.categories.count > 0
+                case .longblurb: return hasText(element.longBlurb)
+                case .scheduledActivivies: return hasText(element.scheduledActivities)
+                case .title: return true
+                case .map: return element.location != nil
+                }
+            })
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return displayedFields.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch displayedFields[section] {
+        case .categories:
+            return "Times"
+        case .longblurb:
+            return nil
+        case .scheduledActivivies:
+            return "Scheduled Activities"
+        case .title:
+            return nil
+        case .map:
+            return "Location"
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell
+        let dequeueRegularCell: () -> UITableViewCell = { tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.cell, for: indexPath) }
+        let dequeueHeadlineCell: () -> UITableViewCell = { tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.headlineCell, for: indexPath) }
+        let text: String?
+        switch displayedFields[indexPath.section] {
+        case .categories:
+            cell = dequeueRegularCell()
+            text = element.categories.map({ $0.name }).joined(separator: "\n")
+        case .longblurb:
+            cell = dequeueRegularCell()
+            text = (element.longBlurb ?? "")
+        case .scheduledActivivies:
+            cell = dequeueRegularCell()
+            text = (element.scheduledActivities ?? "")
+        case .title:
+            cell = dequeueHeadlineCell()
+            if #available(iOS 11.0, *) {
+                cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.largeTitle)
+            } else {
+                cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.title1)
+            }
+            text = element.name
+        case .map:
+            text = nil
+            let mapCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.mapCell, for: indexPath) as! MapCell
+            cell = mapCell
+            let mapView = mapCell.mapView
+            mapView.removeAnnotations(mapCell.mapView.annotations)
+            if let location = element.location {
+                let annotation = BurnAnnotation(coordinate: location, element: element)
+                annotation.coordinate = location
+                mapView.addAnnotation(annotation)
+                mapView.setRegion(MKCoordinateRegionMakeWithDistance(location, 100, 100), animated: false)
+            }
+            
+        }
+        cell.textLabel?.text = text
+        cell.textLabel?.numberOfLines = 3
+        return cell
+    }
+}
+
+extension BurnElementDetailViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return self.tableView(tableView, titleForHeaderInSection: section) == nil ? CGFloat.leastNonzeroMagnitude : 0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return self.tableView(tableView, titleForHeaderInSection: section) == nil ? CGFloat.leastNonzeroMagnitude : 44
+    }
+}
+
+//MARK: - Cells -
 
 class MapCell: UITableViewCell {
     
@@ -130,70 +228,5 @@ extension MapCell : MKMapViewDelegate {
         annotationView.image = burnAnnotation.image
         
         return annotationView
-    }
-}
-
-extension BurnElementDetailViewController: UITableViewDataSource {
-    
-    enum Fields {
-        case id, title, categories, longblurb, scheduledActivivies, map
-        static let all: [Fields] = [map, title, categories, longblurb, scheduledActivivies]
-        
-        static func create(from element: AfrikaBurnElement) -> [Fields] {
-            let hasText: (_ string: String?) -> Bool = { $0?.isEmpty == false }
-            return Fields.all.filter({ (field) -> Bool in
-                switch field {
-                case .id: return true
-                case .categories: return element.categories.count > 0
-                case .longblurb: return hasText(element.longBlurb)
-                case .scheduledActivivies: return hasText(element.scheduledActivities)
-                case .title: return true
-                case .map: return element.location != nil
-                }
-            })
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return displayedFields.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell
-        let dequeueRegularCell: () -> UITableViewCell = { tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.cell, for: indexPath) }
-        let text: String?
-        switch displayedFields[indexPath.row] {
-        case .id:
-            cell = dequeueRegularCell()
-            text = "\(element.id)"
-        case .categories:
-            cell = dequeueRegularCell()
-            text = element.categories.map({ $0.name }).joined(separator: "\n")
-        case .longblurb:
-            cell = dequeueRegularCell()
-            text = (element.longBlurb ?? "")
-        case .scheduledActivivies:
-            cell = dequeueRegularCell()
-            text = (element.scheduledActivities ?? "")
-        case .title:
-            cell = dequeueRegularCell()
-            text = element.name
-        case .map:
-            text = nil
-            let mapCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.mapCell, for: indexPath) as! MapCell
-            cell = mapCell
-            let mapView = mapCell.mapView
-            mapView.removeAnnotations(mapCell.mapView.annotations)
-            if let location = element.location {
-                let annotation = BurnAnnotation(coordinate: location, element: element)
-                annotation.coordinate = location
-                mapView.addAnnotation(annotation)
-                mapView.setRegion(MKCoordinateRegionMakeWithDistance(location, 100, 100), animated: false)
-            }
-            
-        }
-        cell.textLabel?.text = text
-        cell.textLabel?.numberOfLines = 0
-        return cell
     }
 }
