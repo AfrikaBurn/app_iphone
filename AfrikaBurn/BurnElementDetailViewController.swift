@@ -57,6 +57,7 @@ class BurnElementDetailViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: ReuseIdentifiers.cell)
         tableView.dataSource = self
         tableView.enableSelfSizingCells(withEstimatedHeight: 55)
+        tableView.cellLayoutMarginsFollowReadableWidth = true
         Style.apply(to: tableView)
         token = self.persistentStore.favorites().filter("id == \(element.id)").observe({ (change) in
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(icon: self.element.isFavorite ? .favoriteFilledIn : .favorite, target: self, action: #selector(self.handleFavoriteTapped))

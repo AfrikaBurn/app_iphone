@@ -31,6 +31,7 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
         tableView.scrollsToTop = true
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.cellLayoutMarginsFollowReadableWidth = true
         Style.apply(to: tableView)
         tableView.enableSelfSizingCells(withEstimatedHeight: 55)
         
