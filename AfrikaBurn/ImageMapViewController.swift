@@ -20,9 +20,11 @@ class ImageMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.addSubview(mapImageView)
-        scrollView.minimumZoomScale = 0.05
-        scrollView.maximumZoomScale = 0.1
+        scrollView.minimumZoomScale = 0.3
+        scrollView.maximumZoomScale = 1
         scrollView.zoomScale = scrollView.minimumZoomScale
+        mapImageView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        mapImageView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
     }
 }
 
