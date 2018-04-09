@@ -162,7 +162,7 @@ extension BurnElementDetailViewController: UITableViewDataSource {
             
         }
         cell.textLabel?.text = text
-        cell.textLabel?.numberOfLines = 3
+        cell.textLabel?.numberOfLines = 0
         return cell
     }
 }
