@@ -42,7 +42,7 @@
                                         <constraint firstAttribute="bottom" secondItem="vb6-Gy-p4L" secondAttribute="bottom" id="ptL-WZ-Am5"/>
                                     </constraints>
                                 </view>
-                                <blurEffect style="light"/>
+                                <blurEffect style="dark"/>
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
