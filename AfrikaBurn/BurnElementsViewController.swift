@@ -63,13 +63,18 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
         case .update(let deletions, let insertions, let modifications):
             tableView.handleUpdates(deletions: deletions, insertions: insertions, modifications: modifications)
         }
+        if viewModel.activeFilter.elementType == nil {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(handleFilterTapped))
+        } else {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter (On)", style: .done, target: self, action: #selector(handleFilterTapped))
+        }
     }
     
     func showFavorites() {
         viewModel.displayMode = .favorites
     }
     
-    @IBAction func handleFilterTapped(_ sender: Any) {
+    @IBAction func handleFilterTapped(_ sender: Any? = nil) {
         let actionSheet = UIAlertController(title: "Filter", message: "Select a category", preferredStyle: .actionSheet)
         actionSheet.view.tintColor = UIColor.afrikaBurnTintColor
         for type in AfrikaBurnElement.ElementType.filterableList {
@@ -156,6 +161,7 @@ extension BurnElementsViewController: UITableViewDataSource {
         let element = self.element(at: indexPath)
         cell.headlineLabel.text = element.elementTitle
         cell.subheadlineLabel.text = element.summaryBlurb
+        cell.subheadlineLabel.isHidden = element.summaryBlurb == nil
         cell.elementImageView.image = element.iconImage
         return cell
     }
