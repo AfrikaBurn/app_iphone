@@ -223,7 +223,7 @@ protocol BurnElementSummaryDisplayable {
 
 extension AfrikaBurnElement: BurnElementSummaryDisplayable {
     var elementTitle: String { return name }
-    var summaryBlurb: String? { return shortBlurb }
+    var summaryBlurb: String? { return longBlurb }
     var iconImage: UIImage? { return elementType.iconImage }
     var elementID: Int { return id }
 }
