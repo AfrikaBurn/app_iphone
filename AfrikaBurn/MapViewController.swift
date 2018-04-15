@@ -167,7 +167,7 @@ class MapViewController: UIViewController {
             guard let location = element.location else {
                 continue
             }
-            let anno = BurnAnnotation(coordinate: location, element: element)
+            let anno = BurnAnnotation(coordinate: location.coordinate, element: element)
             anno.title = element.name
             mapView.addAnnotation(anno);
         }

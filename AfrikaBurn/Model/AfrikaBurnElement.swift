@@ -93,7 +93,7 @@ class AfrikaBurnElement: Object {
     @objc dynamic var dateFavorited: Date = Date()
     @objc dynamic var isFavorite: Bool = false
     
-    var location: CLLocationCoordinate2D? {
+    var location: CLLocation? {
         guard let locationString = locationString else {
             return nil
         }
@@ -106,7 +106,7 @@ class AfrikaBurnElement: Object {
                 return nil
         }
         
-        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        return CLLocation(latitude: latitude, longitude: longitude)
     }
     
     var categories: [Category] {

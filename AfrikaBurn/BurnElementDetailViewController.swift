@@ -32,8 +32,9 @@ class BurnElementDetailViewController: UIViewController {
     let persistentStore: PersistentStore = PersistentStore()
     @IBOutlet weak var tableView: UITableView!
     fileprivate(set) var element: AfrikaBurnElement!
-    
+    fileprivate var locationObservationToken: Any?
     fileprivate lazy var displayedFields: [Fields] = Fields.create(from: self.element)
+    private var locationManager: LocationManager { return LocationManager.sharedInstance }
     
     static func create(element: AfrikaBurnElement) -> BurnElementDetailViewController {
         let detail = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BurnElementDetailViewController") as! BurnElementDetailViewController
@@ -148,22 +149,36 @@ extension BurnElementDetailViewController: UITableViewDataSource {
             }
             text = element.name
         case .map:
-            text = nil
-            let mapCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.mapCell, for: indexPath) as! MapCell
-            cell = mapCell
-            let mapView = mapCell.mapView
-            mapView.removeAnnotations(mapCell.mapView.annotations)
+            cell = dequeueRegularCell()
+            text = DisplayableDistance.distance(from: locationManager.usersCurrentLocation, to: element.location, using: locationManager)
             if let location = element.location {
-                let annotation = BurnAnnotation(coordinate: location, element: element)
-                annotation.coordinate = location
-                mapView.addAnnotation(annotation)
-                mapView.setRegion(MKCoordinateRegionMakeWithDistance(location, 100, 100), animated: false)
+                locationObservationToken = locationManager.observeUserLocation { [weak self] (userLocation) in
+                    guard let strongSelf = self else { return }
+                    print(userLocation)
+                    if let cell = strongSelf.tableView.cellForRow(at: indexPath) {
+                        let distance = DisplayableDistance.distance(from: userLocation, to: location, using: strongSelf.locationManager)
+                        cell.textLabel?.text = distance
+                    }
+                }
             }
-            
         }
         cell.textLabel?.text = text
         cell.textLabel?.numberOfLines = 0
         return cell
+    }
+    
+    struct DisplayableDistance {
+        static func distance(from: CLLocation?, to: CLLocation?, using manager: LocationManager) -> String {
+            guard manager.isAuthorizedToUseLocation() else {
+                return "⚠️ Please grant access to your location in Settings so we can give you a distance to this point"
+            }
+            if let from = from, let to = to {
+                let distance = manager.userDisplayableDistance(from: from, to: to)
+                return "🏃‍♀️ \(distance) away from you"
+            } else {
+                return "⏰ getting current location"
+            }
+        }
     }
 }
 

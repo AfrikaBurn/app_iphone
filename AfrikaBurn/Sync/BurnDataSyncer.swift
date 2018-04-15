@@ -172,7 +172,15 @@ extension BurnJSONElement {
             assertionFailure("ID could not be converted to an Int \(id)")
             return nil
         }
+        
+        let locations = ["-32.32893208554183,19.747913535708904",
+                         "-32.32778403741981,19.74691967489298",
+                         "-32.32656919940414,19.744494957943516",
+                         "-32.327690425253024,19.747112123389797",
+                         "-32.32714646938548,19.74653276624258"]
+        let locationString = locations[Int(arc4random_uniform(UInt32(locations.count)))]
+        
         let categories = plannedActivities.components(separatedBy: ",").map({ AfrikaBurnElement.Category(name: $0) })
-        return AfrikaBurnElement(id: idInt, name: title, categories: categories, longBlurb: longBlurb, shortBlurb: nil, scheduledActivities: plannedActivitiesDescription, elementType: elementType, locationString: "")
+        return AfrikaBurnElement(id: idInt, name: title, categories: categories, longBlurb: longBlurb, shortBlurb: nil, scheduledActivities: plannedActivitiesDescription, elementType: elementType, locationString: locationString)
     }
 }

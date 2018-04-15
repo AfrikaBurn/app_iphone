@@ -22,6 +22,7 @@
 		4222AE592068F74D0009B50D /* MoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4222AE582068F74D0009B50D /* MoreTableViewController.swift */; };
 		4222AE5B206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4222AE5A206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf */; };
 		4222AE5F206929270009B50D /* afrikaburn2018_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 4222AE5E206929270009B50D /* afrikaburn2018_data.json */; };
+		425BBB2720834A4D0078FF65 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425BBB2620834A4D0078FF65 /* LocationManager.swift */; };
 		429AD77520724334001BB86E /* ImageMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429AD77420724334001BB86E /* ImageMapViewController.swift */; };
 		42A6DBE9207264EC003BC910 /* AfrikaBurn+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A6DBE8207264EC003BC910 /* AfrikaBurn+Calendar.swift */; };
 		42B1C99B1E72871100699D61 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B1C99A1E72871100699D61 /* MapKit.framework */; };
@@ -66,6 +67,7 @@
 		4222AE5A206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AB-SurvivalGuide-2018-English.pdf"; sourceTree = "<group>"; };
 		4222AE5E206929270009B50D /* afrikaburn2018_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = afrikaburn2018_data.json; sourceTree = "<group>"; };
 		4222AE60206958450009B50D /* Afrikaburn.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Afrikaburn.gpx; sourceTree = "<group>"; };
+		425BBB2620834A4D0078FF65 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		429AD77420724334001BB86E /* ImageMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMapViewController.swift; sourceTree = "<group>"; };
 		42A6DBE8207264EC003BC910 /* AfrikaBurn+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AfrikaBurn+Calendar.swift"; sourceTree = "<group>"; };
 		42B1C99A1E72871100699D61 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -145,6 +147,7 @@
 				4222AE582068F74D0009B50D /* MoreTableViewController.swift */,
 				421B0B2F1E6AA132006D6A91 /* Main.storyboard */,
 				421B0B371E6AA132006D6A91 /* Info.plist */,
+				425BBB2520834A340078FF65 /* Map */,
 				4222AE552068F17B0009B50D /* Styling */,
 				42B1C9A61E77153C00699D61 /* Sync */,
 				42B1C9A11E77109A00699D61 /* Model */,
@@ -191,6 +194,14 @@
 				4222AE562068F1930009B50D /* Style.swift */,
 			);
 			path = Styling;
+			sourceTree = "<group>";
+		};
+		425BBB2520834A340078FF65 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				425BBB2620834A4D0078FF65 /* LocationManager.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 		42B1C99E1E76683C00699D61 /* Network */ = {
@@ -459,6 +470,7 @@
 				42B1C9A31E7710D500699D61 /* AfrikaBurnElement.swift in Sources */,
 				42B1C9A01E76686100699D61 /* BurnDataFetcher.swift in Sources */,
 				421B0B2E1E6AA132006D6A91 /* MapViewController.swift in Sources */,
+				425BBB2720834A4D0078FF65 /* LocationManager.swift in Sources */,
 				4222AE572068F1930009B50D /* Style.swift in Sources */,
 				429AD77520724334001BB86E /* ImageMapViewController.swift in Sources */,
 				42B1C9A81E77154700699D61 /* BurnDataSyncer.swift in Sources */,
