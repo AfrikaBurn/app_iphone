@@ -22,6 +22,7 @@
 		4222AE592068F74D0009B50D /* MoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4222AE582068F74D0009B50D /* MoreTableViewController.swift */; };
 		4222AE5B206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4222AE5A206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf */; };
 		4222AE5F206929270009B50D /* afrikaburn2018_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 4222AE5E206929270009B50D /* afrikaburn2018_data.json */; };
+		428320862083790D00DF1D44 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 428320852083790C00DF1D44 /* AudioToolbox.framework */; };
 		429AD77520724334001BB86E /* ImageMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429AD77420724334001BB86E /* ImageMapViewController.swift */; };
 		42A6DBE9207264EC003BC910 /* AfrikaBurn+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A6DBE8207264EC003BC910 /* AfrikaBurn+Calendar.swift */; };
 		42B1C99B1E72871100699D61 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B1C99A1E72871100699D61 /* MapKit.framework */; };
@@ -66,6 +67,7 @@
 		4222AE5A206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AB-SurvivalGuide-2018-English.pdf"; sourceTree = "<group>"; };
 		4222AE5E206929270009B50D /* afrikaburn2018_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = afrikaburn2018_data.json; sourceTree = "<group>"; };
 		4222AE60206958450009B50D /* Afrikaburn.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Afrikaburn.gpx; sourceTree = "<group>"; };
+		428320852083790C00DF1D44 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		429AD77420724334001BB86E /* ImageMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMapViewController.swift; sourceTree = "<group>"; };
 		42A6DBE8207264EC003BC910 /* AfrikaBurn+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AfrikaBurn+Calendar.swift"; sourceTree = "<group>"; };
 		42B1C99A1E72871100699D61 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -86,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				428320862083790D00DF1D44 /* AudioToolbox.framework in Frameworks */,
 				42B1C99B1E72871100699D61 /* MapKit.framework in Frameworks */,
 				6EBAA0DA9560FE2E92B99E33 /* Pods_AfrikaBurn.framework in Frameworks */,
 			);
@@ -105,6 +108,7 @@
 		2A521CAB2E23C791B900396F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				428320852083790C00DF1D44 /* AudioToolbox.framework */,
 				42B1C99A1E72871100699D61 /* MapKit.framework */,
 				E8C8DD969DDAF433AEC0C9B4 /* Pods_AfrikaBurn.framework */,
 				EBF929D933E1CE61F8359A17 /* Pods_AfrikaBurnTests.framework */,
@@ -290,6 +294,9 @@
 						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Maps.iOS = {
 								enabled = 1;
 							};
