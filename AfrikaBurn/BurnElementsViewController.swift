@@ -206,7 +206,35 @@ extension BurnElementsViewController: UITableViewDelegate {
             return
         }
         navigationCoordinator.showBurnElementDetail(for: burnElement)
-        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        if shouldShowEmptyFeedCell {
+            return nil
+        }
+        
+        let element = self.element(at: indexPath)
+        func toggleFavorite() {
+            viewModel.toggleFavorite(forElementAt: indexPath.row)
+        }
+        if element.isFavorite {
+            let action = UIContextualAction(style: UIContextualAction.Style.normal, title: "Unfavorite") { (action, view, completion) in
+                toggleFavorite()
+                completion(true)
+            }
+            action.image = #imageLiteral(resourceName: "favorite-icon")
+            action.backgroundColor = Style.redColor
+            return UISwipeActionsConfiguration(actions: [action])
+        } else {
+            let action = UIContextualAction(style: UIContextualAction.Style.normal, title: "Favorite") { (action, view, completion) in
+                toggleFavorite()
+                completion(true)
+            }
+            action.image = #imageLiteral(resourceName: "favorite-icon-selected")
+            action.backgroundColor = Style.primaryTintColor
+            return UISwipeActionsConfiguration(actions: [action])
+        }
     }
 }
 
@@ -250,6 +278,7 @@ protocol BurnElementSummaryDisplayable {
     var summaryBlurb: String? { get }
     var iconImage: UIImage? { get }
     var elementID: Int { get }
+    var isFavorite: Bool { get }
 }
 
 extension AfrikaBurnElement: BurnElementSummaryDisplayable {
@@ -354,6 +383,15 @@ class BurnElementsViewModel {
     
     func element(at index: Int) -> BurnElementSummaryDisplayable {
         return elements.results[index]
+    }
+    
+    func toggleFavorite(forElementAt index: Int) {
+        let element = elements.results[index]
+        if element.isFavorite {
+            persistentStore.removeFavorite(element)
+        } else {
+            persistentStore.favoriteElement(element)
+        }
     }
     
     private func applySearchTextFilter(searchText : String) -> CurrentElements{
