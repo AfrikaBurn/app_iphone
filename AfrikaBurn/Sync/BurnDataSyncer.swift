@@ -20,7 +20,7 @@ class BurnDataSyncer {
     private let serialQueue = DispatchQueue(label: "BurnDataSyncer.serialQueue")
     
     private struct Defaults {
-        static let hasImportedBundledDataKey = "za.co.afrikaburn.burndatasyncer.hasImportedBundledDataKey"
+        static let hasImportedBundledDataKey = "za.co.afrikaburn.burndatasyncer.hasImportedBundledDataKey.2"
         static var hasImportedBundledData: Bool {
             get {
                 return UserDefaults.standard.bool(forKey: hasImportedBundledDataKey)
