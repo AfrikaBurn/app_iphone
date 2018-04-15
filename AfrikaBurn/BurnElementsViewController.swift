@@ -55,8 +55,9 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
         guard let tableView = tableView else {
             return
         }
-        if shouldShowEmptyFeedCell {
+        if shouldShowEmptyFeedCell || tableView.numberOfRows(inSection: 0) == 1 {
             tableView.reloadData()
+            return
         }
         switch changes {
         case .reload:
@@ -211,7 +212,7 @@ extension BurnElementsViewController: UITableViewDelegate {
     @available(iOS 11.0, *)
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         if shouldShowEmptyFeedCell {
-            return nil
+            return UISwipeActionsConfiguration(actions: [])
         }
         
         let element = self.element(at: indexPath)
