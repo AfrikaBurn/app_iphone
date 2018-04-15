@@ -57,7 +57,17 @@ class MoreTableViewController: UITableViewController {
             let safari = SFSafariViewController(url: URLs.weatherReport)
             present(safari, animated: true, completion: nil)
         case IndexPaths.radioFreeTankwa:
-            playTankwaRadio()
+            let key = "afrikaburn.hasShownRadioFreeTankwaPlayerMessage"
+            if UserDefaults.standard.bool(forKey: key) == false {
+                let alert = UIAlertController(title: "Radio Free Tankwa", message: "The radio can play in the background so feel free to lock your phone and enjoy the tunes while you drive.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Lets Play", style: .default, handler: { (_) in
+                    self.playTankwaRadio()
+                    UserDefaults.standard.set(true, forKey: key)
+                }))
+                present(alert, animated: true, completion: nil)
+            } else {
+                playTankwaRadio()
+            }
         default:
             assert(false)
         }
