@@ -13,10 +13,7 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
     
     struct ReuseIdentifiers {
         static let campSummary = "CampSummaryTableViewCell"
-    }
-    
-    struct Configuration {
-        static let maxCellCountToHideSearchBar = 10
+        static let emptyCell = "EmptyStateCell"
     }
     
     @IBOutlet weak var tableView: UITableView!
@@ -57,6 +54,9 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
     fileprivate func handleRealmChanges(_ changes: BurnElementsViewModel.ElementsChange) {
         guard let tableView = tableView else {
             return
+        }
+        if shouldShowEmptyFeedCell {
+            tableView.reloadData()
         }
         switch changes {
         case .reload:
@@ -136,21 +136,23 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
                 }
             }
         }
-        
-        if viewModel.searchText.isEmpty {
-            if viewModel.numberOfElements > Configuration.maxCellCountToHideSearchBar {
-                showSearch()
-            } else {
-                hideSearch()
-            }
-        }
+        showSearch()
     }
 }
 
 extension BurnElementsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let numberOfCells = viewModel.numberOfElements
+        
+        if shouldShowEmptyFeedCell {
+            return 1
+        }
+        
         return numberOfCells
+    }
+    
+    var shouldShowEmptyFeedCell: Bool {
+        return viewModel.numberOfElements == 0
     }
     
     func element(at indexPath: IndexPath) -> BurnElementSummaryDisplayable {
@@ -158,18 +160,47 @@ extension BurnElementsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.campSummary, for: indexPath) as! CampSummaryTableViewCell
-        let element = self.element(at: indexPath)
-        cell.headlineLabel.text = element.elementTitle
-        cell.subheadlineLabel.text = element.summaryBlurb
-        cell.subheadlineLabel.isHidden = element.summaryBlurb == nil
-        cell.elementImageView.image = element.iconImage
+        if shouldShowEmptyFeedCell {
+            return dequeueEmptyFeedCell(for: indexPath)
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.campSummary, for: indexPath) as! CampSummaryTableViewCell
+            let element = self.element(at: indexPath)
+            cell.headlineLabel.text = element.elementTitle
+            cell.subheadlineLabel.text = element.summaryBlurb
+            cell.subheadlineLabel.isHidden = element.summaryBlurb == nil
+            cell.elementImageView.image = element.iconImage
+            return cell
+        }
+    }
+    
+    func dequeueEmptyFeedCell(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.emptyCell, for: indexPath)
+        
+        
+        let text: String
+        if viewModel.searchText.isEmpty {
+            if viewModel.displayMode == .favorites {
+                text = "⭐️ You have not favorited anything yet"
+            } else {
+                text = "🤨 You seem to be missing data. Try connecting to the internet"
+            }
+        } else {
+            text = "🤷‍♀️ No results found. Try searching something else"
+        }
+        cell.textLabel?.text = text
+        cell.textLabel?.numberOfLines = 0
         return cell
     }
 }
 
 extension BurnElementsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        defer {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+        guard shouldShowEmptyFeedCell == false else {
+            return
+        }
         let element = self.element(at: indexPath)
         guard let burnElement = self.persistentStore.elements().first(where: { $0.id == element.elementID }) else {
             return
