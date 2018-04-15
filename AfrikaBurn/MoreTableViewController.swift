@@ -17,6 +17,7 @@ class MoreTableViewController: UITableViewController {
 
     struct URLs {
         static let survivalGuide = Bundle.main.url(forResource: "AB-SurvivalGuide-2018-English", withExtension: "pdf")!
+        static let wtfGuide = Bundle.main.url(forResource: "WTF-Guide-2018", withExtension: "pdf")!
         static let weatherReport = URL(string: "http://www.yr.no/place/South_Africa/Northern_Cape/Stonehenge/")!
         static let tankwaFreeRadio: URL = URL(string: "http://capeant.antfarm.co.za:1935/tankwaradio/tankwaradio.stream/playlist.m3u8")!
     }
@@ -24,7 +25,8 @@ class MoreTableViewController: UITableViewController {
     struct IndexPaths {
         static let navigateToTheBurn = IndexPath(row: 0, section: 0)
         static let survivalGuide = IndexPath(row: 1, section: 0)
-        static let weatherReport = IndexPath(row: 2, section: 0)
+        static let wtfGuide = IndexPath(row: 2, section: 0)
+        static let weatherReport = IndexPath(row: 3, section: 0)
         
         static let radioFreeTankwa = IndexPath(row: 0, section: 1)
     }
@@ -51,6 +53,11 @@ class MoreTableViewController: UITableViewController {
         case IndexPaths.survivalGuide:
             let d = UIDocumentInteractionController(url: URLs.survivalGuide)
             d.name = "Survival Guide"
+            d.delegate = self
+            d.presentPreview(animated: true)
+        case IndexPaths.wtfGuide:
+            let d = UIDocumentInteractionController(url: URLs.wtfGuide)
+            d.name = "WTF Guide"
             d.delegate = self
             d.presentPreview(animated: true)
         case IndexPaths.weatherReport:
