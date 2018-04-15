@@ -95,7 +95,8 @@ extension BurnElementDetailViewController: UITableViewDataSource {
                 case .longblurb: return hasText(element.longBlurb)
                 case .scheduledActivivies: return hasText(element.scheduledActivities)
                 case .title: return true
-                case .map: return element.location != nil
+                case .map:
+                    return false//element.location != nil
                 }
             })
         }
