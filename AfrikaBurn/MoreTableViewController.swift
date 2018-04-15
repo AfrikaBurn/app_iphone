@@ -18,7 +18,7 @@ class MoreTableViewController: UITableViewController {
     struct URLs {
         static let survivalGuide = Bundle.main.url(forResource: "AB-SurvivalGuide-2018-English", withExtension: "pdf")!
         static let wtfGuide = Bundle.main.url(forResource: "WTF-Guide-2018", withExtension: "pdf")!
-        static let weatherReport = URL(string: "http://www.yr.no/place/South_Africa/Northern_Cape/Stonehenge/")!
+        static let weatherReport = URL(string: "https://www.yr.no/en/overview/daily/2-3360944/South%20Africa/Northern%20Cape/Namakwa%20District%20Municipality/Stonehenge")!
         static let tankwaFreeRadio: URL = URL(string: "http://capeant.antfarm.co.za:1935/tankwaradio/tankwaradio.stream/playlist.m3u8")!
     }
     
