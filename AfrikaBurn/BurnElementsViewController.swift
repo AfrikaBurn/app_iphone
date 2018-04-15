@@ -42,6 +42,7 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
         // searchController.searchBar.scopeButtonTitles = ["All", "Art", "Theme Camps", "MVs", "Performances"]
         viewModel.elementsChangedHandler = { [weak self] changes in
             self?.handleRealmChanges(changes)
+            self?.displaySearchBarIfNeeded()
         }
         let title: String
         switch viewModel.displayMode {
