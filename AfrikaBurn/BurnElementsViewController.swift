@@ -13,10 +13,7 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
     
     struct ReuseIdentifiers {
         static let campSummary = "CampSummaryTableViewCell"
-    }
-    
-    struct Configuration {
-        static let maxCellCountToHideSearchBar = 10
+        static let emptyCell = "EmptyStateCell"
     }
     
     @IBOutlet weak var tableView: UITableView!
@@ -42,6 +39,7 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
         // searchController.searchBar.scopeButtonTitles = ["All", "Art", "Theme Camps", "MVs", "Performances"]
         viewModel.elementsChangedHandler = { [weak self] changes in
             self?.handleRealmChanges(changes)
+            self?.displaySearchBarIfNeeded()
         }
         let title: String
         switch viewModel.displayMode {
@@ -55,6 +53,10 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
     
     fileprivate func handleRealmChanges(_ changes: BurnElementsViewModel.ElementsChange) {
         guard let tableView = tableView else {
+            return
+        }
+        if shouldShowEmptyFeedCell || tableView.numberOfRows(inSection: 0) == 1 {
+            tableView.reloadData()
             return
         }
         switch changes {
@@ -135,21 +137,23 @@ class BurnElementsViewController: UIViewController, UISearchResultsUpdating, UIS
                 }
             }
         }
-        
-        if viewModel.searchText.isEmpty {
-            if viewModel.numberOfElements > Configuration.maxCellCountToHideSearchBar {
-                showSearch()
-            } else {
-                hideSearch()
-            }
-        }
+        showSearch()
     }
 }
 
 extension BurnElementsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let numberOfCells = viewModel.numberOfElements
+        
+        if shouldShowEmptyFeedCell {
+            return 1
+        }
+        
         return numberOfCells
+    }
+    
+    var shouldShowEmptyFeedCell: Bool {
+        return viewModel.numberOfElements == 0
     }
     
     func element(at indexPath: IndexPath) -> BurnElementSummaryDisplayable {
@@ -157,24 +161,81 @@ extension BurnElementsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.campSummary, for: indexPath) as! CampSummaryTableViewCell
-        let element = self.element(at: indexPath)
-        cell.headlineLabel.text = element.elementTitle
-        cell.subheadlineLabel.text = element.summaryBlurb
-        cell.subheadlineLabel.isHidden = element.summaryBlurb == nil
-        cell.elementImageView.image = element.iconImage
+        if shouldShowEmptyFeedCell {
+            return dequeueEmptyFeedCell(for: indexPath)
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.campSummary, for: indexPath) as! CampSummaryTableViewCell
+            let element = self.element(at: indexPath)
+            cell.headlineLabel.text = element.elementTitle
+            cell.subheadlineLabel.text = element.summaryBlurb
+            cell.subheadlineLabel.isHidden = element.summaryBlurb == nil
+            cell.elementImageView.image = element.iconImage
+            return cell
+        }
+    }
+    
+    func dequeueEmptyFeedCell(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.emptyCell, for: indexPath)
+        
+        
+        let text: String
+        if viewModel.searchText.isEmpty {
+            if viewModel.displayMode == .favorites {
+                text = "⭐️ You have not favorited anything yet"
+            } else {
+                text = "🤨 You seem to be missing data. Try connecting to the internet"
+            }
+        } else {
+            text = "🤷‍♀️ No results found. Try searching something else"
+        }
+        cell.textLabel?.text = text
+        cell.textLabel?.numberOfLines = 0
         return cell
     }
 }
 
 extension BurnElementsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        defer {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+        guard shouldShowEmptyFeedCell == false else {
+            return
+        }
         let element = self.element(at: indexPath)
         guard let burnElement = self.persistentStore.elements().first(where: { $0.id == element.elementID }) else {
             return
         }
         navigationCoordinator.showBurnElementDetail(for: burnElement)
-        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        if shouldShowEmptyFeedCell {
+            return UISwipeActionsConfiguration(actions: [])
+        }
+        
+        let element = self.element(at: indexPath)
+        func toggleFavorite() {
+            viewModel.toggleFavorite(forElementAt: indexPath.row)
+        }
+        if element.isFavorite {
+            let action = UIContextualAction(style: UIContextualAction.Style.normal, title: "Unfavorite") { (action, view, completion) in
+                toggleFavorite()
+                completion(true)
+            }
+            action.image = #imageLiteral(resourceName: "favorite-icon")
+            action.backgroundColor = Style.redColor
+            return UISwipeActionsConfiguration(actions: [action])
+        } else {
+            let action = UIContextualAction(style: UIContextualAction.Style.normal, title: "Favorite") { (action, view, completion) in
+                toggleFavorite()
+                completion(true)
+            }
+            action.image = #imageLiteral(resourceName: "favorite-icon-selected")
+            action.backgroundColor = Style.primaryTintColor
+            return UISwipeActionsConfiguration(actions: [action])
+        }
     }
 }
 
@@ -218,11 +279,12 @@ protocol BurnElementSummaryDisplayable {
     var summaryBlurb: String? { get }
     var iconImage: UIImage? { get }
     var elementID: Int { get }
+    var isFavorite: Bool { get }
 }
 
 extension AfrikaBurnElement: BurnElementSummaryDisplayable {
     var elementTitle: String { return name }
-    var summaryBlurb: String? { return shortBlurb }
+    var summaryBlurb: String? { return longBlurb }
     var iconImage: UIImage? { return elementType.iconImage }
     var elementID: Int { return id }
 }
@@ -322,6 +384,15 @@ class BurnElementsViewModel {
     
     func element(at index: Int) -> BurnElementSummaryDisplayable {
         return elements.results[index]
+    }
+    
+    func toggleFavorite(forElementAt index: Int) {
+        let element = elements.results[index]
+        if element.isFavorite {
+            persistentStore.removeFavorite(element)
+        } else {
+            persistentStore.favoriteElement(element)
+        }
     }
     
     private func applySearchTextFilter(searchText : String) -> CurrentElements{

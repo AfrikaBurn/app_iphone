@@ -23,6 +23,8 @@
 		4222AE5B206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4222AE5A206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf */; };
 		4222AE5F206929270009B50D /* afrikaburn2018_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 4222AE5E206929270009B50D /* afrikaburn2018_data.json */; };
 		425BBB2720834A4D0078FF65 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425BBB2620834A4D0078FF65 /* LocationManager.swift */; };
+		426B1B2B2083AF4700D48021 /* WTF-Guide-2018.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 426B1B2A2083AF4700D48021 /* WTF-Guide-2018.pdf */; };
+		428320862083790D00DF1D44 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 428320852083790C00DF1D44 /* AudioToolbox.framework */; };
 		429AD77520724334001BB86E /* ImageMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429AD77420724334001BB86E /* ImageMapViewController.swift */; };
 		42A6DBE9207264EC003BC910 /* AfrikaBurn+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A6DBE8207264EC003BC910 /* AfrikaBurn+Calendar.swift */; };
 		42B1C99B1E72871100699D61 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B1C99A1E72871100699D61 /* MapKit.framework */; };
@@ -68,6 +70,8 @@
 		4222AE5E206929270009B50D /* afrikaburn2018_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = afrikaburn2018_data.json; sourceTree = "<group>"; };
 		4222AE60206958450009B50D /* Afrikaburn.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Afrikaburn.gpx; sourceTree = "<group>"; };
 		425BBB2620834A4D0078FF65 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		426B1B2A2083AF4700D48021 /* WTF-Guide-2018.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "WTF-Guide-2018.pdf"; sourceTree = "<group>"; };
+		428320852083790C00DF1D44 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		429AD77420724334001BB86E /* ImageMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMapViewController.swift; sourceTree = "<group>"; };
 		42A6DBE8207264EC003BC910 /* AfrikaBurn+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AfrikaBurn+Calendar.swift"; sourceTree = "<group>"; };
 		42B1C99A1E72871100699D61 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -88,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				428320862083790D00DF1D44 /* AudioToolbox.framework in Frameworks */,
 				42B1C99B1E72871100699D61 /* MapKit.framework in Frameworks */,
 				6EBAA0DA9560FE2E92B99E33 /* Pods_AfrikaBurn.framework in Frameworks */,
 			);
@@ -107,6 +112,7 @@
 		2A521CAB2E23C791B900396F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				428320852083790C00DF1D44 /* AudioToolbox.framework */,
 				42B1C99A1E72871100699D61 /* MapKit.framework */,
 				E8C8DD969DDAF433AEC0C9B4 /* Pods_AfrikaBurn.framework */,
 				EBF929D933E1CE61F8359A17 /* Pods_AfrikaBurnTests.framework */,
@@ -170,6 +176,7 @@
 		421B0B4B1E6AA593006D6A91 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				426B1B2A2083AF4700D48021 /* WTF-Guide-2018.pdf */,
 				4222AE5E206929270009B50D /* afrikaburn2018_data.json */,
 				4222AE5A206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf */,
 				421B0B341E6AA132006D6A91 /* LaunchScreen.storyboard */,
@@ -301,6 +308,9 @@
 						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Maps.iOS = {
 								enabled = 1;
 							};
@@ -343,6 +353,7 @@
 				4222AE5B206903C10009B50D /* AB-SurvivalGuide-2018-English.pdf in Resources */,
 				421B0B331E6AA132006D6A91 /* Assets.xcassets in Resources */,
 				4222AE5F206929270009B50D /* afrikaburn2018_data.json in Resources */,
+				426B1B2B2083AF4700D48021 /* WTF-Guide-2018.pdf in Resources */,
 				421B0B311E6AA132006D6A91 /* Main.storyboard in Resources */,
 				42B1C99D1E728DC200699D61 /* AB2017_Layout_RoadsLabel_20170308.png in Resources */,
 			);
