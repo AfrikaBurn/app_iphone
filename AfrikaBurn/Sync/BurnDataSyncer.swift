@@ -20,7 +20,7 @@ class BurnDataSyncer {
     private let serialQueue = DispatchQueue(label: "BurnDataSyncer.serialQueue")
     
     private struct Defaults {
-        static let hasImportedBundledDataKey = "za.co.afrikaburn.burndatasyncer.hasImportedBundledDataKey"
+        static let hasImportedBundledDataKey = "za.co.afrikaburn.burndatasyncer.hasImportedBundledDataKey.2"
         static var hasImportedBundledData: Bool {
             get {
                 return UserDefaults.standard.bool(forKey: hasImportedBundledDataKey)
@@ -41,8 +41,13 @@ class BurnDataSyncer {
         }
     }
     
+    func shouldUseMysteryData() -> Bool {
+//         return Calendar.hasAfrikaBurnStarted == false
+        return false
+    }
+    
     func syncData() {
-        guard Calendar.hasAfrikaBurnStarted else {
+        guard shouldUseMysteryData() == false else {
             importMysteryData()
             // the fetcher has a cache so we want to ensure we trigger that
             // when the burn begins we will load from that cache
@@ -89,7 +94,7 @@ class BurnDataSyncer {
     
     private func handleJSONReceived(_ json: [BurnJSONElement]) {
         serialQueue.async {
-            let elements = json.flatMap({ $0.toRealmObject() })
+            let elements = json.compactMap({ $0.toRealmObject() })
             self.store.storeElements(elements)
         }
     }
@@ -97,12 +102,12 @@ class BurnDataSyncer {
     private func loadBundledBurnData() -> [AfrikaBurnElement] {
         let cachedElements = fetcher.cachedElements()
         if cachedElements.count > 0 {
-            return cachedElements.flatMap({ $0.toRealmObject() })
+            return cachedElements.compactMap({ $0.toRealmObject() })
         } else {
             do {
                 let data = try Data(contentsOf: BundledData.url)
                 let response: [BurnJSONElement] = APIResponseSerializer.convertResponse(withData: data) ?? []
-                return response.flatMap({ $0.toRealmObject() })
+                return response.compactMap({ $0.toRealmObject() })
             } catch {
                 assertionFailure("Failed to load bundled burn data with error \(error)")
                 return []
