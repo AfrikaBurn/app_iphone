@@ -8,6 +8,8 @@
 
 import XCTest
 @testable import AfrikaBurn
+import RealmSwift
+import CoreLocation
 
 class AfrikaBurnTests: XCTestCase {
     
@@ -25,5 +27,20 @@ class AfrikaBurnTests: XCTestCase {
             expectation?.fulfill()
         }
         waitForExpectations(timeout: 10, handler: nil)
+    }
+    
+    func testNearbyQuery() {
+        let p = PersistentStore()
+        let predicate = NSPredicate(format: "locationString != nil")
+//        guard let userLocation = LocationManager.sharedInstance.usersCurrentLocation else {
+//            XCTFail("user location unknown")
+//            return
+//        }
+        
+        let userLocation = CLLocation(latitude: -32.327128337466945, longitude: 19.74432262601431)
+        let filteredElements = p.elements().filter(predicate).sorted { (e1, e2) -> Bool in
+            return e1.location!.distance(from: userLocation) < e2.location!.distance(from: userLocation)
+        }
+        XCTAssertTrue(filteredElements.count > 0)
     }
 }
