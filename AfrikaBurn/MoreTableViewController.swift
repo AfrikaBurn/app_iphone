@@ -12,8 +12,17 @@ import SafariServices
 import AVFoundation
 import AVKit
 import MediaPlayer
+import StoreKit
 
 class MoreTableViewController: UITableViewController {
+    
+    struct AppStoreReviewPromptHelper {
+        var hasTappedACell: Bool = false
+        
+        var shouldPromptForAReview: Bool {
+            return hasTappedACell
+        }
+    }
 
     struct URLs {
         static let survivalGuide = Bundle.main.url(forResource: "AB-SurvivalGuide-2018-English", withExtension: "pdf")!
@@ -31,10 +40,26 @@ class MoreTableViewController: UITableViewController {
         static let radioFreeTankwa = IndexPath(row: 0, section: 1)
     }
     
+    var appStoreReviewPromptHelper = AppStoreReviewPromptHelper()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.cellLayoutMarginsFollowReadableWidth = true
         Style.apply(to: tableView)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if appStoreReviewPromptHelper.shouldPromptForAReview {
+            /// Thought it could be cool to prompt for
+            /// reviews when a user has used some of our features and
+            /// indicated a clear interest in the App
+            if #available(iOS 10.3, *) {
+                DispatchQueue.main.async {
+                    SKStoreReviewController.requestReview()
+                }
+            }
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -44,6 +69,9 @@ class MoreTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        defer {
+            appStoreReviewPromptHelper.hasTappedACell = true
+        }
         switch indexPath {
         case IndexPaths.navigateToTheBurn:
             let coordinate = CLLocationCoordinate2DMake(-32.3268322, 19.748085700000047)

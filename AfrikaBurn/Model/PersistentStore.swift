@@ -8,6 +8,7 @@
 
 import RealmSwift
 import CoreLocation
+import StoreKit
 
 class PersistentStore {
     
@@ -101,6 +102,14 @@ class PersistentStore {
         try? realm.write {
             element.isFavorite = true
             element.dateFavorited = Date()
+        }
+        /// Thought it could be cool to prompt for
+        /// reviews when a user favorites as they have
+        /// indicated a clear interest in the App
+        if #available(iOS 10.3, *) {
+            DispatchQueue.main.async {
+                SKStoreReviewController.requestReview()
+            }
         }
     }
     
