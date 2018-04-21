@@ -54,7 +54,7 @@ class MoreTableViewController: UITableViewController {
             /// Thought it could be cool to prompt for
             /// reviews when a user has used some of our features and
             /// indicated a clear interest in the App
-            if #available(iOS 10.3, *) {
+            if #available(iOS 10.3, *), LaunchArguments.preventAppStoreReviewPrompts == false {
                 DispatchQueue.main.async {
                     SKStoreReviewController.requestReview()
                 }

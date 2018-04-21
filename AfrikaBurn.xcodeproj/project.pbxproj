@@ -32,6 +32,7 @@
 		42B1C9A31E7710D500699D61 /* AfrikaBurnElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B1C9A21E7710D500699D61 /* AfrikaBurnElement.swift */; };
 		42B1C9A51E77127700699D61 /* PersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B1C9A41E77127700699D61 /* PersistentStore.swift */; };
 		42B1C9A81E77154700699D61 /* BurnDataSyncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B1C9A71E77154700699D61 /* BurnDataSyncer.swift */; };
+		42DB85AE208B324800B798BD /* LaunchArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DB85AD208B324800B798BD /* LaunchArguments.swift */; };
 		6EBAA0DA9560FE2E92B99E33 /* Pods_AfrikaBurn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8C8DD969DDAF433AEC0C9B4 /* Pods_AfrikaBurn.framework */; };
 		F67C6E27E888C5FD8652DA3A /* Pods_AfrikaBurnTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBF929D933E1CE61F8359A17 /* Pods_AfrikaBurnTests.framework */; };
 /* End PBXBuildFile section */
@@ -78,6 +79,7 @@
 		42B1C9A21E7710D500699D61 /* AfrikaBurnElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AfrikaBurnElement.swift; sourceTree = "<group>"; };
 		42B1C9A41E77127700699D61 /* PersistentStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStore.swift; sourceTree = "<group>"; };
 		42B1C9A71E77154700699D61 /* BurnDataSyncer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BurnDataSyncer.swift; sourceTree = "<group>"; };
+		42DB85AD208B324800B798BD /* LaunchArguments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchArguments.swift; sourceTree = "<group>"; };
 		64A1416249104A8C346A4494 /* Pods-AfrikaBurnTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AfrikaBurnTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AfrikaBurnTests/Pods-AfrikaBurnTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9C4BC849FB9D94D18164746B /* Pods-AfrikaBurn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AfrikaBurn.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AfrikaBurn/Pods-AfrikaBurn.debug.xcconfig"; sourceTree = "<group>"; };
 		E8C8DD969DDAF433AEC0C9B4 /* Pods_AfrikaBurn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AfrikaBurn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -214,6 +216,7 @@
 				42B1C9A21E7710D500699D61 /* AfrikaBurnElement.swift */,
 				42B1C9A41E77127700699D61 /* PersistentStore.swift */,
 				176268291E8E2DC100C57F2A /* CustomLocation.swift */,
+				42DB85AD208B324800B798BD /* LaunchArguments.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1762682A1E8E2DC200C57F2A /* CustomLocation.swift in Sources */,
+				42DB85AE208B324800B798BD /* LaunchArguments.swift in Sources */,
 				42B1C9A31E7710D500699D61 /* AfrikaBurnElement.swift in Sources */,
 				42B1C9A01E76686100699D61 /* BurnDataFetcher.swift in Sources */,
 				421B0B2E1E6AA132006D6A91 /* MapViewController.swift in Sources */,
