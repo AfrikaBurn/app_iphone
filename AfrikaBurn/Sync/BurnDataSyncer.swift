@@ -177,6 +177,11 @@ extension BurnJSONElement {
             assertionFailure("ID could not be converted to an Int \(id)")
             return nil
         }
+        
+        if title.lowercased().hasPrefix("cancel") {
+            return nil
+        }
+        
         let categories = plannedActivities.components(separatedBy: ",").map({ AfrikaBurnElement.Category(name: $0) })
         return AfrikaBurnElement(id: idInt, name: title, categories: categories, longBlurb: longBlurb, shortBlurb: nil, scheduledActivities: plannedActivitiesDescription, elementType: elementType, locationString: "")
     }

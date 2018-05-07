@@ -76,6 +76,10 @@
             argument = "-AssumeBurnHasStarted YES"
             isEnabled = "YES">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-PreventAppStoreReviewPrompts YES"
+            isEnabled = "YES">
+         </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>

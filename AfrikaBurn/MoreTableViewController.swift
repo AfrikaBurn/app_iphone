@@ -12,27 +12,54 @@ import SafariServices
 import AVFoundation
 import AVKit
 import MediaPlayer
+import StoreKit
 
 class MoreTableViewController: UITableViewController {
+    
+    struct AppStoreReviewPromptHelper {
+        var hasTappedACell: Bool = false
+        
+        var shouldPromptForAReview: Bool {
+            return hasTappedACell
+        }
+    }
 
     struct URLs {
         static let survivalGuide = Bundle.main.url(forResource: "AB-SurvivalGuide-2018-English", withExtension: "pdf")!
-        static let weatherReport = URL(string: "http://www.yr.no/place/South_Africa/Northern_Cape/Stonehenge/")!
+        static let wtfGuide = Bundle.main.url(forResource: "WTF-Guide-2018", withExtension: "pdf")!
+        static let weatherReport = URL(string: "https://www.yr.no/en/overview/daily/2-3360944/South%20Africa/Northern%20Cape/Namakwa%20District%20Municipality/Stonehenge")!
         static let tankwaFreeRadio: URL = URL(string: "http://capeant.antfarm.co.za:1935/tankwaradio/tankwaradio.stream/playlist.m3u8")!
     }
     
     struct IndexPaths {
         static let navigateToTheBurn = IndexPath(row: 0, section: 0)
         static let survivalGuide = IndexPath(row: 1, section: 0)
-        static let weatherReport = IndexPath(row: 2, section: 0)
+        static let wtfGuide = IndexPath(row: 2, section: 0)
+        static let weatherReport = IndexPath(row: 3, section: 0)
         
         static let radioFreeTankwa = IndexPath(row: 0, section: 1)
     }
+    
+    var appStoreReviewPromptHelper = AppStoreReviewPromptHelper()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.cellLayoutMarginsFollowReadableWidth = true
         Style.apply(to: tableView)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if appStoreReviewPromptHelper.shouldPromptForAReview {
+            /// Thought it could be cool to prompt for
+            /// reviews when a user has used some of our features and
+            /// indicated a clear interest in the App
+            if #available(iOS 10.3, *), LaunchArguments.preventAppStoreReviewPrompts == false {
+                DispatchQueue.main.async {
+                    SKStoreReviewController.requestReview()
+                }
+            }
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -42,6 +69,9 @@ class MoreTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        defer {
+            appStoreReviewPromptHelper.hasTappedACell = true
+        }
         switch indexPath {
         case IndexPaths.navigateToTheBurn:
             let coordinate = CLLocationCoordinate2DMake(-32.3268322, 19.748085700000047)
@@ -51,6 +81,11 @@ class MoreTableViewController: UITableViewController {
         case IndexPaths.survivalGuide:
             let d = UIDocumentInteractionController(url: URLs.survivalGuide)
             d.name = "Survival Guide"
+            d.delegate = self
+            d.presentPreview(animated: true)
+        case IndexPaths.wtfGuide:
+            let d = UIDocumentInteractionController(url: URLs.wtfGuide)
+            d.name = "WTF Guide"
             d.delegate = self
             d.presentPreview(animated: true)
         case IndexPaths.weatherReport:
