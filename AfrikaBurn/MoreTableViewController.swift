@@ -126,7 +126,7 @@ class MoreTableViewController: UITableViewController {
     
     func playTankwaRadio() {
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
             print(error)

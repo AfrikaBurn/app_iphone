@@ -119,7 +119,7 @@ class BurnDataSyncer {
 extension BurnDataSyncer: ApplicationService {
     func startup() {
         syncData()
-        NotificationCenter.default.addObserver(self, selector: #selector(handleDidBecomeActive), name: .UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDidBecomeActive), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     @objc func handleDidBecomeActive() {

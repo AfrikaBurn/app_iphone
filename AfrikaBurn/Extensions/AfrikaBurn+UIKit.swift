@@ -13,7 +13,7 @@ import RealmSwift
 extension UITableView {
     func enableSelfSizingCells(withEstimatedHeight estimatedHeight: CGFloat) {
         estimatedRowHeight = estimatedHeight
-        rowHeight = UITableViewAutomaticDimension
+        rowHeight = UITableView.automaticDimension
     }
     
     func scrollToTop(animated: Bool) {

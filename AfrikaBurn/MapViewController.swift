@@ -66,14 +66,14 @@ class MapViewController: UIViewController {
         region.span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
         region.center = CLLocationCoordinate2D(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
      
-        let point = MKMapPointForCoordinate(mapView.userLocation.coordinate)
-        if (MKMapRectContainsPoint(BurnMap.boundingMapRect, point)){
+        let point = MKMapPoint.init(mapView.userLocation.coordinate)
+        if (BurnMap.boundingMapRect.contains(point)){
             mapView.setCenter(mapView.userLocation.coordinate, animated: true);
             mapView.setRegion(region, animated: true)
         } else {
             print("Location is not within bounding rect")
             let alert = UIAlertController(title: "Cannot center on your location", message: "Location is outside the burn range", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             present(alert, animated: true, completion: nil)
             
         }
@@ -93,10 +93,10 @@ class MapViewController: UIViewController {
             let hasNaggedKey = "za.co.afrikaburn.mapViewController.haveNaggedForUserLocation"
             guard (UserDefaults.standard.object(forKey: hasNaggedKey) as! Bool?) == true else {
                 let alert = UIAlertController(title: "Location permissions disabled", message: "Turn on location services to see yourself on the map", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
-                alert.addAction(UIAlertAction(title: "Location Settings ", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+                alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
+                alert.addAction(UIAlertAction(title: "Location Settings ", style: UIAlertAction.Style.default, handler: { (action) -> Void in
                     // Now do whatever you want with inputTextField (remember to unwrap the optional)
-                    guard let url = URL(string: UIApplicationOpenSettingsURLString) else {
+                    guard let url = URL(string: UIApplication.openSettingsURLString) else {
                         return
                     }
                     
@@ -140,9 +140,9 @@ class MapViewController: UIViewController {
         actionSheet.addAction(UIAlertAction(title: "Custom Location", style: .default, handler: { _ in
             
             var inputTextField: UITextField?
-            let namePrompt = UIAlertController(title: "Custom Location", message: "Enter a name for your location.", preferredStyle: UIAlertControllerStyle.alert)
-            namePrompt.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
-            namePrompt.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+            let namePrompt = UIAlertController(title: "Custom Location", message: "Enter a name for your location.", preferredStyle: UIAlertController.Style.alert)
+            namePrompt.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
+            namePrompt.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) -> Void in
                 // Now do whatever you want with inputTextField (remember to unwrap the optional)
                 guard let name = inputTextField?.text else {
                     return
@@ -235,7 +235,7 @@ class BurnMapView: MKMapView, MKMapViewDelegate {
         showsCompass = true
         delegate = self
         userTrackingMode = .none
-        add(overlay, level: .aboveRoads)
+        addOverlay(overlay, level: .aboveRoads)
         setVisibleMapRect(BurnMap.boundingMapRect, animated: false)
     }
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -346,9 +346,9 @@ extension MapViewController: MKMapViewDelegate {
         if (abAnnotation is CustomLocationAnnotation){
             let customLocationAnnotation = abAnnotation as! CustomLocationAnnotation
             
-            let confirmDelete = UIAlertController(title: "Delete this location?", message: "Are you sure you want to delete this location?", preferredStyle: UIAlertControllerStyle.alert)
-            confirmDelete.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
-            confirmDelete.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive, handler: { (action) -> Void in
+            let confirmDelete = UIAlertController(title: "Delete this location?", message: "Are you sure you want to delete this location?", preferredStyle: UIAlertController.Style.alert)
+            confirmDelete.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
+            confirmDelete.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive, handler: { (action) -> Void in
                 self.persistentStore.deleteLocation(withID: customLocationAnnotation.customLocation.id)
                 
                 self.removeCustomLocations()

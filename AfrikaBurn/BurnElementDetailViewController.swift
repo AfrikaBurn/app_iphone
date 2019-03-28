@@ -143,9 +143,9 @@ extension BurnElementDetailViewController: UITableViewDataSource {
         case .title:
             cell = dequeueHeadlineCell()
             if #available(iOS 11.0, *) {
-                cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.largeTitle)
+                cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.largeTitle)
             } else {
-                cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.title1)
+                cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.title1)
             }
             text = element.name
         case .map:
@@ -158,7 +158,7 @@ extension BurnElementDetailViewController: UITableViewDataSource {
                 let annotation = BurnAnnotation(coordinate: location, element: element)
                 annotation.coordinate = location
                 mapView.addAnnotation(annotation)
-                mapView.setRegion(MKCoordinateRegionMakeWithDistance(location, 100, 100), animated: false)
+                mapView.setRegion(MKCoordinateRegion.init(center: location, latitudinalMeters: 100, longitudinalMeters: 100), animated: false)
             }
             
         }
@@ -189,7 +189,7 @@ class MapCell: UITableViewCell {
         return m
     }()
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
     }
