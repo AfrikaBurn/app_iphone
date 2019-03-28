@@ -29,6 +29,7 @@ class MoreTableViewController: UITableViewController {
         static let wtfGuide = Bundle.main.url(forResource: "WTF-Guide-2018", withExtension: "pdf")!
         static let weatherReport = URL(string: "https://www.yr.no/en/overview/daily/2-3360944/South%20Africa/Northern%20Cape/Namakwa%20District%20Municipality/Stonehenge")!
         static let tankwaFreeRadio: URL = URL(string: "http://capeant.antfarm.co.za:1935/tankwaradio/tankwaradio.stream/playlist.m3u8")!
+        static let github: URL = URL(string: "https://github.com/AfrikaBurn/app_iphone/issues")!
     }
     
     struct IndexPaths {
@@ -38,6 +39,8 @@ class MoreTableViewController: UITableViewController {
         static let weatherReport = IndexPath(row: 3, section: 0)
         
         static let radioFreeTankwa = IndexPath(row: 0, section: 1)
+        
+        static let github = IndexPath(row: 0, section: 2)
     }
     
     var appStoreReviewPromptHelper = AppStoreReviewPromptHelper()
@@ -103,6 +106,9 @@ class MoreTableViewController: UITableViewController {
             } else {
                 playTankwaRadio()
             }
+        case IndexPaths.github:
+            let safari = SFSafariViewController(url: URLs.github)
+            present(safari, animated: true, completion: nil)
         default:
             assert(false)
         }
