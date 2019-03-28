@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var appNavigationCoordinator: AppNavigationCoordinator!
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         services.forEach({ $0.startup() })
         
         appNavigationCoordinator = AppNavigationCoordinator(tabBarController: window!.rootViewController as! UITabBarController)

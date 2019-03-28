@@ -246,7 +246,7 @@ class CampSummaryTableViewCell: UITableViewCell {
     @IBOutlet weak var subheadlineLabel: UILabel!
     @IBOutlet weak var elementImageView: UIImageView!
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         commonInit()
     }
